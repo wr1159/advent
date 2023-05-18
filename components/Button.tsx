@@ -18,9 +18,9 @@ const typeStyles = {
 };
 
 const sizeStyles = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg',
+  sm: 'px-4 py-3 text-sm',
+  md: 'px-4 py-3 text-sm lg:px-6 lg:py-4 lg:text-base',
+  lg: 'px-4 py-3 text-sm lg:px-8 lg:py-4 lg:text-lg ',
   wide: 'px-24 py-3 text-xl'
 };
 
@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       href={href}
       onClick={onClick}
       className={twMerge(
-        'rounded',
+        'items-center rounded',
         typeStyles[type],
         sizeStyles[size],
         className
@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       className={twMerge(
-        'rounded',
+        'items-center rounded',
         typeStyles[type],
         sizeStyles[size],
         className
