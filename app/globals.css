@@ -7,6 +7,9 @@
   --background-rgb: 244, 244, 244;
 }
 
+.advent {
+  font-family: 'Bodoni Moda', serif;
+}
 
 body {
   background-color: rgb(var(--background-rgb));
