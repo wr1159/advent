@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
           </NavigationMenuLink>
         </NavigationMenuItem>
         {links.map((link, id) => (
-          <NavigationMenuItem className="hover:text-gray-400">
+          <NavigationMenuItem className="hover:text-gray-400" key={id}>
             <NavigationMenuLink href={link}>{texts[id]}</NavigationMenuLink>
           </NavigationMenuItem>
         ))}
