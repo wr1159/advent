@@ -8,7 +8,7 @@ const liftoff = [
     body: 'First iteration of our proposal.'
   },
   {
-    href: '/src/liftoff-poster.png',
+    href: '/src/liftoff-poster.jpg',
     title: 'Liftoff Poster',
     body: 'First iteration of our poster.'
   },
