@@ -5,36 +5,29 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from '@radix-ui/react-navigation-menu';
-import Button from './Button';
 
-interface NavbarProps {
-  links: string[];
-  login?: boolean;
-}
-const Navbar: React.FC<NavbarProps> = ({ links, login }) => {
+const Navbar: React.FC<{}> = () => {
   return (
-    <NavigationMenu className="flex w-auto flex-row justify-between p-4 text-gray-500">
+    <NavigationMenu
+      orientation="horizontal"
+      className="w-auto p-4 text-gray-500 "
+    >
       <NavigationMenuList className="align-center flex items-center space-x-6 text-xl">
         <NavigationMenuItem className="advent px-6 text-2xl text-black hover:text-gray-700">
           <NavigationMenuLink href="/">Advent </NavigationMenuLink>
         </NavigationMenuItem>
-        {links.map((link) => (
-          <NavigationMenuItem className="hover:text-gray-400">
-            <NavigationMenuLink href={`/${link.toLowerCase()}`}>
-              {link}
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
+        <NavigationMenuItem className="hover:text-gray-400">
+          <NavigationMenuLink href="/dashboard">Dashboard</NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-gray-400">
+          <NavigationMenuLink href="/statistics">Statistics</NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-gray-400">
+          <NavigationMenuLink href="/documentation">
+            Documentation
+          </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
-      {login && (
-        <Button
-          text="Login"
-          size="sm"
-          type="secondary"
-          href="/auth"
-          className="mr-5"
-        />
-      )}
     </NavigationMenu>
   );
 };

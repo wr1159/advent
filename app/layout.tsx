@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar links={['Orbital', 'Blog', 'Documentation']} login={true} />
+        <Navbar />
         {children}
       </body>
     </html>
