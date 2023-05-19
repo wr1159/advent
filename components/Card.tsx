@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface CardProps {
+export interface CardProps {
   title: string;
   body: string;
   icon?: React.ReactNode;
