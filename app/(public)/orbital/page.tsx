@@ -3,12 +3,12 @@ import OrbitalRow from '@/components/OrbitalRow';
 
 const liftoff = [
   {
-    href: '/src/liftoff_proposal.pdf',
+    href: '/src/liftoff-proposal.pdf',
     title: 'Liftoff Proposal',
     body: 'First iteration of our proposal.'
   },
   {
-    href: '/src/liftoff_poster.png',
+    href: '/src/liftoff-poster.png',
     title: 'Liftoff Poster',
     body: 'First iteration of our poster.'
   },
