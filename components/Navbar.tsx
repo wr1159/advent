@@ -17,7 +17,6 @@ interface linksProps {
 
 
 export interface NavbarProps {
-interface NavbarProps {
   texts: string[];
   links: string[];
   login?: boolean;
