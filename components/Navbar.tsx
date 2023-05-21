@@ -9,12 +9,15 @@ import Button from './Button';
 import { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
+
 interface linksProps {
   text: string;
   href: string;
 }
 
+
 export interface NavbarProps {
+interface NavbarProps {
   texts: string[];
   links: string[];
   login?: boolean;
@@ -79,6 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
         </div>
       )}
     </div>
+
   );
 };
 
