@@ -7,13 +7,7 @@ import {
 } from '@radix-ui/react-navigation-menu';
 import Button from './Button';
 import { useState } from 'react';
-import {
-  AiOutlineClose,
-  AiOutlineMenu,
-  AiOutlineMenuFold,
-  AiOutlineMenuUnfold
-} from 'react-icons/ai';
-import MobileNav from './MobileNav';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 interface linksProps {
   text: string;
@@ -47,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
             className="flex items-center justify-center px-4 md:hidden"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
-            {!showMobileMenu && <AiOutlineMenu size={32} color="black" />}
+            {!showMobileMenu && <AiOutlineMenu size={32} color="#00264B" />}
           </button>
         </div>
         {login && (
