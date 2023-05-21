@@ -10,31 +10,27 @@ const FeaturesComponent: React.FC = () => {
       <h1 className="text-center text-4xl font-bold text-black lg:text-7xl">
         Features
       </h1>
-      <div className="my-12 flex flex-col items-center justify-center space-y-10">
-        <div className="flex flex-row space-x-10">
-          <Card
-            title="Customisable"
-            body="Customise the event registration page as you wish!"
-            icon={<FaPen size={42} />}
-          />
-          <Card
-            title="User-First"
-            body="You are placed first into our designs. We strive for a simple and intuitive user experience."
-            icon={<FaUser size={42} />}
-          />
-        </div>
-        <div className="flex flex-row space-x-10">
-          <Card
-            title="Data Dashboard"
-            body="View the collected data at a single glance."
-            icon={<AiFillPieChart size={42} />}
-          />
-          <Card
-            title="Frictionless"
-            body="Seamless integration with your website through one copy button."
-            icon={<BsBoxArrowInDownRight size={42} />}
-          />
-        </div>
+      <div className="my-12 grid grid-cols-1 justify-center gap-6 md:grid-cols-2">
+        <Card
+          title="Customisable"
+          body="Customise the event registration page as you wish!"
+          icon={<FaPen size={42} />}
+        />
+        <Card
+          title="User-First"
+          body="You are placed first into our designs. We strive for a simple and intuitive user experience."
+          icon={<FaUser size={42} />}
+        />
+        <Card
+          title="Data Dashboard"
+          body="View the collected data at a single glance."
+          icon={<AiFillPieChart size={42} />}
+        />
+        <Card
+          title="Frictionless"
+          body="Seamless integration with your website through one copy button."
+          icon={<BsBoxArrowInDownRight size={42} />}
+        />
       </div>
     </div>
   );

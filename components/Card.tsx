@@ -8,10 +8,12 @@ export interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, body, icon }) => {
   return (
-    <div className="flex h-60 w-96 flex-col rounded bg-secondary p-8">
+    <div className="mx-auto flex h-52 w-72 flex-col rounded bg-secondary p-4 md:h-60 md:w-96 md:p-8">
       {icon && <div className="mb-2">{icon}</div>}
-      <h3 className="mb-2 text-2xl font-semibold text-accent">{title}</h3>
-      <p className="text-xl font-light text-primary">{body}</p>
+      <h3 className="mb-2 text-base font-semibold text-accent md:text-2xl">
+        {title}
+      </h3>
+      <p className="text-sm font-light text-primary md:text-xl">{body}</p>
     </div>
   );
 };
