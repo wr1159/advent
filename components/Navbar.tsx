@@ -10,10 +10,10 @@ const Navbar: React.FC<{}> = () => {
   return (
     <NavigationMenu
       orientation="horizontal"
-      className="p-4 w-auto text-gray-500 "
+      className="w-auto p-4 text-gray-500 "
     >
-      <NavigationMenuList className="flex space-x-6 text-xl items-center align-center">
-        <NavigationMenuItem className="advent text-black text-2xl px-6 hover:text-gray-700">
+      <NavigationMenuList className="align-center flex items-center space-x-6 text-xl">
+        <NavigationMenuItem className="advent px-6 text-2xl text-black hover:text-gray-700">
           <NavigationMenuLink href="/">Advent </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem className="hover:text-gray-400">
