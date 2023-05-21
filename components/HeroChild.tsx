@@ -13,7 +13,7 @@ const HeroChild: React.FC = () => {
         integrate an event registration page to your website,{' '}
         <span className="text-accent">customised </span>to your liking.
       </p>
-      <div className="flex-row space-x-2 md:my-12 lg:space-x-12">
+      <div className="my-4 flex-row space-x-2 md:my-12 lg:space-x-12">
         <Button text="Get Started" size="lg" type="primary" href="/auth" />
         <Button
           text="Github"
