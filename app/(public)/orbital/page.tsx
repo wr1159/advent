@@ -22,7 +22,7 @@ const liftoff = [
 export default function Orbital() {
   return (
     <div className="my-8 flex w-full flex-col items-center">
-      <div className="mb-4 flex w-full flex-col items-center space-y-6 text-xl">
+      <div className="mb-4 flex w-full flex-col items-center space-y-6 px-6 text-xl">
         <h1 className="text-3xl text-accent lg:text-5xl">
           <span className="advent text-black">Advent</span> - NUS Orbital 2023
           Project
