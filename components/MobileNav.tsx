@@ -22,7 +22,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
   setShowMobileMenu
 }) => {
   return (
-    <div className="fixed left-1/2 z-40 flex w-5/6 -translate-x-1/2 flex-col items-center justify-center rounded-md bg-background p-10 shadow-md">
+    <div className="fixed left-1/2 z-40 flex w-5/6 -translate-x-1/2 flex-col items-center justify-center rounded-md bg-background p-10 text-gray-500 shadow-md">
       <NavigationMenu>
         <NavigationMenuList className="flex flex-col items-center space-y-4">
           <NavigationMenuItem className="advent px-6 text-2xl text-black hover:text-gray-700">
