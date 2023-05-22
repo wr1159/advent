@@ -7,7 +7,8 @@ import {
 } from '@radix-ui/react-navigation-menu';
 import Button from './Button';
 import { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai';
+import MobileNav from './MobileNav';
 
 interface linksProps {
   text: string;
@@ -50,33 +51,13 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
       </NavigationMenu>
 
       {showMobileMenu && (
-        <div className="px-auto fixed top-0 z-40 flex w-full flex-col items-center justify-center overflow-auto bg-background py-10 md:hidden">
-          <NavigationMenu>
-            <NavigationMenuList className="flex flex-col items-center space-y-4">
-              <NavigationMenuItem className="advent px-6 text-2xl text-black hover:text-gray-700">
-                <NavigationMenuLink href={login ? '/' : '/dashboard'}>
-                  Advent{' '}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              {links.map((link, id) => (
-                <NavigationMenuItem
-                  className="text-xl hover:text-gray-400"
-                  key={id}
-                >
-                  <NavigationMenuLink href={link}>
-                    {texts[id]}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-          <button
-            className="pt-6"
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-          >
-            <AiOutlineClose size={24} color="#00264B" />
-          </button>
-        </div>
+        <MobileNav
+          texts={texts}
+          links={links}
+          login={login}
+          showMobileMenu={showMobileMenu}
+          setShowMobileMenu={setShowMobileMenu}
+        />
       )}
     </div>
   );
