@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-const { initializeApp } = require('firebase/app');
-const { getAnalytics, isSupported } = require('firebase/analytics');
+import { initializeApp } from 'firebase/app';
+import { getAnalytics, isSupported }  from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,6 +18,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-module.exports = app;
+export default app;
 
 const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));

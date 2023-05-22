@@ -1,12 +1,11 @@
-const app = require("../../firebaseconfig.js");
+import app from '../../../firebaseconfig';
 
-const { createUserWithEmailAndPassword, getAuth } = require('firebase/auth');
-// const { createUserWithEmailAndPassword, getAuth, Auth } = require('firebase/auth');
+import { createUserWithEmailAndPassword, getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // export default async function signUp(email, password) {
-async function signUp(
+export default async function signUp(
   email: string,
   password: string
 ): Promise<{ result: any; error: any }> {
@@ -15,10 +14,9 @@ async function signUp(
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
   } catch (e) {
+    console.log(e);
     error = e;
   }
 
   return { result, error };
-};
-
-module.exports = signUp;
+}
