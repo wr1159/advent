@@ -5,7 +5,7 @@ import FeaturesComponent from '@/components/Features';
 export default function Home() {
   return (
     <div>
-      <Hero largeText="Event registration simplified for organisers and attendees.">
+      <Hero largeText="Canva for Event Organisation.">
         <HeroChild />
       </Hero>
       <FeaturesComponent />
