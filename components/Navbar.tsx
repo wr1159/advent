@@ -42,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
             className="flex items-center justify-center px-4 md:hidden"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
-            {!showMobileMenu && <AiOutlineMenu size={32} color="#00264B" />}
+            <AiOutlineMenu size={32} color="#00264B" />
           </button>
         </div>
         {login && (
