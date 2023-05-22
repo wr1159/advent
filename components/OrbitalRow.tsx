@@ -6,7 +6,7 @@ interface OrbitalRowProps {
 
 const OrbitalRow: React.FC<OrbitalRowProps> = ({ linkCards }) => {
   return (
-    <div className="grid grid-cols-1 justify-center gap-12 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 justify-center gap-12 md:grid-cols-3 ">
       {linkCards.map((card, index) => (
         <LinkCard
           key={index}
