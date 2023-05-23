@@ -31,7 +31,7 @@ export default function Dashboard() {
           <h1 className="text-3xl md:text-4xl">Events</h1>
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
-        <LogOut/>
+        <LogOut />
         <Button text="Create Event" />
       </div>
       {events?.length ? (
