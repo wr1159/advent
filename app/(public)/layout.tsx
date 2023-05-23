@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import '../globals.css';
 import Navbar from '@/components/Navbar';
 
@@ -14,6 +15,7 @@ export default function PublicLayout({
         login={true}
       />
       {children}
+      <Footer />
     </div>
   );
 }
