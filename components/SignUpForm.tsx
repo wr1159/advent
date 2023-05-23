@@ -1,5 +1,5 @@
 'use client';
-import {useState, ChangeEvent} from 'react';
+import { useState, ChangeEvent } from 'react';
 import signUp from '../utils/signup';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
@@ -11,7 +11,13 @@ const SignUpForm: React.FC<{}> = () => {
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { result, error }: {result: UserCredential | null; error: Error | null} = await signUp(email, password);
+    const {
+      result,
+      error
+    }: { result: UserCredential | null; error: Error | null } = await signUp(
+      email,
+      password
+    );
 
     if (error) {
       return console.log(error);
@@ -21,7 +27,7 @@ const SignUpForm: React.FC<{}> = () => {
     console.log(result);
     router.push('/login');
   };
-  
+
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };

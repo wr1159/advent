@@ -1,5 +1,11 @@
 import app from '../firebaseconfig';
-import { signInWithPopup, GoogleAuthProvider, OAuthCredential, getAuth, User } from 'firebase/auth';
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  OAuthCredential,
+  getAuth,
+  User
+} from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
@@ -8,7 +14,8 @@ export default function handleGoogleSignIn() {
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential: OAuthCredential | null = GoogleAuthProvider.credentialFromResult(result);
+      const credential: OAuthCredential | null =
+        GoogleAuthProvider.credentialFromResult(result);
       if (credential != null) {
         const token = credential.accessToken;
       }
@@ -24,7 +31,8 @@ export default function handleGoogleSignIn() {
       // The email of the user's account used.
       const email = error.customData.email;
       // The AuthCredential type that was used.
-      const credential: OAuthCredential | null = GoogleAuthProvider.credentialFromError(error);
+      const credential: OAuthCredential | null =
+        GoogleAuthProvider.credentialFromError(error);
       // ...
     });
 }
