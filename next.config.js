@@ -8,8 +8,8 @@ const nextConfig = {
         destination: '/app/signup/page'
       },
       {
-        source: '/signin',
-        destination: '/app/signin/page'
+        source: '/login',
+        destination: '/app/login/page'
       }
     ];
   }
