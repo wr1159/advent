@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import '../../globals.css';
 import Navbar from '@/components/Navbar';
 
@@ -13,6 +14,7 @@ export default function DashboardLayout({
         links={['/dashboard', '/dashboard/statistics', '/documentation']}
       />
       {children}
+      <Footer />
     </div>
   );
 }
