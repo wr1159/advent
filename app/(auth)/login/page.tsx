@@ -12,7 +12,6 @@ function Page() {
 
   const monitorAuthState = async () => {
     onAuthStateChanged(auth, (user: User | null) => {
-      console.log(user);
       if (user) {
         router.push('/dashboard');
       }

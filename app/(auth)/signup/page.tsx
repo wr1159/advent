@@ -3,10 +3,10 @@ import SignUpForm from '@/components/SignUpForm';
 
 function Page() {
   return (
-    <div className="wrapper">
-      <div className="form-wrapper">
+    <div>
+      <div>
         <h1 className="mt-70 mb-30">Sign up</h1>
-        <SignUpForm></SignUpForm>
+        <SignUpForm/>
       </div>
     </div>
   );

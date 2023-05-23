@@ -44,8 +44,8 @@ const LoginForm: React.FC<{}> = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="form-wrapper">
+    <div>
+      <div>
         <h1 className="mt-70 mb-30" data-align="center">
           Sign in
         </h1>

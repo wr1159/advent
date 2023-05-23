@@ -36,7 +36,7 @@ const SignUpForm: React.FC<{}> = () => {
     setPassword(event.target.value);
   };
   return (
-    <form onSubmit={handleForm} className="form">
+    <form onSubmit={handleForm}>
       <label htmlFor="email">
         <p>Email</p>
         <input
