@@ -9,11 +9,9 @@ const customJestConfig = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/', '/public'],
-  collectCoverageFrom: [
-    'components/**/*.{ts,tsx}',
-    'app/**/*.{ts,tsx}',
-    'utils/**/*.{ts,tsx}'
-  ],
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect']
+  collectCoverageFrom: ['components/**/*.{ts,tsx}', 'utils/**/*.{ts,tsx}'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  coverageReporters: ['html', 'text', 'text-summary', 'cobertura']
 };
+
 module.exports = createJestConfig(customJestConfig);
