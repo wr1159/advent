@@ -2746,6 +2746,10 @@
     "@testing-library/dom" "^9.0.0"
     "@types/react-dom" "^18.0.0"
 
+"@testing-library/user-event@testing-library/user-event":
+  version "0.0.0-semantically-released"
+  resolved "https://codeload.github.com/testing-library/user-event/tar.gz/7a305dee9ab833d6f338d567fc2e862b4838b76a"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
