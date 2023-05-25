@@ -13,6 +13,7 @@ describe('Navbar', () => {
 
     const navigationItems = screen.getAllByRole('link');
 
+    // + 2 is because of the Advent logo and the login button.
     expect(navigationItems.length).toEqual(mockProps.links.length + 2);
   });
 
