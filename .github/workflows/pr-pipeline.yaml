@@ -28,24 +28,6 @@ jobs:
       - name: Build
         run: yarn build
 
-  test:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 19
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
       - name: Prettier Check
         run: yarn prettier --check .
 
@@ -56,7 +38,7 @@ jobs:
         run: yarn test:ci
 
   deploy:
-    needs: test
+    needs: build
 
     runs-on: ubuntu-latest
 
