@@ -1,4 +1,5 @@
 import LineChart from '@/components/Charts/LineChart';
+import LineChartContainer from '@/components/Charts/LineChartContainer';
 
 export interface mockAttendant {
   name: string;
@@ -24,13 +25,13 @@ export default function Statistics() {
     {
       name: 'Liam',
       signUpDate: new Date('2023-05-25'),
-      attendingDay: 2,
+      attendingDay: 1,
       country: 'Indonesia'
     },
     {
       name: 'Olivia',
       signUpDate: new Date('2023-05-25'),
-      attendingDay: 2,
+      attendingDay: 3,
       country: 'Singapore'
     },
     {
@@ -50,21 +51,22 @@ export default function Statistics() {
   return (
     <div className="m-10 flex flex-col space-y-5">
       <h1 className="text-3xl font-semibold">Data at a glance</h1>
-      <div className="flex w-3/5 flex-col content-between justify-between overflow-hidden rounded-md border bg-white p-4 lg:flex-row">
-        <div className="start-0 flex flex-row lg:flex-col">
-          <h1 className="text-medium">Total Registrants Trend</h1>
-          <h2 className="text-sm text-primary">
-            Number of Registrants per Day
-          </h2>
-          <h1 className="text-3xl font-bold lg:py-4">{attendants.length}</h1>
-          <h2 className="text-sm text-primary">
-            <span className="text-green-500">+4</span> vs last 7 days
-          </h2>
-        </div>
-        <LineChart
-          data={attendants}
-          param="attendingDay"
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <LineChartContainer
+          heading="Total Registrants Trend"
+          subheading="Number of Registrants"
+          attendants={attendants}
+          param="signUpDate"
           label="Sign-ups per Day"
+          colSpan={1}
+        />
+        <LineChartContainer
+          heading="Total Attendees Trend"
+          subheading="Number of Attendees"
+          attendants={attendants}
+          param="attendingDay"
+          label="Attendees on the day"
+          colSpan={1}
         />
       </div>
     </div>

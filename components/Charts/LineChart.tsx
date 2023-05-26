@@ -11,6 +11,7 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { twMerge } from 'tailwind-merge';
 
 ChartJS.register(
   CategoryScale,
@@ -30,8 +31,12 @@ interface LineChartProps {
 const LineChart: React.FC<LineChartProps> = ({ data, param, label }) => {
   const tempLabels: string[] = [];
   const lineData: number[] = [];
+  data.sort((a, b) => (a[param] > b[param] ? 1 : -1));
   data.forEach((attendant) => {
-    const keyValue = attendant[param].toString();
+    var keyValue = attendant[param];
+    // if keyValue is date, convert it to short date string, otherwise convert it to normal string
+    if (keyValue instanceof Date) keyValue = keyValue.toDateString();
+    else keyValue = keyValue.toString();
 
     const labelIndex = tempLabels.indexOf(keyValue) ?? -1;
     if (labelIndex === -1) {
@@ -78,8 +83,9 @@ const LineChart: React.FC<LineChartProps> = ({ data, param, label }) => {
         display: false
       }
     }
+    // does not maintain aspect ratio
   };
-  return <Line className="w-1/3" options={options} data={chartData} />;
+  return <Line options={options} data={chartData} />;
 };
 
 export default LineChart;
