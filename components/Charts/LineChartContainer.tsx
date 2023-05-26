@@ -1,23 +1,26 @@
 import { mockAttendant } from '@/app/(dashboard)/dashboard/statistics/page';
 import LineChart from './LineChart';
 import { twMerge } from 'tailwind-merge';
+import BarChart from './BarChart';
 
-interface LineChartContainerProps {
+interface ChartContainerProps {
   heading: string;
   subheading: string;
   attendants: mockAttendant[];
   param: keyof mockAttendant;
   label: string;
   colSpan: number;
+  chartType: 'line' | 'bar';
 }
 // create a react component that returns the div below
-const LineChartContainer: React.FC<LineChartContainerProps> = ({
+const ChartContainer: React.FC<ChartContainerProps> = ({
   heading,
   subheading,
   attendants,
   param,
   label,
-  colSpan
+  colSpan,
+  chartType
 }) => {
   return (
     <div
@@ -42,9 +45,15 @@ const LineChartContainer: React.FC<LineChartContainerProps> = ({
           </div>
         </div>
       </div>
-      <LineChart data={attendants} param={param} label={label} />
+      {chartType === 'line' ? (
+        <LineChart data={attendants} param={param} label={label} />
+      ) : chartType === 'bar' ? (
+        <BarChart data={attendants} param={param} label={label} />
+      ) : (
+        <div>Invalid chart type</div>
+      )}
     </div>
   );
 };
 
-export default LineChartContainer;
+export default ChartContainer;

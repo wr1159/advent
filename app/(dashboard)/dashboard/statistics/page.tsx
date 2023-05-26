@@ -1,4 +1,5 @@
 import LineChart from '@/components/Charts/LineChart';
+import ChartContainer from '@/components/Charts/LineChartContainer';
 import LineChartContainer from '@/components/Charts/LineChartContainer';
 
 export interface mockAttendant {
@@ -52,21 +53,23 @@ export default function Statistics() {
     <div className="m-10 flex flex-col space-y-5">
       <h1 className="text-3xl font-semibold">Data at a glance</h1>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <LineChartContainer
+        <ChartContainer
           heading="Total Registrants Trend"
           subheading="Number of Registrants"
           attendants={attendants}
           param="signUpDate"
           label="Sign-ups per Day"
           colSpan={1}
+          chartType="line"
         />
-        <LineChartContainer
+        <ChartContainer
           heading="Total Attendees Trend"
           subheading="Number of Attendees"
           attendants={attendants}
           param="attendingDay"
           label="Attendees on the day"
           colSpan={1}
+          chartType="bar"
         />
       </div>
     </div>
