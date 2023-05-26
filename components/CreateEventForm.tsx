@@ -70,16 +70,7 @@ const CreateEventForm: React.FC<{}> = () => {
         event_id: CreatedEventRef.id
       }
     );
-    /*
-    const createdEvent: Event = {
-      id: CreatedEventRef.id,
-      name: eventName,
-      date: datetime.toLocaleString()
-    };
-    
-    array.push(createdEvent);
-    */
-    // console.log(array);
+
     setEventName('');
     // router.push(`/editor/${CreatedEventRef.id}/${CreatedTemplateRef.id}`);
   };
