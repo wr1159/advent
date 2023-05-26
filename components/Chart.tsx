@@ -1,7 +1,7 @@
 import { mockAttendant } from '@/app/(dashboard)/dashboard/statistics/page';
-import LineChart from './LineChart';
+import LineChart from './Charts/LineChart';
 import { twMerge } from 'tailwind-merge';
-import BarChart from './BarChart';
+import BarChart from './Charts/BarChart';
 
 interface ChartContainerProps {
   heading: string;

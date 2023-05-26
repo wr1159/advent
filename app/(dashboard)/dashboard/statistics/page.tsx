@@ -1,6 +1,6 @@
 import LineChart from '@/components/Charts/LineChart';
-import ChartContainer from '@/components/Charts/LineChartContainer';
-import LineChartContainer from '@/components/Charts/LineChartContainer';
+import ChartContainer from '@/components/Chart';
+import LineChartContainer from '@/components/Chart';
 
 export interface mockAttendant {
   name: string;
