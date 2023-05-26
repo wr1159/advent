@@ -4,8 +4,7 @@ import { EventOperations } from './EventOperations';
 interface EventItemProps {
   event: {
     id: string;
-    title: string;
-    description: string;
+    name: string;
     date: string;
   };
 }
@@ -18,13 +17,13 @@ export function EventItem({ event }: EventItemProps) {
           href={`/editor/${event.id}`}
           className="font-semibold hover:underline"
         >
-          {event.title}
+          {event.name}
         </Link>
         <div>
           <p className="text-muted-foreground text-sm">{event.date}</p>
         </div>
       </div>
-      <EventOperations event={{ id: event.id, title: event.title }} />
+      <EventOperations event={{ id: event.id, title: event.name }} />
     </div>
   );
 }

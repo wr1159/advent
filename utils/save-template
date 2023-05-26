@@ -1,0 +1,51 @@
+import app, { firestore } from '../firebaseconfig';
+import { User, getAuth } from 'firebase/auth';
+import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
+import {
+  DocumentReference,
+  CollectionReference,
+  DocumentData
+} from 'firebase/firestore';
+
+const auth = getAuth(app);
+const user = auth.currentUser;
+
+export interface StyledText {
+  text: string;
+  size: string;
+  colour: string;
+  styling: string;
+}
+// const userDocument = usersCollection.doc(user.uid);
+export interface Template {
+  title: StyledText;
+  description: StyledText;
+  date: StyledText;
+  location: StyledText;
+  additional: StyledText[];
+}
+export default function saveTemplate(
+  title: StyledText,
+  description: StyledText,
+  date: StyledText,
+  location: StyledText,
+  additional: StyledText[],
+  event_id: string,
+  template_id: string
+) {
+  if (!user) {
+    return;
+  }
+  const templateRef: DocumentReference<DocumentData> = doc(
+    firestore,
+    `users/${user.uid}/events/${event_id}/templates/${template_id}`
+  );
+  const data = {
+    title: title,
+    description: description,
+    date: date,
+    location: location,
+    additional: additional
+  };
+  setDoc(templateRef, data, { merge: true });
+}

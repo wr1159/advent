@@ -1,29 +1,51 @@
 'use client';
+import { useEffect, useState } from 'react';
 import LogOut from '@/components/LogOut';
-import Button from '@/components/Button';
 import { EventItem } from '@/components/EventItem';
+import CreateEventForm from '@/components/CreateEventForm';
+import queryForEvents, { Event } from '@/utils/event-query';
 
-export default function Dashboard() {
-  const events = [
-    {
-      id: '123141',
-      title: 'Event 1',
-      description: 'This is event 1',
-      date: '2021-08-01'
-    },
-    {
-      id: '123142',
-      title: 'Event 2',
-      description: 'This is event 2',
-      date: '2021-08-02'
-    },
-    {
-      id: '123143',
-      title: 'Event 3',
-      description: 'This is event 3',
-      date: '2021-08-03'
-    }
-  ];
+export default async function Dashboard() {
+  const [events, setEvents] = useState<Event[] | undefined>([]);
+  const [loading, setLoading] = useState(true);
+  /*
+  let events: Event[] | undefined = [];
+  events = await queryForEvents();
+  */
+  // console.log(events);
+  /*
+   useEffect(() => {
+    queryForEvents()
+      .then((fetchedEvents: Event[]| undefined) => {
+        if (fetchedEvents) {
+          setEvents(fetchedEvents);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error querying for events:', error);
+        setLoading(false);
+      });
+  }, []);
+  */
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const fetchedEvents = await queryForEvents();
+        if (fetchedEvents) {
+          setEvents(fetchedEvents);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error querying for events:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center justify-between">
@@ -32,7 +54,8 @@ export default function Dashboard() {
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
         <LogOut />
-        <Button text="Create Event" />
+        <CreateEventForm />{' '}
+        {/* Create button in here takes care of adding event to events array*/}
       </div>
       {events?.length ? (
         <div className="divide-border mt-5 divide-y rounded-md border">
