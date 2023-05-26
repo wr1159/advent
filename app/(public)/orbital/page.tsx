@@ -87,7 +87,7 @@ export default function Orbital() {
       </div>
       <div className="my-8 w-full border border-accent"></div>
 
-      <div className="mx-auto mb-8 grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
         <div className="text-center">
           <h3 className="text-primary">Team name</h3>
           <h2 className="text-2xl">
