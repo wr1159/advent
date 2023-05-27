@@ -3,7 +3,7 @@ import { Event } from '@/utils/event-query';
 import Popup from 'reactjs-popup';
 import { useRouter } from 'next/navigation';
 import { getAuth } from 'firebase/auth';
-import app, { users } from '@/firebaseconfig';
+import { users } from '@/firebaseconfig';
 import {
   collection,
   doc,
@@ -11,6 +11,8 @@ import {
   CollectionReference,
   DocumentReference
 } from 'firebase/firestore';
+import { userID } from '@/app/(auth)/login/page';
+
 type CreateEventFormProps = {
   array: Event[];
 };
@@ -45,13 +47,18 @@ const CreateEventForm: React.FC<{}> = () => {
       ...
     });
     */
-    const auth = getAuth(app);
+   
+    /*
+    const auth = getAuth();
 
-    const user = auth.currentUser;
-    if (!user) {
+    if (!auth.currentUser) {
+      console.log('user is not logged in. HOW?');
       return;
     }
-    const userID = user.uid;
+    */
+
+    console.log({userID} + ' called in CreatedEventForm');
+
     const datetime = new Date(currentTime);
     const userDocRef = doc(users, userID);
     const eventCollectionRef = collection(userDocRef, 'events');

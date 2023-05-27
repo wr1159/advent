@@ -9,23 +9,31 @@ import {
   Query
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
-import { Auth, User, getAuth } from 'firebase/auth';
+import { Auth, User, getAuth, onAuthStateChanged} from 'firebase/auth';
+import { userID } from '@/app/(auth)/login/page';
 
 export type Event = {
   id: string;
   name: string;
   date: string;
 };
-const auth: Auth = getAuth(app);
-const user: User | null = auth.currentUser;
+
 
 export default async function queryForEvents() {
-  if (!user) {
-    return;
-  }
+  let uid = '';
+
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //      uid = user.uid;
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
 
   const allEvents: Query<DocumentData> = query(
-    collection(firestore, `users/${user.uid}/events`)
+    collection(firestore, `users/${userID}/events`)
   );
   console.log('Query 1 completed', allEvents);
 

@@ -1,3 +1,4 @@
+import { setUserId } from 'firebase/analytics';
 import app, { firestore } from '../firebaseconfig';
 import { User, getAuth } from 'firebase/auth';
 import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
@@ -7,8 +8,9 @@ import {
   DocumentData
 } from 'firebase/firestore';
 
+import { userID } from '../app/(auth)/login/page';
+
 const auth = getAuth(app);
-const user = auth.currentUser;
 
 export interface StyledText {
   text: string;
@@ -33,12 +35,10 @@ export default function saveTemplate(
   event_id: string,
   template_id: string
 ) {
-  if (!user) {
-    return;
-  }
+  
   const templateRef: DocumentReference<DocumentData> = doc(
     firestore,
-    `users/${user.uid}/events/${event_id}/templates/${template_id}`
+    `users/${userID}/events/${event_id}/templates/${template_id}`
   );
   const data = {
     title: title,
