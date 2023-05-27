@@ -47,7 +47,7 @@ const CreateEventForm: React.FC<{}> = () => {
       ...
     });
     */
-   
+
     /*
     const auth = getAuth();
 
@@ -57,7 +57,7 @@ const CreateEventForm: React.FC<{}> = () => {
     }
     */
 
-    console.log({userID} + ' called in CreatedEventForm');
+    console.log({ userID } + ' called in CreatedEventForm');
 
     const datetime = new Date(currentTime);
     const userDocRef = doc(users, userID);

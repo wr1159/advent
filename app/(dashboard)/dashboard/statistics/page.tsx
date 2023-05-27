@@ -1,4 +1,4 @@
-import { userID } from "@/app/(auth)/login/page";
+import { userID } from '@/app/(auth)/login/page';
 
 export default function Statistics() {
   console.log(userID);

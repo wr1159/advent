@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);
   console.log(userID + ' from Dashboard');
   console.log(getAuth().currentUser);
-/*
+  /*
   if (events.length == 0) {
     const fetchEvents = async () => {
       try {
@@ -30,34 +30,34 @@ export default function Dashboard() {
   }
 
 */
-// const auth = getAuth();
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     const fetchedEvents = await queryForEvents();
-//     if (fetchedEvents) {
-//       setEvents(fetchedEvents);
-//     }
-//   } else {
-//   }
-// });
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     const fetchedEvents = await queryForEvents();
+  //     if (fetchedEvents) {
+  //       setEvents(fetchedEvents);
+  //     }
+  //   } else {
+  //   }
+  // });
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log('1')
+        console.log('1');
         const fetchedEvents = await queryForEvents();
         if (fetchedEvents) {
-          console.log('2')
+          console.log('2');
           setEvents(fetchedEvents);
         }
       } catch (error) {
-        console.log('3')
+        console.log('3');
         console.error('Error querying for events:', error);
       }
     };
 
     fetchEvents();
-  }, []); 
+  }, []);
   /*
   useEffect(() => {
     fetchEvents();

@@ -9,7 +9,7 @@ import {
   Query
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
-import { Auth, User, getAuth, onAuthStateChanged} from 'firebase/auth';
+import { Auth, User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { userID } from '@/app/(auth)/login/page';
 
 export type Event = {
@@ -17,7 +17,6 @@ export type Event = {
   name: string;
   date: string;
 };
-
 
 export default async function queryForEvents() {
   let uid = '';
