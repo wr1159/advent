@@ -13,8 +13,11 @@ function Page() {
   const auth = getAuth(app);
   console.log(auth.currentUser + ' from login Page');
   console.log(getAuth().currentUser + ' from login Page');
-  if (getAuth().currentUser) {
-    router.push('/dashboard');
+
+  const user = getAuth().currentUser;
+  if (user != null) {
+    router.push(`/dashboard/${user.uid}`);
+    return;
   }
 
   const monitorAuthState = () => {
@@ -26,8 +29,8 @@ function Page() {
         };
         const ref = doc(users, data.user_id);
         setDoc(ref, data, { merge: true });
-
-        router.push('/dashboard');
+        router.push(`/dashboard`);
+        // router.push(`/dashboard/${user.uid}`);
       }
     });
   };

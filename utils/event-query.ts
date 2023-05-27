@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import { Auth, User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import { userID } from '@/app/(auth)/login/page';
+// import { userID } from '@/app/(auth)/login/page';
 
 export type Event = {
   id: string;
@@ -18,7 +18,7 @@ export type Event = {
   date: string;
 };
 
-export default async function queryForEvents() {
+export default async function queryForEvents(): Promise<Event[] | undefined> {
   let uid = '';
 
   // const auth = getAuth();
@@ -32,7 +32,7 @@ export default async function queryForEvents() {
   // });
 
   const allEvents: Query<DocumentData> = query(
-    collection(firestore, `users/${userID}/events`)
+    collection(firestore, `users/${uid}/events`)
   );
   console.log('Query 1 completed', allEvents);
 
