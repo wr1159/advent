@@ -19,6 +19,60 @@ const liftoff = [
   }
 ];
 
+const milestoneOne = [
+  {
+    href: '/orbital',
+    title: 'Milestone One Proposal',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone One Poster',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone One Video',
+    body: 'Unavailable'
+  }
+];
+
+const milestoneTwo = [
+  {
+    href: '/orbital',
+    title: 'Milestone Two Proposal',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone Two Poster',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone Two Video',
+    body: 'Unavailable'
+  }
+];
+
+const milestoneThree = [
+  {
+    href: '/orbital',
+    title: 'Milestone Three Proposal',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone Three Poster',
+    body: 'Unavailable'
+  },
+  {
+    href: '/orbital',
+    title: 'Milestone Three Video',
+    body: 'Unavailable'
+  }
+];
+
 export default function Orbital() {
   return (
     <div className="my-8 flex w-full flex-col items-center">
@@ -33,7 +87,7 @@ export default function Orbital() {
       </div>
       <div className="my-8 w-full border border-accent"></div>
 
-      <div className="mx-auto mb-8 grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
         <div className="text-center">
           <h3 className="text-primary">Team name</h3>
           <h2 className="text-2xl">
@@ -50,8 +104,25 @@ export default function Orbital() {
           <h2 className="text-2xl">Artemis</h2>
         </div>
       </div>
-      <h2 className="my-4 text-2xl text-accent">Liftoff</h2>
+      <h2 className="my-12 text-2xl text-accent lg:mt-20 lg:text-3xl">
+        Liftoff
+      </h2>
       <OrbitalRow linkCards={liftoff} />
+
+      <h2 className="my-12 text-2xl text-accent lg:mt-20  lg:text-3xl">
+        Milestone 1
+      </h2>
+      <OrbitalRow linkCards={milestoneOne} />
+
+      <h2 className="my-12 text-2xl text-accent lg:mt-20  lg:text-3xl">
+        Milestone 2
+      </h2>
+      <OrbitalRow linkCards={milestoneTwo} />
+
+      <h2 className="my-12 text-2xl text-accent lg:mt-20  lg:text-3xl">
+        Milestone 3
+      </h2>
+      <OrbitalRow linkCards={milestoneThree} />
     </div>
   );
 }

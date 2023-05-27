@@ -3,7 +3,7 @@ import Link from 'next/link';
 const Footer = () => {
   return (
     <footer className="p-8 md:px-16">
-      <p className="text-sm text-primary">
+      <p className="text-xs text-primary md:text-sm">
         Built by{' '}
         <Link
           href="https://www.github.com/ph-nathan"
