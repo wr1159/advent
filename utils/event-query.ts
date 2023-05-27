@@ -1,4 +1,3 @@
-import app from '@/firebaseconfig';
 import {
   collection,
   query,
@@ -9,8 +8,7 @@ import {
   Query
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
-import { Auth, User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import { userID } from '@/app/(auth)/login/page';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export type Event = {
   id: string;
@@ -18,43 +16,39 @@ export type Event = {
   date: string;
 };
 
-export default async function queryForEvents() {
-  let uid = '';
+export default function queryForEvents(): Promise<Event[] | undefined> {
+  return new Promise<Event[] | undefined>(async (resolve) => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        const events = await queryEvents(uid);
+        resolve(events);
+      } else {
+        resolve(undefined);
+      }
+    });
+  });
+}
 
-  // const auth = getAuth();
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //      uid = user.uid;
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
-
-  const allEvents: Query<DocumentData> = query(
-    collection(firestore, `users/${userID}/events`)
-  );
+async function queryEvents(uid: string): Promise<Event[] | undefined> {
+  const allEvents: Query<DocumentData> = query(collection(firestore, `users/${uid}/events`));
   console.log('Query 1 completed', allEvents);
 
-  getDocs(allEvents).then((querySnapshot: QuerySnapshot<DocumentData>) => {
-    console.log('Query 2 Completed:', querySnapshot);
-    // Additional code with querySnapshot
-  });
-
   const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(allEvents);
+  console.log('Query 2 Completed:', querySnapshot);
 
   const allDocs: QueryDocumentSnapshot<DocumentData>[] = querySnapshot.docs;
 
-  if (allDocs.length == 0) {
-    return;
+  if (allDocs.length === 0) {
+    return undefined;
   }
-  const events: Event[] = allDocs.map(
-    (item: QueryDocumentSnapshot<DocumentData>) => ({
-      id: item.id,
-      name: item.get('event_name'),
-      date: item.get('timestamp')
-    })
-  );
+
+  const events: Event[] = allDocs.map((item: QueryDocumentSnapshot<DocumentData>) => ({
+    id: item.id,
+    name: item.get('event_name'),
+    date: item.get('timestamp')
+  }));
   console.log('Query 3 completed', events);
   return events;
 }
