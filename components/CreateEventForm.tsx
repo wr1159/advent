@@ -11,10 +11,10 @@ import {
   CollectionReference,
   DocumentReference
 } from 'firebase/firestore';
-import { userID } from '@/app/(auth)/login/page';
+//import { userID } from '@/app/(auth)/login/page';
 
 type CreateEventFormProps = {
-  array: Event[];
+  userId: string
 };
 
 const CreateEventForm: React.FC<{}> = () => {
@@ -57,10 +57,9 @@ const CreateEventForm: React.FC<{}> = () => {
     }
     */
 
-    console.log({ userID } + ' called in CreatedEventForm');
 
     const datetime = new Date(currentTime);
-    const userDocRef = doc(users, userID);
+    const userDocRef = doc(users, user_id);
     const eventCollectionRef = collection(userDocRef, 'events');
     const CreatedEventRef = await addDoc(eventCollectionRef, {
       event_name: eventName,
