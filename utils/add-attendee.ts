@@ -27,15 +27,18 @@ export default function addAttendee(
     return;
   }
   //path: users/${user.uid}/events/${event_id}/
-  const eventRef = doc(firestore, `users/${user.uid}/events/${event_id}`)
-  const attendeeCollectionRef:CollectionReference<DocumentData> = collection(eventRef, "attendees");
+  const eventRef = doc(firestore, `users/${user.uid}/events/${event_id}`);
+  const attendeeCollectionRef: CollectionReference<DocumentData> = collection(
+    eventRef,
+    'attendees'
+  );
 
-  addDoc(attendeeCollectionRef,{
+  addDoc(attendeeCollectionRef, {
     name: name,
     age: age,
     gender: gender,
     additional: additional
-  })
+  });
   /*
   const userForm = doc(usersCollection, user.uid);
   const eventsCollection = collection(userForm, 'events');

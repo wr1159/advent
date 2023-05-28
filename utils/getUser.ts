@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function getUserId(): Promise<string | undefined> {
   return new Promise<string | undefined>(async (resolve) => {

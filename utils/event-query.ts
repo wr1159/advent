@@ -32,7 +32,9 @@ export default function queryForEvents(): Promise<Event[] | undefined> {
 }
 
 async function queryEvents(uid: string): Promise<Event[] | undefined> {
-  const allEvents: Query<DocumentData> = query(collection(firestore, `users/${uid}/events`));
+  const allEvents: Query<DocumentData> = query(
+    collection(firestore, `users/${uid}/events`)
+  );
   console.log('Query 1 completed', allEvents);
 
   const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(allEvents);
@@ -44,11 +46,13 @@ async function queryEvents(uid: string): Promise<Event[] | undefined> {
     return undefined;
   }
 
-  const events: Event[] = allDocs.map((item: QueryDocumentSnapshot<DocumentData>) => ({
-    id: item.id,
-    name: item.get('event_name'),
-    date: item.get('timestamp')
-  }));
+  const events: Event[] = allDocs.map(
+    (item: QueryDocumentSnapshot<DocumentData>) => ({
+      id: item.id,
+      name: item.get('event_name'),
+      date: item.get('timestamp')
+    })
+  );
   console.log('Query 3 completed', events);
   return events;
 }

@@ -55,20 +55,20 @@ export default function saveTemplate(
   );
   let additional: StyledText[] = [];
 
-if (data.length > 4) {
-  // additonal copy array from [4] beyond
-}
-const added = data.reduce((result: Record<string, string>, item) => {
-  result[item.label.toLowerCase()] = item.value;
-  return result;
-}, {});
+  if (data.length > 4) {
+    // additonal copy array from [4] beyond
+  }
+  const added = data.reduce((result: Record<string, string>, item) => {
+    result[item.label.toLowerCase()] = item.value;
+    return result;
+  }, {});
 
   // const added = {
   //   title: data[0],
   //   description: data[1],
   //   date: data[2],
   //   location: data[3],
-  //   // additional: 
+  //   // additional:
   // };
 
   setDoc(templateRef, added, { merge: true });
