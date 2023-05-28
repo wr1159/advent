@@ -24,7 +24,7 @@ export function EventItem({ uid, event }: EventItemProps) {
           <p className="text-muted-foreground text-sm">{event.date}</p>
         </div>
       </div>
-      <EventOperations event={{ id: event.id, title: event.name }} />
+      <EventOperations event={{ id: event.id, title: event.name }} uid={uid} />
     </div>
   );
 }
