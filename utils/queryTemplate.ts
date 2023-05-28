@@ -20,7 +20,10 @@ export type Event = {
   date: string;
 };
 
-export default function queryForTemplate(uid:string, eventId:string): Promise<Record<string, string> | undefined> {
+export default function queryForTemplate(
+  uid: string,
+  eventId: string
+): Promise<Record<string, string> | undefined> {
   return new Promise<Record<string, string> | undefined>(async (resolve) => {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
@@ -36,17 +39,23 @@ export default function queryForTemplate(uid:string, eventId:string): Promise<Re
   });
 }
 
-async function queryTemplate(uid: string, eventId: string): Promise<Record<string, string> | undefined> {
-
-  
+async function queryTemplate(
+  uid: string,
+  eventId: string
+): Promise<Record<string, string> | undefined> {
   const templateId = await getAllTemplateIds(uid, eventId);
   const firstTemplateId = templateId[0];
   console.log('Template ID:', firstTemplateId);
   try {
-    const template = await getDoc(doc(firestore, `users/${uid}/events/${eventId}/templates/${firstTemplateId}`));
+    const template = await getDoc(
+      doc(
+        firestore,
+        `users/${uid}/events/${eventId}/templates/${firstTemplateId}`
+      )
+    );
     console.log('Query 1 completed', template.data());
     return template.data();
-  }  catch {
+  } catch {
     console.log('Query 1 failed');
     return undefined;
   }
