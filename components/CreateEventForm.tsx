@@ -84,13 +84,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <button>Create Event</button>
+        <Button text="Create Event" theme="secondary" size="sm" />
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay />
         <Dialog.Content className="fixed left-1/2 top-1/2 max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-secondary p-4 shadow-xl">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-xl font-bold">Create Event</h3>
+            <h3 className="text-xl font-medium">Create Event</h3>
             <Dialog.Close>
               <AiOutlineClose />
             </Dialog.Close>

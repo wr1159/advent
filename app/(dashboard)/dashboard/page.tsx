@@ -38,7 +38,6 @@ export default function Dashboard() {
           <h1 className="text-3xl md:text-4xl">Events</h1>
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
-        <LogOut />
         <CreateEventForm uid={uid} />
         {/* Create button in here takes care of adding event to events array*/}
       </div>
