@@ -1,11 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Button from '@/components/Button';
-import saveTemplate, {
-  TemplateInterface,
-  StyledText,
-  getAllTemplateIds
-} from '@/utils/save-template';
+import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import { AiOutlineCheck } from 'react-icons/ai';
 
 interface EventInfo {
@@ -117,7 +113,7 @@ export default function Template({ params }: { params: PageProps }) {
                   <Button
                     text="Delete"
                     size="sm"
-                    className="ml-2 bg-red-500 text-white hover:bg-red-300"
+                    className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
                     onClick={() => handleDeleteEventInfo(eventInfo.id)}
                   />
                   // <button
@@ -148,7 +144,7 @@ export default function Template({ params }: { params: PageProps }) {
                 text="Add"
                 type="secondary"
                 size="sm"
-                className="ml-2"
+                className="ml-2 w-20"
                 onClick={handleAddEventInfo}
               />
               {/* <button

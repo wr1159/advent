@@ -1,8 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { Event } from '@/utils/event-query';
-import Popup from 'reactjs-popup';
+import * as Dialog from '@radix-ui/react-dialog';
 import { useRouter } from 'next/navigation';
-import { getAuth } from 'firebase/auth';
 import { users } from '@/firebaseconfig';
 import {
   collection,
@@ -11,6 +9,7 @@ import {
   CollectionReference,
   DocumentReference
 } from 'firebase/firestore';
+import { AiOutlineClose } from 'react-icons/ai';
 
 type CreateEventFormProps = {
   uid: string;
@@ -78,40 +77,45 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
     );
 
     setEventName('');
-    router.push(`/editor/${uid}/${CreatedEventRef.id}`);
+    router.push(`/dashboard/editor/${uid}/${CreatedEventRef.id}`);
   };
 
   return (
-    <Popup
-      trigger={<button>Create Event</button>}
-      modal // Enable modal behavior
-      closeOnDocumentClick // Close the popup when clicking outside
-      contentStyle={{
-        background: 'rgba(0, 0, 0, 0.8)', // Background color for the popup
-        width: '400px', // Width of the popup
-        padding: '20px', // Padding inside the popup
-        borderRadius: '8px', // Border radius for the popup
-        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)' // Box shadow for the popup
-      }}
-      overlayStyle={{
-        background: 'rgba(0, 0, 0, 0.5)' // Background color for the overlay (blurred background)
-      }}
-      position="center center" // Position the popup in the center of the screen
-    >
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Event Name:
-            <input
-              type="text"
-              value={eventName}
-              onChange={handleEventNameChange}
-            />
-          </label>
-          <button type="submit">Create</button>
-        </form>
-      </div>
-    </Popup>
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <button>Create Event</button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay />
+        <Dialog.Content className="fixed left-1/2 top-1/2 max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-secondary p-4 shadow-xl">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-xl font-bold">Create Event</h3>
+            <Dialog.Close>
+              <AiOutlineClose />
+            </Dialog.Close>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Event Name:
+              <input
+                type="text"
+                value={eventName}
+                onChange={handleEventNameChange}
+                className="mx-2 rounded-lg px-2"
+              />
+            </label>
+            <div className="mt-4 flex justify-end">
+              <button
+                type="submit"
+                className="mr-2 rounded-md bg-accent px-2 py-1.5 text-white"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 };
 
