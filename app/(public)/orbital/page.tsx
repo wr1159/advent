@@ -21,9 +21,9 @@ const liftoff = [
 
 const milestoneOne = [
   {
-    href: '/orbital',
-    title: 'Milestone One Proposal',
-    body: 'Unavailable'
+    href: '/orbital/milestone-one',
+    title: 'Milestone One README',
+    body: 'Our first README, detailing our project.'
   },
   {
     href: '/orbital',
@@ -40,7 +40,7 @@ const milestoneOne = [
 const milestoneTwo = [
   {
     href: '/orbital',
-    title: 'Milestone Two Proposal',
+    title: 'Milestone Two README',
     body: 'Unavailable'
   },
   {
@@ -58,7 +58,7 @@ const milestoneTwo = [
 const milestoneThree = [
   {
     href: '/orbital',
-    title: 'Milestone Three Proposal',
+    title: 'Milestone Three README',
     body: 'Unavailable'
   },
   {
