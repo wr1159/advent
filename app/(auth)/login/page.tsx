@@ -51,5 +51,4 @@ function Page() {
     </div>
   );
 }
-export { userID };
 export default Page;
