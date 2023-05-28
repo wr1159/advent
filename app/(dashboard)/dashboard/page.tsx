@@ -15,7 +15,8 @@ export default function Dashboard() {
         const fetchedEvents = await queryForEvents();
         if (fetchedEvents) {
           console.log('2');
-          setEvents(fetchedEvents);
+          // sort by descending order
+          setEvents(fetchedEvents.sort((a, b) => (a.date < b.date ? 1 : -1)));
         }
         const userId = (await getUserId()) ?? '';
         if (userId !== '') {
