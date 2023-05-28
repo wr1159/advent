@@ -14,7 +14,7 @@ interface ButtonProps {
 
 const typeStyles = {
   primary: 'bg-secondary hover:bg-gray-400 text-black',
-  secondary: 'bg-accent hover:bg-blue-800 text-white'
+  secondary: 'bg-accent hover:bg-accentHover text-white'
 };
 
 const sizeStyles = {

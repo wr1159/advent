@@ -117,7 +117,7 @@ export default function Template({ params }: { params: PageProps }) {
                   <Button
                     text="Delete"
                     size="sm"
-                    className="ml-2 bg-red-500 text-white"
+                    className="ml-2 bg-red-500 text-white hover:bg-red-300"
                     onClick={() => handleDeleteEventInfo(eventInfo.id)}
                   />
                   // <button
