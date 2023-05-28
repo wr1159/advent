@@ -24,19 +24,19 @@ export default function Template({ params }: { params: PageProps }) {
       id: 1,
       label: 'Title',
       type: 'text',
-      placeholder: 'LiT EvEnT by Wei Rong'
+      placeholder: 'Coolest Event Ever'
     },
     {
       id: 2,
       label: 'Description',
       type: 'text',
-      placeholder: 'Bring your waifu pillow'
+      placeholder: 'Enter the event description'
     },
     {
       id: 3,
       label: 'Date',
       type: 'date',
-      placeholder: ''
+      placeholder: 'Enter the event date'
     },
     {
       id: 4,
@@ -106,13 +106,19 @@ export default function Template({ params }: { params: PageProps }) {
                   className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
                 />
                 {eventInfo.id > 4 && ( // Render delete button for newly added events
-                  <button
-                    type="button"
+                  <Button
+                    text="Delete"
+                    size="sm"
+                    className="ml-2 bg-red-500 text-white"
                     onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                    className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-                  >
-                    Delete
-                  </button>
+                  />
+                  // <button
+                  //   type="button"
+                  //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
+                  //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+                  // >
+                  //   Delete
+                  // </button>
                 )}
               </div>
             </div>
@@ -130,19 +136,26 @@ export default function Template({ params }: { params: PageProps }) {
                 placeholder="Enter the label for new event information"
                 className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
               />
-              <button
+              <Button
+                text="Add"
+                type="secondary"
+                size="sm"
+                className="ml-2"
+                onClick={handleAddEventInfo}
+              />
+              {/* <button
                 type="button"
                 onClick={handleAddEventInfo}
                 className="ml-2 rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
               >
                 Add
-              </button>
+              </button> */}
             </div>
           </div>
 
           <div className="mt-4 flex justify-end">
             {showSavedMessage && (
-              <div className="ml-4 flex items-center text-green-500">
+              <div className="mx-4 flex items-center text-green-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-1 h-5 w-5"
@@ -163,13 +176,7 @@ export default function Template({ params }: { params: PageProps }) {
                 Saved!
               </div>
             )}
-            <button
-              type="submit"
-              onClick={handleSave}
-              className="rounded-lg rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-            >
-              Save
-            </button>
+            <Button type="primary" text="Save" onClick={handleSave} size="md" />
           </div>
         </div>
       </div>
