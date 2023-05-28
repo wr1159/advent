@@ -1,7 +1,7 @@
 import { setUserId } from 'firebase/analytics';
 import app, { firestore } from '../firebaseconfig';
 import { User, getAuth } from 'firebase/auth';
-import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, addDoc, setDoc, getDocs } from 'firebase/firestore';
 import {
   DocumentReference,
   CollectionReference,
@@ -24,8 +24,26 @@ export interface TemplateInterface {
   location: string[];
   additional: StyledText[];
 }
+
+export async function getAllTemplateIds(userId: string, eventId: string) {
+  const templatesRef = collection(
+    firestore,
+    `users/${userId}/events/${eventId}/templates`
+  );
+
+  const templateSnapshot = await getDocs(templatesRef);
+  const templateIds: string[] = [];
+
+  templateSnapshot.forEach((templateDoc) => {
+    templateIds.push(templateDoc.id);
+  });
+
+  return templateIds;
+}
+
 export default function saveTemplate(
-  data: StyledText[],
+  // data: StyledText[],
+  data: string[],
   user_id: string,
   event_id: string,
   template_id: string

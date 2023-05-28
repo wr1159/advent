@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import Button from '@/components/Button';
 import saveTemplate, {
   TemplateInterface,
-  StyledText
+  StyledText,
+  getAllTemplateIds
 } from '@/utils/save-template';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 interface EventInfo {
   id: number;
@@ -65,15 +67,21 @@ export default function Template({ params }: { params: PageProps }) {
     setNewEventLabel('');
   };
 
-  const handleSave = () => {
-    const data = eventInfoList.map((info) => ({
-      // info.label,
-      // attribute: jsonToArray(info.json)
-    }));
+  const handleSave = async () => {
+    const data = eventInfoList.map(
+      (info) =>
+        (
+          document.querySelector(
+            `input[name="${info.label.toLowerCase()}"]`
+          ) as HTMLInputElement
+        ).value
+    );
     // query for templateId here
-    // saveTemplate(data, params.userId, params.eventId,)
+    const templateId = await getAllTemplateIds(params.userId, params.eventId);
+    const firstTemplateId = templateId[0];
+    saveTemplate(data, params.userId, params.eventId, firstTemplateId);
 
-    console.log(eventInfoList[0]);
+    console.log('data saved', data);
 
     setShowSavedMessage(true);
     // Insert save logic here
@@ -155,24 +163,9 @@ export default function Template({ params }: { params: PageProps }) {
 
           <div className="mt-4 flex justify-end">
             {showSavedMessage && (
-              <div className="mx-4 flex items-center text-green-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9 3a1 1 0 011 1v2.586l2.707-2.707a1 1 0 011.414 1.414L11 8.414V11a1 1 0 11-2 0V8.414L6.293 6.707A1 1 0 017.707 5.293L10 7.586V4a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M4 10a8 8 0 1116 0 8 8 0 01-16 0zm8-7a7 7 0 100 14 7 7 0 000-14z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="mx-4 flex items-center text-emerald-500">
+                {/* react icon  of check box down here with react-icon library */}
+                <AiOutlineCheck className="mr-2" />
                 Saved!
               </div>
             )}
