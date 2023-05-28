@@ -1,13 +1,14 @@
 'use client';
+import Button from '@/components/Button';
 import SignUpForm from '@/components/SignUpForm';
 
 function Page() {
   return (
-    <div>
-      <div>
-        <h1 className="mt-70 mb-30">Sign up</h1>
-        <SignUpForm />
+    <div className="flex h-screen flex-col">
+      <div className="w-screen p-8">
+        <Button text="Back" href="/login" />
       </div>
+      <SignUpForm />
     </div>
   );
 }

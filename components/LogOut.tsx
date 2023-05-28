@@ -18,7 +18,7 @@ const LogOut: React.FC<{}> = () => {
       router.push('/');
     });
   };
-  return <Button text="Logout" onClick={logout} />;
+  return <Button text="Logout" onClick={logout} size="sm" />;
 };
 
 export default LogOut;

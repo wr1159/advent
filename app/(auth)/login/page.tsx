@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import app, { users } from '@/firebaseconfig';
 import { doc, setDoc } from 'firebase/firestore';
+import { FaGoogle } from 'react-icons/fa';
 
 function Page() {
   const router = useRouter();
@@ -37,20 +38,27 @@ function Page() {
   monitorAuthState();
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="form-wrapper">
-        <LoginForm></LoginForm>
-        <div>
-          <Button
-            text="Login with Google"
-            theme="secondary"
-            onClick={handleGoogleSignIn}
-          />
+    <div className="flex h-screen flex-col items-center">
+      <div className="w-screen p-8">
+        <Button text="Back" href="/" />
+      </div>
+      <div className="-mt-12 flex h-full flex-col items-center justify-center">
+        <div className="form-wrapper">
+          <LoginForm></LoginForm>
+          <div className="mt-4">
+            <Button
+              text="Login with Google"
+              theme="primary"
+              onClick={handleGoogleSignIn}
+              icon={<FaGoogle className="mr-2" />}
+            />
+          </div>
+          <br></br>
         </div>
-        <br></br>
-        <Button text="Sign up" href="/signup" />
+        <Button text="Sign up" href="/signup" theme="secondary" />
       </div>
     </div>
   );
 }
+
 export default Page;
