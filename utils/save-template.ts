@@ -13,8 +13,9 @@ import {
 const auth = getAuth(app);
 
 export interface StyledText {
-  text: string;
-  attribute: string[];
+  label: string;
+  value: string;
+  // attribute: string[];
 }
 // const userDocument = usersCollection.doc(user.uid);
 export interface TemplateInterface {
@@ -42,8 +43,8 @@ export async function getAllTemplateIds(userId: string, eventId: string) {
 }
 
 export default function saveTemplate(
-  // data: StyledText[],
-  data: string[],
+  data: StyledText[],
+  // data: string[],
   user_id: string,
   event_id: string,
   template_id: string
@@ -57,13 +58,18 @@ export default function saveTemplate(
 if (data.length > 4) {
   // additonal copy array from [4] beyond
 }
-  const added = {
-    title: data[0],
-    description: data[1],
-    date: data[2],
-    location: data[3],
-    // additional: 
-  };
+const added = data.reduce((result: Record<string, string>, item) => {
+  result[item.label.toLowerCase()] = item.value;
+  return result;
+}, {});
+
+  // const added = {
+  //   title: data[0],
+  //   description: data[1],
+  //   date: data[2],
+  //   location: data[3],
+  //   // additional: 
+  // };
 
   setDoc(templateRef, added, { merge: true });
 }

@@ -68,14 +68,14 @@ export default function Template({ params }: { params: PageProps }) {
   };
 
   const handleSave = async () => {
-    const data = eventInfoList.map(
-      (info) =>
-        (
-          document.querySelector(
-            `input[name="${info.label.toLowerCase()}"]`
-          ) as HTMLInputElement
-        ).value
-    );
+    const data = eventInfoList.map((info) => ({
+      label: info.label,
+      value: (
+        document.querySelector(
+          `input[name="${info.label.toLowerCase()}"]`
+        ) as HTMLInputElement
+      ).value
+    }));
     // query for templateId here
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
