@@ -10,6 +10,7 @@ import {
   DocumentReference
 } from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
+import Button from './Button';
 
 type CreateEventFormProps = {
   uid: string;
@@ -105,12 +106,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
               />
             </label>
             <div className="mt-4 flex justify-end">
-              <button
-                type="submit"
-                className="mr-2 rounded-md bg-accent px-2 py-1.5 text-white"
-              >
-                Create
-              </button>
+              <Button type="submit" text="Create" theme="secondary" size="sm" />
             </div>
           </form>
         </Dialog.Content>
