@@ -16,7 +16,8 @@ function Page() {
 
   const user = getAuth().currentUser;
   if (user != null) {
-    router.push(`/dashboard/${user.uid}`);
+    // router.push(`/dashboard/${user.uid}`);
+    router.push(`/dashboard/`);
     return;
   }
 
@@ -54,5 +55,4 @@ function Page() {
     </div>
   );
 }
-
 export default Page;

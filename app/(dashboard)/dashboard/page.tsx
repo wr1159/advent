@@ -4,8 +4,10 @@ import LogOut from '@/components/LogOut';
 import { EventItem } from '@/components/EventItem';
 import CreateEventForm from '@/components/CreateEventForm';
 import queryForEvents, { Event } from '@/utils/event-query';
+import getUserId from '@/utils/getUser';
 export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [uid, setUid] = useState<string>('');
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -14,6 +16,10 @@ export default function Dashboard() {
         if (fetchedEvents) {
           console.log('2');
           setEvents(fetchedEvents);
+        }
+        const userId = (await getUserId()) ?? '';
+        if (userId !== '') {
+          setUid(userId);
         }
       } catch (error) {
         console.log('3');
@@ -32,13 +38,13 @@ export default function Dashboard() {
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
         <LogOut />
-        <CreateEventForm/>
+        <CreateEventForm uid={uid} />
         {/* Create button in here takes care of adding event to events array*/}
       </div>
       {events?.length ? (
         <div className="divide-border mt-5 divide-y rounded-md border">
           {events.map((event) => (
-            <EventItem key={event.id} event={event} />
+            <EventItem uid={uid} key={event.id} event={event} />
           ))}
         </div>
       ) : (

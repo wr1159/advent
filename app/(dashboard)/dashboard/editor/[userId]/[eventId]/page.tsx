@@ -1,7 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Button from '@/components/Button';
-import saveTemplate, {TemplateInterface, StyledText} from '@/utils/save-template';
+import saveTemplate, {
+  TemplateInterface,
+  StyledText
+} from '@/utils/save-template';
 
 interface EventInfo {
   id: number;
@@ -15,15 +18,13 @@ interface PageProps {
   eventId: string;
 }
 
-
-
 export default function Template({ params }: { params: PageProps }) {
   const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([
     {
       id: 1,
       label: 'Title',
       type: 'text',
-      placeholder: 'LiT EvEnT by Wei Rong',
+      placeholder: 'LiT EvEnT by Wei Rong'
     },
     {
       id: 2,
@@ -44,7 +45,7 @@ export default function Template({ params }: { params: PageProps }) {
       placeholder: 'Enter the event location'
     }
   ]);
-    console.log(eventInfoList.length);
+  console.log(eventInfoList.length);
   const [newEventLabel, setNewEventLabel] = useState('');
   const [showSavedMessage, setShowSavedMessage] = useState(false);
 
@@ -66,18 +67,17 @@ export default function Template({ params }: { params: PageProps }) {
 
   const handleSave = () => {
     const data = eventInfoList.map((info) => ({
-       // info.label,
-        // attribute: jsonToArray(info.json) 
+      // info.label,
+      // attribute: jsonToArray(info.json)
     }));
-      // query for templateId here
-      // saveTemplate(data, params.userId, params.eventId,)
-    
+    // query for templateId here
+    // saveTemplate(data, params.userId, params.eventId,)
 
     console.log(eventInfoList[0]);
 
     setShowSavedMessage(true);
     // Insert save logic here
-  
+
     // Clear the saved message after 3 seconds
     setTimeout(() => {
       setShowSavedMessage(false);
@@ -88,7 +88,6 @@ export default function Template({ params }: { params: PageProps }) {
     setEventInfoList(eventInfoList.filter((eventInfo) => eventInfo.id !== id));
   };
 
-
   return (
     <div className="p-8">
       <div className="mx-auto max-w-md rounded bg-white p-6">
@@ -96,7 +95,9 @@ export default function Template({ params }: { params: PageProps }) {
         <div>
           {eventInfoList.map((eventInfo) => (
             <div key={eventInfo.id} className="mb-4">
-              <label className="mb-2 block font-bold text-gray-700">{eventInfo.label}:</label>
+              <label className="mb-2 block font-bold text-gray-700">
+                {eventInfo.label}:
+              </label>
               <div className="flex">
                 <input
                   type={eventInfo.type}
@@ -108,7 +109,7 @@ export default function Template({ params }: { params: PageProps }) {
                   <button
                     type="button"
                     onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                    className="ml-2 px-2 py-1 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+                    className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
                   >
                     Delete
                   </button>
@@ -118,7 +119,9 @@ export default function Template({ params }: { params: PageProps }) {
           ))}
 
           <div className="mb-4">
-            <label className="mb-2 block font-bold text-gray-700">New Event Info Label:</label>
+            <label className="mb-2 block font-bold text-gray-700">
+              New Event Info Label:
+            </label>
             <div className="flex">
               <input
                 type="text"
@@ -130,19 +133,19 @@ export default function Template({ params }: { params: PageProps }) {
               <button
                 type="button"
                 onClick={handleAddEventInfo}
-                className="ml-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                className="ml-2 rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
               >
                 Add
               </button>
             </div>
           </div>
 
-          <div className="flex justify-end mt-4">
+          <div className="mt-4 flex justify-end">
             {showSavedMessage && (
-              <div className="flex items-center ml-4 text-green-500">
+              <div className="ml-4 flex items-center text-green-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-1"
+                  className="mr-1 h-5 w-5"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -161,9 +164,9 @@ export default function Template({ params }: { params: PageProps }) {
               </div>
             )}
             <button
-              type = "submit"
+              type="submit"
               onClick={handleSave}
-              className="rounded-lg px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+              className="rounded-lg rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
             >
               Save
             </button>
