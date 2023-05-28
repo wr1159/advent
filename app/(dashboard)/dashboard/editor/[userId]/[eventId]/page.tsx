@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import { AiOutlineCheck } from 'react-icons/ai';
+import queryForTemplate from '@/utils/queryTemplate';
 
 interface EventInfo {
   id: number;
@@ -94,6 +95,14 @@ export default function Template({ params }: { params: PageProps }) {
 
   return (
     <div className="p-8">
+      <div className="flex items-center justify-center pb-8">
+        <Button
+          text="View Event Landing Page"
+          href={`/event/${params.userId}/${params.eventId}`}
+          className="items"
+          theme="secondary"
+        />
+      </div>
       <div className="mx-auto max-w-md rounded bg-white p-6">
         <h2 className="mb-6 text-2xl font-bold">Event Information:</h2>
         <div>
