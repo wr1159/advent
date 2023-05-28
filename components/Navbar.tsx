@@ -9,6 +9,7 @@ import Button from './Button';
 import { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import MobileNav from './MobileNav';
+import LogOut from './LogOut';
 
 interface linksProps {
   text: string;
@@ -19,8 +20,9 @@ export interface NavbarProps {
   texts: string[];
   links: string[];
   login?: boolean;
+  logout?: boolean;
 }
-const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
+const Navbar: React.FC<NavbarProps> = ({ texts, links, login, logout }) => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   return (
     <div>
@@ -46,8 +48,9 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
           </button>
         </div>
         {login && (
-          <Button text="Login" size="sm" type="secondary" href="/login" />
+          <Button text="Login" size="sm" theme="secondary" href="/login" />
         )}
+        {logout && <LogOut />}
       </NavigationMenu>
 
       {showMobileMenu && (

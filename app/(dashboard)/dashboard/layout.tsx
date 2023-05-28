@@ -12,6 +12,7 @@ export default function DashboardLayout({
       <Navbar
         texts={['Dashboard', 'Statistics', 'Documentation']}
         links={['/dashboard', '/dashboard/statistics', '/documentation']}
+        logout={true}
       />
       {children}
       <Footer />
