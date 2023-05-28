@@ -11,13 +11,12 @@ import {
   CollectionReference,
   DocumentReference
 } from 'firebase/firestore';
-import { userID } from '@/app/(auth)/login/page';
 
 type CreateEventFormProps = {
-  array: Event[];
+  uid: string;
 };
 
-const CreateEventForm: React.FC<{}> = () => {
+const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
   const [eventName, setEventName] = useState('');
 
   const handleEventNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,10 +56,10 @@ const CreateEventForm: React.FC<{}> = () => {
     }
     */
 
-    console.log({ userID } + ' called in CreatedEventForm');
+    console.log({ uid } + ' called in CreatedEventForm');
 
     const datetime = new Date(currentTime);
-    const userDocRef = doc(users, userID);
+    const userDocRef = doc(users, uid);
     const eventCollectionRef = collection(userDocRef, 'events');
     const CreatedEventRef = await addDoc(eventCollectionRef, {
       event_name: eventName,
@@ -79,7 +78,7 @@ const CreateEventForm: React.FC<{}> = () => {
     );
 
     setEventName('');
-    // router.push(`/editor/${CreatedEventRef.id}/${CreatedTemplateRef.id}`);
+    router.push(`/editor/${uid}/${CreatedEventRef.id}`);
   };
 
   return (

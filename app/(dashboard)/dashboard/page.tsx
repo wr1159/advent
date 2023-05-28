@@ -38,7 +38,7 @@ export default function Dashboard() {
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
         <LogOut />
-        <CreateEventForm />
+        <CreateEventForm uid={uid} />
         {/* Create button in here takes care of adding event to events array*/}
       </div>
       {events?.length ? (
