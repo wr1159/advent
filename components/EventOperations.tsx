@@ -13,9 +13,10 @@ interface EventOperationProps {
     id: string;
     title: string;
   };
+  uid: string;
 }
 
-export function EventOperations({ event }: EventOperationProps) {
+export function EventOperations({ event, uid }: EventOperationProps) {
   return (
     <>
       <DropdownMenu>
@@ -27,7 +28,7 @@ export function EventOperations({ event }: EventOperationProps) {
           className="b- rounded-md border bg-background p-1 text-accent shadow-md"
         >
           <DropdownMenuItem className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-secondary focus:text-accent">
-            <Link href={`/editor/${event.id}`}>Edit</Link>
+            <Link href={`/dashboard/editor/${uid}/${event.id}`}>Edit</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator className="-mx-1 my-1 h-px bg-accent" />
           <DropdownMenuItem
