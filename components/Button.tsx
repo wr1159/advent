@@ -5,14 +5,15 @@ import { twMerge } from 'tailwind-merge';
 
 interface ButtonProps {
   text: string;
-  type?: 'primary' | 'secondary';
+  theme?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg' | 'wide';
   href?: string;
   className?: string;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
-const typeStyles = {
+const themeStyles = {
   primary: 'bg-secondary hover:bg-gray-400 text-black',
   secondary: 'bg-accent hover:bg-accentHover text-white'
 };
@@ -26,11 +27,12 @@ const sizeStyles = {
 
 const Button: React.FC<ButtonProps> = ({
   text,
-  type = 'primary',
+  theme = 'primary',
   size = 'md',
   href,
   className,
-  onClick
+  onClick,
+  type
 }) => {
   return href ? (
     <Link
@@ -38,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       className={twMerge(
         'items-center rounded',
-        typeStyles[type],
+        themeStyles[theme],
         sizeStyles[size],
         className
       )}
@@ -50,10 +52,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       className={twMerge(
         'items-center rounded',
-        typeStyles[type],
+        themeStyles[theme],
         sizeStyles[size],
         className
       )}
+      type={type}
     >
       {text}
     </button>

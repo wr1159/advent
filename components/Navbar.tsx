@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login }) => {
           </button>
         </div>
         {login && (
-          <Button text="Login" size="sm" type="secondary" href="/login" />
+          <Button text="Login" size="sm" theme="secondary" href="/login" />
         )}
       </NavigationMenu>
 

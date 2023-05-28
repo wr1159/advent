@@ -4,10 +4,9 @@ import handleGoogleSignIn from '@/utils/google-ver';
 import LoginForm from '@/components/LoginForm';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import app, { firestore, users } from '@/firebaseconfig';
+import app, { users } from '@/firebaseconfig';
 import { doc, setDoc } from 'firebase/firestore';
 
-let userID = '';
 function Page() {
   const router = useRouter();
   const auth = getAuth(app);
@@ -24,7 +23,6 @@ function Page() {
   const monitorAuthState = () => {
     onAuthStateChanged(auth, (user: User | null) => {
       if (user) {
-        userID = user.uid;
         const data = {
           user_id: user.uid
         };
@@ -45,7 +43,7 @@ function Page() {
         <div>
           <Button
             text="Login with Google"
-            type="secondary"
+            theme="secondary"
             onClick={handleGoogleSignIn}
           />
         </div>

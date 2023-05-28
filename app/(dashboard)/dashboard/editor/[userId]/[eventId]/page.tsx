@@ -142,7 +142,7 @@ export default function Template({ params }: { params: PageProps }) {
               />
               <Button
                 text="Add"
-                type="secondary"
+                theme="secondary"
                 size="sm"
                 className="ml-2 w-20"
                 onClick={handleAddEventInfo}
@@ -165,7 +165,12 @@ export default function Template({ params }: { params: PageProps }) {
                 Saved!
               </div>
             )}
-            <Button type="primary" text="Save" onClick={handleSave} size="md" />
+            <Button
+              theme="primary"
+              text="Save"
+              onClick={handleSave}
+              size="md"
+            />
           </div>
         </div>
       </div>
