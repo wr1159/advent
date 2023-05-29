@@ -26,9 +26,9 @@ const milestoneOne = [
     body: 'Our first README, detailing our project.'
   },
   {
-    href: '/orbital',
+    href: '/src/milestone-one-poster.png',
     title: 'Milestone One Poster',
-    body: 'Unavailable'
+    body: 'Our second poster with a QR code to our website.'
   },
   {
     href: '/orbital',
