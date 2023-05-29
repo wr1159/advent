@@ -15,7 +15,7 @@ const liftoff = [
   {
     href: 'https://youtu.be/iHqpLQbVtEk',
     title: 'Liftoff Video',
-    body: 'First video, credits to Vivaldi for the sick soundtrack.'
+    body: 'First video, credits to Vivaldi for the soundtrack.'
   }
 ];
 
@@ -31,9 +31,9 @@ const milestoneOne = [
     body: 'Our second poster with a QR code to our website.'
   },
   {
-    href: '/orbital',
+    href: 'https://youtu.be/iHqpLQbVtEk',
     title: 'Milestone One Video',
-    body: 'Unavailable'
+    body: 'Milestone One Video, credits to Vivaldi for the soundtrack.'
   }
 ];
 

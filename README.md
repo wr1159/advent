@@ -30,6 +30,7 @@ Website is deployed to [https://advent-beta.vercel.app](https://advent-beta.verc
 
 Team Name: Advent
 Team ID: 5877
+Proposed Level: Artemis
 Team Members: Chu Wei Rong & Pham Quang Nhat
 
 # Problem Definition
