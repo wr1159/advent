@@ -3,6 +3,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import signIn from '../utils/signin';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
+import Button from './Button';
 
 /* const [email, setEmail] = React.useState('');
 const [password, setPassword] = React.useState('');
@@ -46,12 +47,9 @@ const LoginForm: React.FC<{}> = () => {
   return (
     <div>
       <div>
-        <h1 className="mt-70 mb-30" data-align="center">
-          Sign in
-        </h1>
-        <form onSubmit={handleForm} className="form">
+        <form onSubmit={handleForm} className="form flex flex-col">
           <label htmlFor="email">
-            <p>Email</p>
+            <p className="text-xl text-accent">Email</p>
             <input
               onChange={handleEmailChange}
               required
@@ -59,10 +57,11 @@ const LoginForm: React.FC<{}> = () => {
               name="email"
               id="email"
               placeholder="example@mail.com"
+              className="w-full rounded-md py-0.5 pl-0.5 pr-2"
             />
           </label>
           <label htmlFor="password">
-            <p>Password</p>
+            <p className="mt-2 text-xl text-accent">Password</p>
             <input
               onChange={handlePasswordChange}
               required
@@ -70,9 +69,16 @@ const LoginForm: React.FC<{}> = () => {
               name="password"
               id="password"
               placeholder="password"
+              className="w-full rounded-md py-0.5 pl-0.5 pr-2"
             />
           </label>
-          <button type="submit">Sign in</button>
+          <Button
+            type="submit"
+            text="Sign In"
+            className="mt-4 h-full"
+            size="sm"
+            theme="secondary"
+          />
         </form>
       </div>
     </div>

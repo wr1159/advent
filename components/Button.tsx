@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  icon?: React.ReactNode;
 }
 
 const themeStyles = {
@@ -32,7 +33,8 @@ const Button: React.FC<ButtonProps> = ({
   href,
   className,
   onClick,
-  type
+  type,
+  icon
 }) => {
   return href ? (
     <Link
@@ -54,10 +56,12 @@ const Button: React.FC<ButtonProps> = ({
         'items-center rounded',
         themeStyles[theme],
         sizeStyles[size],
-        className
+        className,
+        icon && 'flex flex-row'
       )}
       type={type}
     >
+      {icon}
       {text}
     </button>
   );
