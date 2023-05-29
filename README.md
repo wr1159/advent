@@ -30,6 +30,7 @@ Website is deployed to [https://advent-beta.vercel.app](https://advent-beta.verc
 
 Team Name: Advent
 Team ID: 5877
+Proposed Level: Artemis
 Team Members: Chu Wei Rong & Pham Quang Nhat
 
 # Problem Definition
@@ -186,7 +187,7 @@ Database used is Firestore from Firebase. Here is our database design. Firestore
 ### User Activity Diagram
 
 To plan for users testing and usage, we have created a User Navigation Diagram.
-![activity diagram(transparent) (1)](https://github.com/wr1159/advent/assets/56021409/3070a284-a160-4a78-a768-afe543e62790)
+![activity diagram drawio](https://github.com/wr1159/advent/assets/56021409/611fc126-d5c7-4ebc-b410-42b62981452e)
 
 ### Testing
 
