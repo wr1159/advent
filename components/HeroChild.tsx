@@ -14,7 +14,7 @@ const HeroChild: React.FC = () => {
         <span className="text-accent">customised </span>to your liking.
       </p>
       <div className="my-4 flex-row space-x-2 md:my-12 lg:space-x-12">
-        <Button text="Get Started" size="lg" theme="primary" href="/auth" />
+        <Button text="Get Started" size="lg" theme="primary" href="/login" />
         <Button
           text="Github"
           size="lg"
