@@ -59,7 +59,7 @@ export default function saveTemplate(
     // additonal copy array from [4] beyond
   }
   const added = data.reduce((result: Record<string, string>, item) => {
-    result[item.label.toLowerCase()] = item.value;
+    result[item.label] = item.value;
     return result;
   }, {});
 

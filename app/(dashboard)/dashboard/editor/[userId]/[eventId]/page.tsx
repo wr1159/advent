@@ -8,6 +8,7 @@ import queryForTemplate from '@/utils/queryTemplate';
 interface EventInfo {
   id: number;
   label: string;
+  accessKey: string;
   type: string;
   placeholder: string;
 }
@@ -22,36 +23,42 @@ export default function Template({ params }: { params: PageProps }) {
     {
       id: 0,
       label: 'Background Colour',
+      accessKey: 'bgColour',
       type: 'color',
       placeholder: '#ffffff'
     },
     {
       id: 1,
       label: 'Text Colour',
+      accessKey: 'textColour',
       type: 'color',
       placeholder: '#000000'
     },
     {
       id: 2,
       label: 'Title',
+      accessKey: 'title',
       type: 'text',
       placeholder: 'Coolest Event Ever'
     },
     {
       id: 3,
       label: 'Description',
+      accessKey: 'description',
       type: 'text',
       placeholder: 'Enter the event description'
     },
     {
       id: 4,
       label: 'Date',
+      accessKey: 'date',
       type: 'date',
       placeholder: 'Enter the event date'
     },
     {
       id: 5,
       label: 'Location',
+      accessKey: 'location',
       type: 'text',
       placeholder: 'Enter the event location'
     }
@@ -68,6 +75,8 @@ export default function Template({ params }: { params: PageProps }) {
     const newEventInfo: EventInfo = {
       id: eventInfoList.length + 1,
       label: newEventLabel,
+      // accessorKey removes all space and converts to lowercase
+      accessKey: newEventLabel.replace(/\s/g, '').toLowerCase(),
       type: 'text',
       placeholder: ''
     };
@@ -78,7 +87,7 @@ export default function Template({ params }: { params: PageProps }) {
 
   const handleSave = async () => {
     const data = eventInfoList.map((info) => ({
-      label: info.label,
+      label: info.accessKey,
       value: (
         document.querySelector(
           `input[name="${info.label.toLowerCase()}"]`
