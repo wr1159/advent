@@ -20,25 +20,37 @@ interface PageProps {
 export default function Template({ params }: { params: PageProps }) {
   const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([
     {
+      id: 0,
+      label: 'Background Colour',
+      type: 'color',
+      placeholder: '#ffffff'
+    },
+    {
       id: 1,
+      label: 'Text Colour',
+      type: 'color',
+      placeholder: '#000000'
+    },
+    {
+      id: 2,
       label: 'Title',
       type: 'text',
       placeholder: 'Coolest Event Ever'
     },
     {
-      id: 2,
+      id: 3,
       label: 'Description',
       type: 'text',
       placeholder: 'Enter the event description'
     },
     {
-      id: 3,
+      id: 4,
       label: 'Date',
       type: 'date',
       placeholder: 'Enter the event date'
     },
     {
-      id: 4,
+      id: 5,
       label: 'Location',
       type: 'text',
       placeholder: 'Enter the event location'
@@ -104,38 +116,57 @@ export default function Template({ params }: { params: PageProps }) {
         />
       </div>
       <div className="mx-auto max-w-md rounded bg-white p-6">
-        <h2 className="mb-6 text-2xl font-bold">Event Information:</h2>
+        <h2 className="mb-4 text-2xl font-bold">Event Information:</h2>
         <div>
-          {eventInfoList.map((eventInfo) => (
-            <div key={eventInfo.id} className="mb-4">
-              <label className="mb-2 block font-bold text-gray-700">
-                {eventInfo.label}:
-              </label>
-              <div className="flex">
-                <input
-                  type={eventInfo.type}
-                  name={eventInfo.label.toLowerCase()}
-                  placeholder={eventInfo.placeholder}
-                  className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-                />
-                {eventInfo.id > 4 && ( // Render delete button for newly added events
-                  <Button
-                    text="Delete"
-                    size="sm"
-                    className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
-                    onClick={() => handleDeleteEventInfo(eventInfo.id)}
+          <div className="grid grid-cols-2 gap-2">
+            {eventInfoList
+              .filter((eventInfo) => eventInfo.type === 'color')
+              .map((eventInfo) => (
+                <div className="rounded-md border bg-background p-4">
+                  <h2 className="font-bold text-gray-700">{eventInfo.label}</h2>
+                  <input
+                    type={eventInfo.type}
+                    name={eventInfo.label.toLowerCase()}
+                    placeholder={eventInfo.placeholder}
+                    className="my-2 w-full appearance-none rounded-md border-none"
                   />
-                  // <button
-                  //   type="button"
-                  //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                  //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-                  // >
-                  //   Delete
-                  // </button>
-                )}
-              </div>
-            </div>
-          ))}
+                </div>
+              ))}
+          </div>
+          <div className="my-4 rounded-md border bg-background p-4 ">
+            {eventInfoList
+              .filter((eventInfo) => eventInfo.type !== 'color')
+              .map((eventInfo) => (
+                <div key={eventInfo.id} className="mb-4">
+                  <label className="mb-2 block font-bold text-gray-700">
+                    {eventInfo.label}:
+                  </label>
+                  <div className="flex">
+                    <input
+                      type={eventInfo.type}
+                      name={eventInfo.label.toLowerCase()}
+                      placeholder={eventInfo.placeholder}
+                      className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+                    />
+                    {eventInfo.id > 6 && ( // Render delete button for newly added events
+                      <Button
+                        text="Delete"
+                        size="sm"
+                        className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
+                        onClick={() => handleDeleteEventInfo(eventInfo.id)}
+                      />
+                      // <button
+                      //   type="button"
+                      //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
+                      //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+                      // >
+                      //   Delete
+                      // </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
 
           <div className="mb-4">
             <label className="mb-2 block font-bold text-gray-700">
