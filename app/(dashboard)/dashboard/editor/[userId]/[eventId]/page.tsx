@@ -131,7 +131,10 @@ export default function Template({ params }: { params: PageProps }) {
             {eventInfoList
               .filter((eventInfo) => eventInfo.type === 'color')
               .map((eventInfo) => (
-                <div className="rounded-md border bg-background p-4">
+                <div
+                  className="rounded-md border bg-background p-4"
+                  key={eventInfo.id}
+                >
                   <h2 className="font-bold text-gray-700">{eventInfo.label}</h2>
                   <input
                     type={eventInfo.type}
