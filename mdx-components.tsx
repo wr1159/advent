@@ -10,6 +10,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Allows customizing built-in components, e.g. to add styling.
     // h1: ({ children }) => <h1 style={{ fontSize: "100px" }}>{children}</h1>,
+    // replace space with dash
+    h1: ({ children }) => (
+      <h1 id={children?.toString().toLowerCase().replace(/\ /g, '-')}>
+        {children}
+      </h1>
+    ),
+    h2: ({ children }) => (
+      <h2 id={children?.toString().toLowerCase().replace(/\ /g, '-')}>
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 id={children?.toString().toLowerCase().replace(/\ /g, '-')}>
+        {children}
+      </h3>
+    ),
     ...components
   };
 }
