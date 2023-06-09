@@ -1,4 +1,4 @@
-import Hero from '@/components/Hero';
+import LinkCard from '@/components/LinkCard';
 import OrbitalRow from '@/components/OrbitalRow';
 
 const liftoff = [
@@ -87,7 +87,7 @@ export default function Orbital() {
       </div>
       <div className="my-8 w-full border border-accent"></div>
 
-      <div className="mx-auto grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
+      <div className="mx-auto mb-12 grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
         <div className="text-center">
           <h3 className="text-primary">Team name</h3>
           <h2 className="text-2xl">
@@ -104,6 +104,11 @@ export default function Orbital() {
           <h2 className="text-2xl">Artemis</h2>
         </div>
       </div>
+      <LinkCard
+        href="/orbital/project-log"
+        title="Project Log"
+        body="Project Log submitted"
+      />
       <h2 className="my-12 text-2xl text-accent lg:mt-20 lg:text-3xl">
         Liftoff
       </h2>
