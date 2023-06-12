@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import remarkGfm from 'remark-gfm';
+import nextMdx from '@next/mdx';
 const nextConfig = {
   reactStrictMode: true,
   // experimental: {
@@ -18,5 +20,12 @@ const nextConfig = {
   }
 };
 
-const withMDX = require('@next/mdx')();
-module.exports = withMDX(nextConfig);
+const withMDX = nextMdx({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: []
+  }
+});
+
+export default withMDX(nextConfig);
