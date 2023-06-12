@@ -1,6 +1,7 @@
 'use client';
 import queryForTemplate from '@/utils/queryTemplate';
 import { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface PageProps {
   userId: string;
@@ -32,11 +33,18 @@ export default function Template({ params }: { params: PageProps }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center p-8">
+    <div
+      className={twMerge(
+        'flex  h-screen flex-col items-center p-8',
+        `bg-[${data['bgColour']}]`,
+        `text-[${data['textColour']}]`
+      )}
+      style={{ color: data['textColour'], backgroundColor: data['bgColour'] }}
+    >
       <h1 className="mb-4 text-3xl font-bold">{data.title}</h1>
-      <p className="mb-2 text-accent">{data.description}</p>
-      <p className="mb-2 text-accent">Date: {data.date}</p>
-      <p className="mb-2 text-accent">Location: {data.location}</p>
+      <p className="mb-2 ">{data.description}</p>
+      <p className="mb-2 ">Date: {data.date}</p>
+      <p className="mb-2 ">Location: {data.location}</p>
 
       {Object.entries(data).map(([key, value]) => {
         if (
@@ -44,12 +52,14 @@ export default function Template({ params }: { params: PageProps }) {
           key !== 'description' &&
           key !== 'date' &&
           key !== 'location' &&
-          key !== 'event_id'
+          key !== 'event_id' &&
+          key !== 'bgColour' &&
+          key !== 'textColour'
         ) {
           return (
             <div className="mb-4" key={key}>
               <h3 className="mb-2 text-lg font-semibold">{key}</h3>
-              <p className="text-gray-600">{value}</p>
+              <p className={'text-' + value}>{value}</p>
             </div>
           );
         }
