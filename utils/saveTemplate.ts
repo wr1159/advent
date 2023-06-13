@@ -1,10 +1,7 @@
-import { setUserId } from 'firebase/analytics';
-import app, { firestore } from '../firebaseconfig';
-import { User, getAuth } from 'firebase/auth';
+import { firestore } from '../firebaseconfig';
 import { collection, doc, addDoc, setDoc, getDocs } from 'firebase/firestore';
 import {
   DocumentReference,
-  CollectionReference,
   DocumentData
 } from 'firebase/firestore';
 

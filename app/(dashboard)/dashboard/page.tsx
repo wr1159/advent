@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import LogOut from '@/components/LogOut';
 import { EventItem } from '@/components/EventItem';
 import CreateEventForm from '@/components/CreateEventForm';
-import queryForEvents, { Event } from '@/utils/event-query';
+import queryForEvents, { Event } from '@/utils/eventQuery';
 import getUserId from '@/utils/getUser';
 export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);

@@ -1,8 +1,7 @@
 import app, { firestore } from '../firebaseconfig';
-import { User, getAuth } from 'firebase/auth';
-import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { collection, doc, addDoc } from 'firebase/firestore';
 import {
-  DocumentReference,
   CollectionReference,
   DocumentData
 } from 'firebase/firestore';
