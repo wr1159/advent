@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getAllTemplateIds } from './save-template';
+import { getAllTemplateIds } from './saveTemplate';
 import { tmpdir } from 'os';
 
 export type Event = {

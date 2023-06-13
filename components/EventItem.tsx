@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { EventOperations } from './EventOperations';
-import getUserId from '@/utils/getUser';
 
 interface EventItemProps {
   uid: string;

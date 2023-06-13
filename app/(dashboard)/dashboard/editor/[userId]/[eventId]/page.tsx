@@ -1,9 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
-import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
+import saveTemplate, { getAllTemplateIds } from '@/utils/saveTemplate';
 import { AiOutlineCheck } from 'react-icons/ai';
 import queryForTemplate from '@/utils/queryTemplate';
+import { access } from 'fs';
 
 interface EventInfo {
   id: number;
@@ -19,51 +20,72 @@ interface PageProps {
 }
 
 export default function Template({ params }: { params: PageProps }) {
-  const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([
-    {
-      id: 0,
-      label: 'Background Colour',
-      accessKey: 'bgColour',
-      type: 'color',
-      placeholder: '#ffffff'
-    },
-    {
-      id: 1,
-      label: 'Text Colour',
-      accessKey: 'textColour',
-      type: 'color',
-      placeholder: '#000000'
-    },
-    {
-      id: 2,
-      label: 'Title',
-      accessKey: 'title',
-      type: 'text',
-      placeholder: 'Coolest Event Ever'
-    },
-    {
-      id: 3,
-      label: 'Description',
-      accessKey: 'description',
-      type: 'text',
-      placeholder: 'Enter the event description'
-    },
-    {
-      id: 4,
-      label: 'Date',
-      accessKey: 'date',
-      type: 'date',
-      placeholder: 'Enter the event date'
-    },
-    {
-      id: 5,
-      label: 'Location',
-      accessKey: 'location',
-      type: 'text',
-      placeholder: 'Enter the event location'
-    }
-  ]);
+  // This data is the previously saved template.
+  const [data, setData] = useState<Record<string, string>>({});
+  const [defaultListCompleted, setDefaultListCompleted] = useState(false);
+  const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([]);
+  const capitalizeFirstLetter = (str: string): string =>
+    `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
+
+  let defaultList: EventInfo[];
+  useEffect(() => {
+    const fetchTemplate = async () => {
+      try {
+        console.log('1');
+        const templateData = await queryForTemplate(
+          params.userId,
+          params.eventId
+        );
+        if (templateData) {
+          console.log('templateData', templateData);
+          setData(templateData);
+          let i = 0;
+          defaultList = Object.entries(templateData)
+            .filter(([key, value]) => key !== 'event_id')
+            .map(([key, value], index) => ({
+              id:
+                key === 'bgColour'
+                  ? 0
+                  : key === 'textColour'
+                  ? 1
+                  : key === 'title'
+                  ? 2
+                  : key === 'description'
+                  ? 3
+                  : key === 'date'
+                  ? 4
+                  : key === 'location'
+                  ? 5
+                  : 6 + i++,
+              label:
+                key === 'bgColour'
+                  ? 'Background Color'
+                  : key === 'textColour'
+                  ? 'Text Colour'
+                  : capitalizeFirstLetter(key),
+              accessKey: key,
+              type:
+                key === 'bgColour' || key === 'textColour'
+                  ? 'color'
+                  : key === 'date'
+                  ? 'date'
+                  : 'text',
+              placeholder: 'Enter the event ' + key
+            }))
+            .sort((a, b) => a.id - b.id);
+
+          setEventInfoList(defaultList);
+          setDefaultListCompleted(true);
+        }
+      } catch (error) {
+        console.error('Error querying for events:', error);
+      }
+    };
+    fetchTemplate();
+  }, []);
+
   console.log(eventInfoList.length);
+
   const [newEventLabel, setNewEventLabel] = useState('');
   const [showSavedMessage, setShowSavedMessage] = useState(false);
 
@@ -116,115 +138,123 @@ export default function Template({ params }: { params: PageProps }) {
 
   return (
     <div className="p-8">
-      <div className="flex items-center justify-center pb-8">
-        <Button
-          text="View Event Landing Page"
-          href={`/event/${params.userId}/${params.eventId}`}
-          className="items"
-          theme="secondary"
-        />
-      </div>
+      {defaultListCompleted && (
+        <div className="flex items-center justify-center pb-8">
+          <Button
+            text="View Event Landing Page"
+            href={`/event/${params.userId}/${params.eventId}`}
+            className="items"
+            theme="secondary"
+          />
+        </div>
+      )}
       <div className="mx-auto max-w-md rounded bg-white p-6">
         <h2 className="mb-4 text-2xl font-bold">Event Information:</h2>
-        <div>
-          <div className="grid grid-cols-2 gap-2">
-            {eventInfoList
-              .filter((eventInfo) => eventInfo.type === 'color')
-              .map((eventInfo) => (
-                <div
-                  className="rounded-md border bg-background p-4"
-                  key={eventInfo.id}
-                >
-                  <h2 className="font-bold text-gray-700">{eventInfo.label}</h2>
-                  <input
-                    type={eventInfo.type}
-                    name={eventInfo.label.toLowerCase()}
-                    placeholder={eventInfo.placeholder}
-                    className="my-2 w-full appearance-none rounded-md border-none"
-                  />
-                </div>
-              ))}
-          </div>
-          <div className="my-4 rounded-md border bg-background p-4 ">
-            {eventInfoList
-              .filter((eventInfo) => eventInfo.type !== 'color')
-              .map((eventInfo) => (
-                <div key={eventInfo.id} className="mb-4">
-                  <label className="mb-2 block font-bold text-gray-700">
-                    {eventInfo.label}:
-                  </label>
-                  <div className="flex">
+        {defaultListCompleted && (
+          <div>
+            <div className="grid grid-cols-2 gap-2">
+              {eventInfoList
+                .filter((eventInfo) => eventInfo.type === 'color')
+                .map((eventInfo) => (
+                  <div
+                    className="rounded-md border bg-background p-4"
+                    key={eventInfo.id}
+                  >
+                    <h2 className="font-bold text-gray-700">
+                      {eventInfo.label}
+                    </h2>
                     <input
+                      defaultValue={data[eventInfo.accessKey]}
                       type={eventInfo.type}
                       name={eventInfo.label.toLowerCase()}
                       placeholder={eventInfo.placeholder}
-                      className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+                      className="my-2 w-full appearance-none rounded-md border-none"
                     />
-                    {eventInfo.id > 6 && ( // Render delete button for newly added events
-                      <Button
-                        text="Delete"
-                        size="sm"
-                        className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
-                        onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                      />
-                      // <button
-                      //   type="button"
-                      //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                      //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-                      // >
-                      //   Delete
-                      // </button>
-                    )}
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
+            <div className="my-4 rounded-md border bg-background p-4 ">
+              {eventInfoList
+                .filter((eventInfo) => eventInfo.type !== 'color')
+                .map((eventInfo) => (
+                  <div key={eventInfo.id} className="mb-4">
+                    <label className="mb-2 block font-bold text-gray-700">
+                      {eventInfo.label}:
+                    </label>
+                    <div className="flex">
+                      <input
+                        defaultValue={data[eventInfo.accessKey]}
+                        type={eventInfo.type}
+                        name={eventInfo.label.toLowerCase()}
+                        placeholder={eventInfo.placeholder}
+                        className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+                      />
+                      {eventInfo.id > 5 && ( // Render delete button for newly added events
+                        <Button
+                          text="Delete"
+                          size="sm"
+                          className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
+                          onClick={() => handleDeleteEventInfo(eventInfo.id)}
+                        />
+                        // <button
+                        //   type="button"
+                        //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
+                        //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+                        // >
+                        //   Delete
+                        // </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
 
-          <div className="mb-4">
-            <label className="mb-2 block font-bold text-gray-700">
-              New Event Info Label:
-            </label>
-            <div className="flex">
-              <input
-                type="text"
-                value={newEventLabel}
-                onChange={(e) => setNewEventLabel(e.target.value)}
-                placeholder="Enter the label for new event information"
-                className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-              />
-              <Button
-                text="Add"
-                theme="secondary"
-                size="sm"
-                className="ml-2 w-20"
-                onClick={handleAddEventInfo}
-              />
-              {/* <button
+            <div className="mb-4">
+              <label className="mb-2 block font-bold text-gray-700">
+                New Event Info Label:
+              </label>
+              <div className="flex">
+                <input
+                  type="text"
+                  value={newEventLabel}
+                  onChange={(e) => setNewEventLabel(e.target.value)}
+                  placeholder="Enter the label for new event information"
+                  className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+                />
+                <Button
+                  text="Add"
+                  theme="secondary"
+                  size="sm"
+                  className="ml-2 w-20"
+                  onClick={handleAddEventInfo}
+                />
+                {/* <button
                 type="button"
                 onClick={handleAddEventInfo}
                 className="ml-2 rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
               >
                 Add
               </button> */}
+              </div>
+            </div>
+
+            <div className="mt-4 flex justify-end">
+              {showSavedMessage && (
+                <div className="mx-4 flex items-center text-emerald-500">
+                  {/* react icon of check box down here with react-icon library */}
+                  <AiOutlineCheck className="mr-2" />
+                  Saved!
+                </div>
+              )}
+              <Button
+                theme="primary"
+                text="Save"
+                onClick={handleSave}
+                size="md"
+              />
             </div>
           </div>
-
-          <div className="mt-4 flex justify-end">
-            {showSavedMessage && (
-              <div className="mx-4 flex items-center text-emerald-500">
-                {/* react icon  of check box down here with react-icon library */}
-                <AiOutlineCheck className="mr-2" />
-                Saved!
-              </div>
-            )}
-            <Button
-              theme="primary"
-              text="Save"
-              onClick={handleSave}
-              size="md"
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

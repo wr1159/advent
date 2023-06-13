@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Button';
-import handleGoogleSignIn from '@/utils/google-ver';
+import handleGoogleSignIn from '@/utils/handleGoogleSignIn';
 import LoginForm from '@/components/LoginForm';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
@@ -16,7 +16,6 @@ function Page() {
 
   const user = getAuth().currentUser;
   if (user != null) {
-    // router.push(`/dashboard/${user.uid}`);
     router.push(`/dashboard/`);
     return;
   }
@@ -30,7 +29,6 @@ function Page() {
         const ref = doc(users, data.user_id);
         setDoc(ref, data, { merge: true });
         router.push(`/dashboard`);
-        // router.push(`/dashboard/${user.uid}`);
       }
     });
   };

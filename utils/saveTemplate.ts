@@ -8,16 +8,12 @@ import {
   DocumentData
 } from 'firebase/firestore';
 
-// import { userID } from '../app/(auth)/login/page';
-
-const auth = getAuth(app);
-
 export interface StyledText {
   label: string;
   value: string;
   // attribute: string[];
 }
-// const userDocument = usersCollection.doc(user.uid);
+
 export interface TemplateInterface {
   title: string[];
   description: string[];
@@ -44,7 +40,6 @@ export async function getAllTemplateIds(userId: string, eventId: string) {
 
 export default function saveTemplate(
   data: StyledText[],
-  // data: string[],
   user_id: string,
   event_id: string,
   template_id: string
@@ -63,13 +58,5 @@ export default function saveTemplate(
     return result;
   }, {});
 
-  // const added = {
-  //   title: data[0],
-  //   description: data[1],
-  //   date: data[2],
-  //   location: data[3],
-  //   // additional:
-  // };
-
-  setDoc(templateRef, added, { merge: true });
+  setDoc(templateRef, added);
 }
