@@ -1,6 +1,6 @@
 'use client';
 import { useState, ChangeEvent } from 'react';
-import signUp from '../utils/signUp';
+import signUp from '../utils/signup';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
 import Button from './Button';

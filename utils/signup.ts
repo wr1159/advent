@@ -8,7 +8,6 @@ import {
 
 const auth = getAuth(app);
 
-// export default async function signUp(email, password) {
 export default async function signUp(
   email: string,
   password: string
