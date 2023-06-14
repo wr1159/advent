@@ -1,9 +1,6 @@
 import { firestore } from '../firebaseconfig';
 import { collection, doc, addDoc, setDoc, getDocs } from 'firebase/firestore';
-import {
-  DocumentReference,
-  DocumentData
-} from 'firebase/firestore';
+import { DocumentReference, DocumentData } from 'firebase/firestore';
 
 export interface StyledText {
   label: string;

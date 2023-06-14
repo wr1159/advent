@@ -1,10 +1,7 @@
 import app, { firestore } from '../firebaseconfig';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, addDoc } from 'firebase/firestore';
-import {
-  CollectionReference,
-  DocumentData
-} from 'firebase/firestore';
+import { CollectionReference, DocumentData } from 'firebase/firestore';
 
 const auth = getAuth(app);
 const user = auth.currentUser;

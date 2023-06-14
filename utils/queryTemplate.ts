@@ -1,7 +1,4 @@
-import {
-  getDoc,
-  doc
-} from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getAllTemplateIds } from './saveTemplate';
