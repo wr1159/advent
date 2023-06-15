@@ -116,7 +116,6 @@ export default function Template({ params }: { params: PageProps }) {
 
   return (
     <div className="bg gray-100 flex">
-
       <div className="flex h-screen flex-1 flex-col border">
         {/* Left section here */}
         <div className="p-8">
@@ -187,7 +186,6 @@ export default function Template({ params }: { params: PageProps }) {
               </div>
 
               <div className="mb-4"></div>
-
             </div>
           </div>
         </div>
@@ -215,7 +213,7 @@ export default function Template({ params }: { params: PageProps }) {
             <span className="text-sm font-semibold">Navigation</span>
             {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
           </summary>
-          <div className="border-b border-gray-200 py-4 px-6">Demo</div> 
+          <div className="border-b border-gray-200 px-6 py-4">Demo</div>
         </details>
 
         <details>
@@ -223,7 +221,7 @@ export default function Template({ params }: { params: PageProps }) {
             <span className="text-sm font-semibold">Image</span>
             {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
           </summary>
-          <div className="border-b border-gray-200 py-4 px-6">Demo</div>
+          <div className="border-b border-gray-200 px-6 py-4">Demo</div>
         </details>
 
         <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
