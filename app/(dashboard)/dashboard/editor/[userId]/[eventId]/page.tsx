@@ -4,7 +4,9 @@ import Button from '@/components/Button';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import { AiOutlineCheck } from 'react-icons/ai';
 import queryForTemplate from '@/utils/queryTemplate';
+import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import EditorRightColumn from '@/components/Editor/EditorRightColumn';
+import { DeltaOperation } from 'quill';
 
 interface EventInfo {
   id: number;
@@ -64,7 +66,16 @@ export default function Template({ params }: { params: PageProps }) {
       placeholder: 'Enter the event location'
     }
   ]);
+
+  const [htmlState, setHTMLState] = useState<string>('');
+  const [deltaState, setDeltaState] = useState<any>({});
+  const handleWYSIWYGChange = (content: string, delta: DeltaOperation) => {
+    setHTMLState(content);
+    setDeltaState(delta);
+  };
   console.log(eventInfoList.length);
+  console.log('htmlState', htmlState);
+  console.log('deltaState', deltaState);
   const [newEventLabel, setNewEventLabel] = useState('');
   const [showSavedMessage, setShowSavedMessage] = useState(false);
 
@@ -87,25 +98,17 @@ export default function Template({ params }: { params: PageProps }) {
   };
 
   const handleSave = async () => {
-    const data = eventInfoList.map((info) => ({
-      label: info.accessKey,
-      value: (
-        document.querySelector(
-          `input[name="${info.label.toLowerCase()}"]`
-        ) as HTMLInputElement
-      ).value
-    }));
-    // query for templateId here
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
-    saveTemplate(data, params.userId, params.eventId, firstTemplateId);
-
-    console.log('data saved', data);
+    saveTemplate(
+      htmlState,
+      deltaState,
+      params.userId,
+      params.eventId,
+      firstTemplateId
+    );
 
     setShowSavedMessage(true);
-    // Insert save logic here
-
-    // Clear the saved message after 3 seconds
     setTimeout(() => {
       setShowSavedMessage(false);
     }, 3000);
@@ -119,7 +122,11 @@ export default function Template({ params }: { params: PageProps }) {
     <div className="bg gray-100 flex">
       <div className="flex h-screen flex-1 flex-col border">
         {/* Left section here */}
-        <div className="p-8">
+        <div className="p-4">
+          <WYSIWYGContainer
+            content={htmlState}
+            handleChange={handleWYSIWYGChange}
+          />
           {/* <div className="flex items-center justify-center pb-8">
             <Button
               text="View Event Landing Page"

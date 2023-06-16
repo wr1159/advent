@@ -2,7 +2,7 @@
 import remarkGfm from 'remark-gfm';
 import nextMdx from '@next/mdx';
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   // experimental: {
   //   mdxRs: true
   // },

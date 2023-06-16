@@ -43,7 +43,9 @@ export async function getAllTemplateIds(userId: string, eventId: string) {
 }
 
 export default function saveTemplate(
-  data: StyledText[],
+  // data: StyledText[],
+  htmlContent: string,
+  deltaState: any,
   // data: string[],
   user_id: string,
   event_id: string,
@@ -53,23 +55,16 @@ export default function saveTemplate(
     firestore,
     `users/${user_id}/events/${event_id}/templates/${template_id}`
   );
-  let additional: StyledText[] = [];
 
-  if (data.length > 4) {
-    // additonal copy array from [4] beyond
+  // const added = data.reduce((result: Record<string, string>, item) => {
+  //   result[item.label] = item.value;
+  //   return result;
+  // }, {});
+  const result= {
+    htmlContent: htmlContent,
+    deltaState: JSON.stringify(deltaState)
   }
-  const added = data.reduce((result: Record<string, string>, item) => {
-    result[item.label] = item.value;
-    return result;
-  }, {});
 
-  // const added = {
-  //   title: data[0],
-  //   description: data[1],
-  //   date: data[2],
-  //   location: data[3],
-  //   // additional:
-  // };
 
-  setDoc(templateRef, added, { merge: true });
+  setDoc(templateRef, result, { merge: true });
 }
