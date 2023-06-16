@@ -1,4 +1,5 @@
 'use client';
+import Loader from '@/components/Loader';
 import queryForTemplate from '@/utils/queryTemplate';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -11,6 +12,7 @@ interface PageProps {
 export default function Template({ params }: { params: PageProps }) {
   // useState templateData that is an record of strings to strings
   const [data, setData] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTemplate = async () => {
@@ -30,6 +32,7 @@ export default function Template({ params }: { params: PageProps }) {
     };
 
     fetchTemplate();
+    setIsLoading(false);
   }, []);
 
   return (
@@ -41,30 +44,29 @@ export default function Template({ params }: { params: PageProps }) {
       )}
       style={{ color: data['textColour'], backgroundColor: data['bgColour'] }}
     >
-      <h1 className="mb-4 text-3xl font-bold">{data.title}</h1>
-      <p className="mb-2 ">{data.description}</p>
-      <p className="mb-2 ">Date: {data.date}</p>
-      <p className="mb-2 ">Location: {data.location}</p>
-
-      {Object.entries(data).map(([key, value]) => {
-        if (
-          key !== 'title' &&
-          key !== 'description' &&
-          key !== 'date' &&
-          key !== 'location' &&
-          key !== 'event_id' &&
-          key !== 'bgColour' &&
-          key !== 'textColour'
-        ) {
-          return (
-            <div className="mb-4" key={key}>
-              <h3 className="mb-2 text-lg font-semibold">{key}</h3>
-              <p className={'text-' + value}>{value}</p>
-            </div>
-          );
-        }
-        return null;
-      })}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        Object.entries(data).map(([key, value]) => {
+          if (
+            key !== 'title' &&
+            key !== 'description' &&
+            key !== 'date' &&
+            key !== 'location' &&
+            key !== 'event_id' &&
+            key !== 'bgColour' &&
+            key !== 'textColour'
+          ) {
+            return (
+              <div className="mb-4" key={key}>
+                <h3 className="mb-2 text-lg font-semibold">{key}</h3>
+                <p className={'text-' + value}>{value}</p>
+              </div>
+            );
+          }
+          return null;
+        })
+      )}
     </div>
   );
 }
