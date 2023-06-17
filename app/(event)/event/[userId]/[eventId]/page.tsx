@@ -38,7 +38,7 @@ export default function Template({ params }: { params: PageProps }) {
   return (
     <div
       className={twMerge(
-        'flex  h-screen flex-col items-center p-8',
+        'flex h-screen flex-col p-8',
         `bg-[${data['bgColour']}]`,
         `text-[${data['textColour']}]`
       )}
@@ -47,25 +47,7 @@ export default function Template({ params }: { params: PageProps }) {
       {isLoading ? (
         <Loader />
       ) : (
-        Object.entries(data).map(([key, value]) => {
-          if (
-            key !== 'title' &&
-            key !== 'description' &&
-            key !== 'date' &&
-            key !== 'location' &&
-            key !== 'event_id' &&
-            key !== 'bgColour' &&
-            key !== 'textColour'
-          ) {
-            return (
-              <div className="mb-4" key={key}>
-                <h3 className="mb-2 text-lg font-semibold">{key}</h3>
-                <p className={'text-' + value}>{value}</p>
-              </div>
-            );
-          }
-          return null;
-        })
+        <div dangerouslySetInnerHTML={{ __html: data.htmlContent }} />
       )}
     </div>
   );
