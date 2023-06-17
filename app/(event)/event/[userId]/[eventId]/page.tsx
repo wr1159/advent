@@ -3,6 +3,7 @@ import Loader from '@/components/Loader';
 import queryForTemplate from '@/utils/queryTemplate';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import 'react-quill/dist/quill.snow.css';
 
 interface PageProps {
   userId: string;
@@ -38,7 +39,7 @@ export default function Template({ params }: { params: PageProps }) {
   return (
     <div
       className={twMerge(
-        'flex h-screen flex-col p-8',
+        'flex h-screen flex-col p-4',
         `bg-[${data['bgColour']}]`,
         `text-[${data['textColour']}]`
       )}
@@ -47,7 +48,10 @@ export default function Template({ params }: { params: PageProps }) {
       {isLoading ? (
         <Loader />
       ) : (
-        <div dangerouslySetInnerHTML={{ __html: data.htmlContent }} />
+        <div
+          className="view ql-editor"
+          dangerouslySetInnerHTML={{ __html: data.htmlContent }}
+        />
       )}
     </div>
   );
