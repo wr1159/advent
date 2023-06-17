@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import EditorRightColumn from '@/components/Editor/EditorRightColumn';
+import queryForTemplate from '@/utils/queryTemplate';
 
 interface PageProps {
   userId: string;
@@ -19,6 +20,24 @@ export default function Template({ params }: { params: PageProps }) {
   };
   console.log('htmlState', htmlState);
   console.log('deltaState', deltaState);
+
+  useEffect(() => {
+    const fetchTemplate = async () => {
+      try {
+        const templateData = await queryForTemplate(
+          params.userId,
+          params.eventId
+        );
+        if (templateData) {
+          console.log(templateData);
+          setHTMLState(templateData.htmlContent);
+        }
+      } catch (error) {
+        console.error('Error querying for events:', error);
+      }
+    };
+    fetchTemplate();
+  }, []);
 
   const handleSave = async () => {
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
