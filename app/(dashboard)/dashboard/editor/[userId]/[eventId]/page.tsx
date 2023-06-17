@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import { AiOutlineCheck } from 'react-icons/ai';
 import queryForTemplate from '@/utils/queryTemplate';
+import EditorRightColumn from '@/components/Editor/EditorRightColumn';
 
 interface EventInfo {
   id: number;
@@ -190,65 +191,15 @@ export default function Template({ params }: { params: PageProps }) {
           </div>
         </div>
       </div>
-
-      <aside className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
-        <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
-          {showSavedMessage && (
-            <div className="mx-4 flex items-center text-emerald-500">
-              {/* react icon  of check box down here with react-icon library */}
-              <AiOutlineCheck className="mr-2" />
-              Saved!
-            </div>
-          )}
-          <Button
-            theme="primary"
-            text="Save"
-            onClick={handleSave}
-            size="wide"
-          />
-        </div>
-
-        <details>
-          <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-            <span className="text-sm font-semibold">Navigation</span>
-            {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
-          </summary>
-          <div className="border-b border-gray-200 px-6 py-4">Demo</div>
-        </details>
-
-        <details>
-          <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-            <span className="text-sm font-semibold">Image</span>
-            {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
-          </summary>
-          <div className="border-b border-gray-200 px-6 py-4">Demo</div>
-        </details>
-
-        <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
-          <Button
-            text="View Event Landing Page"
-            href={`/event/${params.userId}/${params.eventId}`}
-            className="items"
-            theme="secondary"
-          />
-        </div>
-        <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
-          <input
-            type="text"
-            value={newEventLabel}
-            onChange={(e) => setNewEventLabel(e.target.value)}
-            placeholder="Enter label for new event information"
-            className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-          />
-          <Button
-            text="Add"
-            theme="secondary"
-            size="sm"
-            className="ml-2 w-20"
-            onClick={handleAddEventInfo}
-          />
-        </div>
-      </aside>
+      <EditorRightColumn
+        handleSave={handleSave}
+        handleAddEventInfo={handleAddEventInfo}
+        showSavedMessage={showSavedMessage}
+        newEventLabel={newEventLabel}
+        setNewEventLabel={setNewEventLabel}
+        userId={params.userId}
+        eventId={params.eventId}
+      />
     </div>
   );
 }
