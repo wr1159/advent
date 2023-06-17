@@ -30,17 +30,16 @@ export default function Template({ params }: { params: PageProps }) {
       } catch (error) {
         console.error('Error querying for events:', error);
       }
+      setIsLoading(false);
     };
 
     fetchTemplate();
-    setIsLoading(false);
   }, []);
 
   return (
     <div
       className={twMerge(
         'flex h-screen flex-col p-4',
-        `bg-[${data['bgColour']}]`,
         `text-[${data['textColour']}]`
       )}
       style={{ color: data['textColour'], backgroundColor: data['bgColour'] }}
