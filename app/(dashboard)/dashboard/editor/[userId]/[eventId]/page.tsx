@@ -4,14 +4,6 @@ import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import EditorRightColumn from '@/components/Editor/EditorRightColumn';
 
-interface EventInfo {
-  id: number;
-  label: string;
-  accessKey: string;
-  type: string;
-  placeholder: string;
-}
-
 interface PageProps {
   userId: string;
   eventId: string;
@@ -20,13 +12,13 @@ interface PageProps {
 export default function Template({ params }: { params: PageProps }) {
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
+  const [showSavedMessage, setShowSavedMessage] = useState(false);
   const handleWYSIWYGChange = (content: string, delta: any) => {
     setHTMLState(content);
     setDeltaState(delta);
   };
   console.log('htmlState', htmlState);
   console.log('deltaState', deltaState);
-  const [showSavedMessage, setShowSavedMessage] = useState(false);
 
   const handleSave = async () => {
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
