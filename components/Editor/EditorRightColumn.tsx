@@ -1,6 +1,7 @@
 import { AiOutlineCheck } from 'react-icons/ai';
 import Button from '../Button';
 import { useState } from 'react';
+import ImageUpload from './ImageUpload';
 
 type EditorRightColumnProps = {
   handleSave: () => Promise<void>;
@@ -22,16 +23,17 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   eventId
 }) => {
   return (
-    <div className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
+    // h-screen here
+    <div className="flex w-[300px] flex-col border-l border-gray-200 bg-white">
       <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
         {showSavedMessage && (
           <div className="fixed right-0 top-0 m-4 flex items-center rounded-lg bg-white px-4 py-2 text-emerald-500 shadow-md">
-            {/* react icon  of check box down here with react-icon library */}
+            {/* react icon of check box down here with react-icon library */}
             <AiOutlineCheck className="mr-2" />
             Saved!
           </div>
         )}
-        <Button theme="primary" text="Save" onClick={handleSave} size="wide" />
+        <Button theme="primary" text="Save" onClick={handleSave} size="wide" className='bg-green-500 text-white' />
       </div>
 
       <details>
@@ -47,7 +49,8 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
           <span className="text-sm font-semibold">Image</span>
           {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
         </summary>
-        <div className="border-b border-gray-200 px-6 py-4">Demo</div>
+        <div className="border-b border-gray-200 px-6 py-4"><ImageUpload/></div>
+
       </details>
 
       <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">

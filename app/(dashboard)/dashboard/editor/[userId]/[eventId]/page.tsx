@@ -138,7 +138,7 @@ export default function Template({ params }: { params: PageProps }) {
 
   return (
     <div className="bg gray-100 flex">
-      <div className="flex h-screen flex-1 flex-col border">
+      <div className="flex flex-1 flex-col border">
         {/* Left section here */}
         <div className="p-8">
           {/* <div className="flex items-center justify-center pb-8">
@@ -206,7 +206,6 @@ export default function Template({ params }: { params: PageProps }) {
                     </div>
                   ))}
               </div>
-
               <div className="mb-4"></div>
             </div>
           </div>
