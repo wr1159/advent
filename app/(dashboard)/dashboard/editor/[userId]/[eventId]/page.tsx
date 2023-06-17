@@ -1,9 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import Button from '@/components/Button';
+import React, { useState } from 'react';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
-import { AiOutlineCheck } from 'react-icons/ai';
-import queryForTemplate from '@/utils/queryTemplate';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import EditorRightColumn from '@/components/Editor/EditorRightColumn';
 
@@ -21,58 +18,12 @@ interface PageProps {
 }
 
 export default function Template({ params }: { params: PageProps }) {
-  const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([
-    {
-      id: 0,
-      label: 'Background Colour',
-      accessKey: 'bgColour',
-      type: 'color',
-      placeholder: '#ffffff'
-    },
-    {
-      id: 1,
-      label: 'Text Colour',
-      accessKey: 'textColour',
-      type: 'color',
-      placeholder: '#000000'
-    },
-    {
-      id: 2,
-      label: 'Title',
-      accessKey: 'title',
-      type: 'text',
-      placeholder: 'Coolest Event Ever'
-    },
-    {
-      id: 3,
-      label: 'Description',
-      accessKey: 'description',
-      type: 'text',
-      placeholder: 'Enter the event description'
-    },
-    {
-      id: 4,
-      label: 'Date',
-      accessKey: 'date',
-      type: 'date',
-      placeholder: 'Enter the event date'
-    },
-    {
-      id: 5,
-      label: 'Location',
-      accessKey: 'location',
-      type: 'text',
-      placeholder: 'Enter the event location'
-    }
-  ]);
-
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
   const handleWYSIWYGChange = (content: string, delta: any) => {
     setHTMLState(content);
     setDeltaState(delta);
   };
-  console.log(eventInfoList.length);
   console.log('htmlState', htmlState);
   console.log('deltaState', deltaState);
   const [showSavedMessage, setShowSavedMessage] = useState(false);
@@ -92,10 +43,6 @@ export default function Template({ params }: { params: PageProps }) {
     setTimeout(() => {
       setShowSavedMessage(false);
     }, 3000);
-  };
-
-  const handleDeleteEventInfo = (id: number) => {
-    setEventInfoList(eventInfoList.filter((eventInfo) => eventInfo.id !== id));
   };
 
   return (
