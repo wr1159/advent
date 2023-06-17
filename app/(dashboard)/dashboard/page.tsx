@@ -5,6 +5,7 @@ import { EventItem } from '@/components/EventItem';
 import CreateEventForm from '@/components/CreateEventForm';
 import queryForEvents, { Event } from '@/utils/event-query';
 import getUserId from '@/utils/getUser';
+import { parse, compareDesc } from 'date-fns';
 export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);
   const [uid, setUid] = useState<string>('');
@@ -16,7 +17,14 @@ export default function Dashboard() {
         if (fetchedEvents) {
           console.log('2');
           // sort by descending order
-          setEvents(fetchedEvents.sort((a, b) => (a.date < b.date ? 1 : -1)));
+          console.log(fetchedEvents);
+          const sortedEvents = fetchedEvents.sort((a, b) => {
+            const dateA = parse(a.date, 'dd/MM/yyyy, HH:mm:ss', new Date());
+            const dateB = parse(b.date, 'dd/MM/yyyy, HH:mm:ss', new Date());
+            return compareDesc(dateA, dateB);
+          });
+          console.log(sortedEvents);
+          setEvents(sortedEvents);
         }
         const userId = (await getUserId()) ?? '';
         if (userId !== '') {

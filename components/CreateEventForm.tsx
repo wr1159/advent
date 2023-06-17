@@ -63,7 +63,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
     const eventCollectionRef = collection(userDocRef, 'events');
     const CreatedEventRef = await addDoc(eventCollectionRef, {
       event_name: eventName,
-      timestamp: datetime.toLocaleString()
+      timestamp: datetime.toLocaleString('en-GB')
     });
 
     const templateCollectionRef: CollectionReference = collection(
