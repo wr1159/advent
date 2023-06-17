@@ -6,7 +6,6 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import queryForTemplate from '@/utils/queryTemplate';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import EditorRightColumn from '@/components/Editor/EditorRightColumn';
-import { DeltaOperation } from 'quill';
 
 interface EventInfo {
   id: number;
@@ -69,33 +68,14 @@ export default function Template({ params }: { params: PageProps }) {
 
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
-  const handleWYSIWYGChange = (content: string, delta: DeltaOperation) => {
+  const handleWYSIWYGChange = (content: string, delta: any) => {
     setHTMLState(content);
     setDeltaState(delta);
   };
   console.log(eventInfoList.length);
   console.log('htmlState', htmlState);
   console.log('deltaState', deltaState);
-  const [newEventLabel, setNewEventLabel] = useState('');
   const [showSavedMessage, setShowSavedMessage] = useState(false);
-
-  const handleAddEventInfo = () => {
-    if (newEventLabel.trim() === '') {
-      return;
-    }
-
-    const newEventInfo: EventInfo = {
-      id: eventInfoList.length + 1,
-      label: newEventLabel,
-      // accessorKey removes all space and converts to lowercase
-      accessKey: newEventLabel.replace(/\s/g, '').toLowerCase(),
-      type: 'text',
-      placeholder: ''
-    };
-
-    setEventInfoList([...eventInfoList, newEventInfo]);
-    setNewEventLabel('');
-  };
 
   const handleSave = async () => {
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
@@ -127,83 +107,11 @@ export default function Template({ params }: { params: PageProps }) {
             content={htmlState}
             handleChange={handleWYSIWYGChange}
           />
-          {/* <div className="flex items-center justify-center pb-8">
-            <Button
-              text="View Event Landing Page"
-              href={`/event/${params.userId}/${params.eventId}`}
-              className="items"
-              theme="secondary"
-            />
-          </div> */}
-          <div className="mx-auto max-w-md rounded bg-white p-6">
-            <h2 className="mb-4 text-2xl font-bold">Event Information:</h2>
-            <div>
-              <div className="grid grid-cols-2 gap-2">
-                {eventInfoList
-                  .filter((eventInfo) => eventInfo.type === 'color')
-                  .map((eventInfo) => (
-                    <div
-                      className="rounded-md border bg-background p-4"
-                      key={eventInfo.id}
-                    >
-                      <h2 className="font-bold text-gray-700">
-                        {eventInfo.label}
-                      </h2>
-                      <input
-                        type={eventInfo.type}
-                        name={eventInfo.label.toLowerCase()}
-                        placeholder={eventInfo.placeholder}
-                        className="my-2 w-full appearance-none rounded-md border-none"
-                      />
-                    </div>
-                  ))}
-              </div>
-              <div className="my-4 rounded-md border bg-background p-4 ">
-                {eventInfoList
-                  .filter((eventInfo) => eventInfo.type !== 'color')
-                  .map((eventInfo) => (
-                    <div key={eventInfo.id} className="mb-4">
-                      <label className="mb-2 block font-bold text-gray-700">
-                        {eventInfo.label}:
-                      </label>
-                      <div className="flex">
-                        <input
-                          type={eventInfo.type}
-                          name={eventInfo.label.toLowerCase()}
-                          placeholder={eventInfo.placeholder}
-                          className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-                        />
-                        {eventInfo.id > 6 && ( // Render delete button for newly added events
-                          <Button
-                            text="Delete"
-                            size="sm"
-                            className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
-                            onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                          />
-                          // <button
-                          //   type="button"
-                          //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                          //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-                          // >
-                          //   Delete
-                          // </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
-              <div className="mb-4"></div>
-            </div>
-          </div>
         </div>
       </div>
       <EditorRightColumn
         handleSave={handleSave}
-        handleAddEventInfo={handleAddEventInfo}
         showSavedMessage={showSavedMessage}
-        newEventLabel={newEventLabel}
-        setNewEventLabel={setNewEventLabel}
         userId={params.userId}
         eventId={params.eventId}
       />

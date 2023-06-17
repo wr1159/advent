@@ -1,23 +1,15 @@
 import { AiOutlineCheck } from 'react-icons/ai';
 import Button from '../Button';
-import { useState } from 'react';
-
 type EditorRightColumnProps = {
   handleSave: () => Promise<void>;
-  handleAddEventInfo: () => void;
   showSavedMessage: boolean;
-  newEventLabel: string;
-  setNewEventLabel: React.Dispatch<React.SetStateAction<string>>;
   userId: string;
   eventId: string;
 };
 
 const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   handleSave,
-  handleAddEventInfo,
   showSavedMessage,
-  newEventLabel,
-  setNewEventLabel,
   userId,
   eventId
 }) => {
@@ -56,22 +48,6 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
           href={`/event/${userId}/${eventId}`}
           className="items"
           theme="secondary"
-        />
-      </div>
-      <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
-        <input
-          type="text"
-          value={newEventLabel}
-          onChange={(e) => setNewEventLabel(e.target.value)}
-          placeholder="Enter label for new event information"
-          className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-        />
-        <Button
-          text="Add"
-          theme="secondary"
-          size="sm"
-          className="ml-2 w-20"
-          onClick={handleAddEventInfo}
         />
       </div>
     </div>
