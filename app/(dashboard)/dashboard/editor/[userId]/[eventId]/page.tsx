@@ -11,6 +11,9 @@ interface PageProps {
 }
 
 export default function Template({ params }: { params: PageProps }) {
+  const [data, setData] = useState<Record<string, string>>({});
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const [textColor, setTextColor] = useState<string>('');
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
   const [showSavedMessage, setShowSavedMessage] = useState(false);
@@ -30,6 +33,7 @@ export default function Template({ params }: { params: PageProps }) {
         );
         if (templateData) {
           console.log(templateData);
+          setData(templateData);
           setHTMLState(templateData.htmlContent);
         }
       } catch (error) {
@@ -42,13 +46,13 @@ export default function Template({ params }: { params: PageProps }) {
   const handleSave = async () => {
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
-    saveTemplate(
-      htmlState,
-      deltaState,
-      params.userId,
-      params.eventId,
-      firstTemplateId
-    );
+    const data = {
+      htmlState: htmlState,
+      deltaState: JSON.stringify(deltaState),
+      backgroundColor: backgroundColor,
+      textColor: textColor
+    };
+    saveTemplate(data, params.userId, params.eventId, firstTemplateId);
 
     setShowSavedMessage(true);
     setTimeout(() => {
@@ -72,6 +76,10 @@ export default function Template({ params }: { params: PageProps }) {
         showSavedMessage={showSavedMessage}
         userId={params.userId}
         eventId={params.eventId}
+        backgroundColor={data.backgroundColor || '#000000'}
+        textColor={data.textColor || '#ffffff'}
+        setBackgroundColor={setBackgroundColor}
+        setTextColor={setTextColor}
       />
     </div>
   );

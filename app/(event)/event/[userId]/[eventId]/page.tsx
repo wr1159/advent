@@ -42,7 +42,10 @@ export default function Template({ params }: { params: PageProps }) {
         'flex h-screen flex-col p-4',
         `text-[${data['textColour']}]`
       )}
-      style={{ color: data['textColour'], backgroundColor: data['bgColour'] }}
+      style={{
+        color: data['textColor'],
+        backgroundColor: data['backgroundColor']
+      }}
     >
       {isLoading ? (
         <Loader />

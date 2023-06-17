@@ -42,8 +42,11 @@ export async function getAllTemplateIds(userId: string, eventId: string) {
 
 export default function saveTemplate(
   // data: StyledText[],
-  htmlContent: string,
-  deltaState: any,
+  data: Record<string, string>,
+  // htmlContent: string,
+  // deltaState: any,
+  // backgroundColor: string,
+  // textColor: string,
   // data: string[],
   user_id: string,
   event_id: string,
@@ -58,11 +61,11 @@ export default function saveTemplate(
   //   result[item.label] = item.value;
   //   return result;
   // }, {});
-  const result= {
-    htmlContent: htmlContent,
-    deltaState: JSON.stringify(deltaState)
-  }
+  // const result= {
+  //   htmlContent: htmlContent,
+  //   deltaState: JSON.stringify(deltaState)
+  // }
 
 
-  setDoc(templateRef, result, { merge: true });
+  setDoc(templateRef, data, { merge: true });
 }
