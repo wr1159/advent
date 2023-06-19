@@ -1,5 +1,6 @@
 import { AiOutlineCheck } from 'react-icons/ai';
 import Button from '../Button';
+import { useState } from 'react';
 type EditorRightColumnProps = {
   handleSave: () => Promise<void>;
   showSavedMessage: boolean;
@@ -21,18 +22,51 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   setBackgroundColor,
   setTextColor
 }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    const iframe = `<iframe src="https://advent-beta.vercel.app/event/${userId}/${eventId}" frameborder="0" width="100%" style="height: 100vh"></iframe>`;
+    navigator.clipboard
+      .writeText(iframe)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error('Failed to copy iframe:', error);
+      });
+  };
+
   return (
     <div className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
-      <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
-        {showSavedMessage && (
-          <div className="fixed right-0 top-0 m-4 flex items-center rounded-lg bg-white px-4 py-2 text-emerald-500 shadow-md">
-            {/* react icon  of check box down here with react-icon library */}
-            <AiOutlineCheck className="mr-2" />
-            Saved!
-          </div>
-        )}
-        <Button theme="primary" text="Save" onClick={handleSave} size="wide" />
+      <div className="flex-col space-y-4 border-b border-gray-200 py-5">
+        <div className="h-18 flex items-center justify-center px-3">
+          {showSavedMessage && (
+            <div className="fixed right-0 top-0 m-4 flex items-center rounded-lg bg-white px-4 py-2 text-emerald-500 shadow-md">
+              {/* react icon  of check box down here with react-icon library */}
+              <AiOutlineCheck className="mr-2" />
+              Saved!
+            </div>
+          )}
+          <Button
+            theme="primary"
+            text="Save"
+            onClick={handleSave}
+            size="wide"
+          />
+        </div>
+        <div className="h-18 flex items-center justify-center px-3">
+          <Button
+            theme="secondary"
+            text={isCopied ? 'Copied!' : 'Copy Iframe'}
+            onClick={handleCopy}
+            size="wide"
+          />
+        </div>
       </div>
+
       <details>
         <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
           <span className="text-sm font-semibold">Colour</span>
