@@ -47,7 +47,7 @@ export default function Template({ params }: { params: PageProps }) {
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
     const data = {
-      htmlState: htmlState,
+      htmlContent: htmlState,
       deltaState: JSON.stringify(deltaState),
       backgroundColor: backgroundColor,
       textColor: textColor
