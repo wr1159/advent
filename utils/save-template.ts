@@ -1,10 +1,7 @@
 import app, { firestore } from '../firebaseconfig';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
-import {
-  DocumentReference,
-  DocumentData
-} from 'firebase/firestore';
+import { DocumentReference, DocumentData } from 'firebase/firestore';
 
 // import { userID } from '../app/(auth)/login/page';
 
@@ -65,7 +62,6 @@ export default function saveTemplate(
   //   htmlContent: htmlContent,
   //   deltaState: JSON.stringify(deltaState)
   // }
-
 
   setDoc(templateRef, data, { merge: true });
 }
