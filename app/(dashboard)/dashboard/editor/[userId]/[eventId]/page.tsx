@@ -11,9 +11,8 @@ interface PageProps {
 }
 
 export default function Template({ params }: { params: PageProps }) {
-  const [data, setData] = useState<Record<string, string>>({});
-  const [backgroundColor, setBackgroundColor] = useState<string>('');
-  const [textColor, setTextColor] = useState<string>('');
+  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  const [textColor, setTextColor] = useState<string>('#000000');
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
   const [showSavedMessage, setShowSavedMessage] = useState(false);
@@ -33,8 +32,9 @@ export default function Template({ params }: { params: PageProps }) {
         );
         if (templateData) {
           console.log(templateData);
-          setData(templateData);
           setHTMLState(templateData.htmlContent);
+          setBackgroundColor(templateData.backgroundColor);
+          setTextColor(templateData.textColor);
         }
       } catch (error) {
         console.error('Error querying for events:', error);
@@ -76,8 +76,8 @@ export default function Template({ params }: { params: PageProps }) {
         showSavedMessage={showSavedMessage}
         userId={params.userId}
         eventId={params.eventId}
-        backgroundColor={data.backgroundColor || '#000000'}
-        textColor={data.textColor || '#ffffff'}
+        backgroundColor={backgroundColor || '#fffff'}
+        textColor={textColor || '#000000'}
         setBackgroundColor={setBackgroundColor}
         setTextColor={setTextColor}
       />

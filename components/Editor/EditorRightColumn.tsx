@@ -38,7 +38,6 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
         console.error('Failed to copy iframe:', error);
       });
   };
-
   return (
     <div className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
       <div className="flex-col space-y-4 border-b border-gray-200 py-5">
@@ -72,25 +71,30 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
           <span className="text-sm font-semibold">Colour</span>
           {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
         </summary>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="rounded-md border bg-background p-4">
-            <h2 className="font-bold text-gray-700">Background Color</h2>
+        <div className="grid grid-cols-2 gap-2 p-2 text-sm">
+          <div className="rounded-md border bg-background p-2">
+            <h2 className="font-bold text-gray-700">Background</h2>
             <input
               type="color"
               name="backgroundColor"
               placeholder={backgroundColor}
               className="my-2 w-full appearance-none rounded-md border-none"
-              onChange={(event) => setBackgroundColor(event.target.value)}
+              onChange={(event) => {
+                setBackgroundColor(event.target.value);
+              }}
+              value={backgroundColor}
             />
           </div>
-          <div className="rounded-md border bg-background p-4">
-            <h2 className="font-bold text-gray-700">Text Color</h2>
+          <div className="rounded-md border bg-background p-2">
+            <h2 className="font-bold text-gray-700">Text</h2>
             <input
               type="color"
               name="textColor"
-              placeholder={textColor}
               className="my-2 w-full appearance-none rounded-md border-none"
-              onChange={(event) => setTextColor(event.target.value)}
+              onChange={(event) => {
+                setTextColor(event.target.value);
+              }}
+              value={textColor}
             />
           </div>
         </div>
