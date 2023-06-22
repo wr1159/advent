@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
-import { AiOutlineCheck } from 'react-icons/ai';
 import queryForTemplate from '@/utils/queryTemplate';
 import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn';
 
-interface EventInfo {
+interface AttendeeInfo {
   id: number;
   label: string;
   accessKey: string;
@@ -18,76 +17,128 @@ interface PageProps {
   userId: string;
   eventId: string;
 }
+//MOVE THIS TO NEW COMPONENT
+export default function AttendeeFormEditor({ params }: { params: PageProps }) {
+  // This data is the previously saved template.
+  const [attendeeInfoList, setAttendeeInfoList] = useState<AttendeeInfo[]>([]);
 
-export default function Template({ params }: { params: PageProps }) {
-  const [eventInfoList, setEventInfoList] = useState<EventInfo[]>([
-    {
-      id: 0,
-      label: 'Background Colour',
-      accessKey: 'bgColour',
-      type: 'color',
-      placeholder: '#ffffff'
-    },
-    {
-      id: 1,
-      label: 'Text Colour',
-      accessKey: 'textColour',
-      type: 'color',
-      placeholder: '#000000'
-    },
-    {
-      id: 2,
-      label: 'Title',
-      accessKey: 'title',
-      type: 'text',
-      placeholder: 'Coolest Event Ever'
-    },
-    {
-      id: 3,
-      label: 'Description',
-      accessKey: 'description',
-      type: 'text',
-      placeholder: 'Enter the event description'
-    },
-    {
-      id: 4,
-      label: 'Date',
-      accessKey: 'date',
-      type: 'date',
-      placeholder: 'Enter the event date'
-    },
-    {
-      id: 5,
-      label: 'Location',
-      accessKey: 'location',
-      type: 'text',
-      placeholder: 'Enter the event location'
-    }
-  ]);
-  console.log(eventInfoList.length);
-  const [newEventLabel, setNewEventLabel] = useState('');
+  const [bgColor, setBgColor] = useState('#ffffff');
+  const [textColor, setTextColor] = useState('#000000');
+
+  const handleBgColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBgColor(event.target.value);
+  };
+
+  const handleTextColorChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setTextColor(event.target.value);
+  };
+
+  const capitalizeFirstLetter = (str: string): string =>
+    `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
+
+  let defaultList: AttendeeInfo[] = [];
+
+  useEffect(() => {
+    const fetchTemplate = async () => {
+      try {
+        console.log('trying to queryForTemplate');
+        console.log(
+          'userID: ' + params.userId + ' ;eventID: ' + params.eventId
+        );
+        const templateData = await queryForTemplate(
+          params.userId,
+          params.eventId
+        );
+
+        // if there is templateData and event_id isnt the only key in that templateData
+        if (templateData && Object.keys(templateData)[0] != 'event_id') {
+          console.log('templateData', templateData);
+          // Rendering main form
+          let i = 0;
+          defaultList = Object.entries(templateData)
+            .filter(
+              ([key, value]) =>
+                key !== 'event_id' && key !== 'bgColor' && key !== 'textColor'
+            )
+            .map(([key, value], index) => ({
+              id:
+                key === 'name'
+                  ? 0
+                  : key === 'email'
+                  ? 1
+                  : key === 'birthday'
+                  ? 2
+                  : 3 + i++,
+              label: capitalizeFirstLetter(key),
+              accessKey: key,
+              type: key === 'birthday' ? 'date' : 'text',
+              placeholder: 'Enter your ' + key
+            }))
+            .sort((a, b) => a.id - b.id);
+
+          // Rendering colors
+          console.log(templateData['bgColor']);
+          setBgColor(templateData['bgColor']);
+          setTextColor(templateData['textColor']);
+        } else {
+          defaultList = [
+            {
+              id: 0,
+              label: 'Name',
+              accessKey: 'name',
+              type: 'text',
+              placeholder: 'Enter your name'
+            },
+            {
+              id: 1,
+              label: 'Email',
+              accessKey: 'email',
+              type: 'email',
+              placeholder: 'Enter your email'
+            },
+            {
+              id: 2,
+              label: 'Date of birth',
+              accessKey: 'birthday',
+              type: 'date',
+              placeholder: 'Enter your date of birth'
+            }
+          ];
+        }
+        setAttendeeInfoList(defaultList);
+      } catch (error) {
+        console.error('Error querying for attendees:', error);
+      }
+    };
+    fetchTemplate();
+  }, []);
+
+  console.log(attendeeInfoList.length);
+  const [newAttendeeLabel, setNewAttendeeLabel] = useState('');
   const [showSavedMessage, setShowSavedMessage] = useState(false);
 
-  const handleAddEventInfo = () => {
-    if (newEventLabel.trim() === '') {
+  const handleAddAttendeeInfo = () => {
+    if (newAttendeeLabel.trim() === '') {
       return;
     }
 
-    const newEventInfo: EventInfo = {
-      id: eventInfoList.length + 1,
-      label: newEventLabel,
+    const newAttendeeInfo: AttendeeInfo = {
+      id: attendeeInfoList.length + 1,
+      label: newAttendeeLabel,
       // accessorKey removes all space and converts to lowercase
-      accessKey: newEventLabel.replace(/\s/g, '').toLowerCase(),
+      accessKey: newAttendeeLabel.replace(/\s/g, '').toLowerCase(),
       type: 'text',
       placeholder: ''
     };
 
-    setEventInfoList([...eventInfoList, newEventInfo]);
-    setNewEventLabel('');
+    setAttendeeInfoList([...attendeeInfoList, newAttendeeInfo]);
+    setNewAttendeeLabel('');
   };
 
   const handleSave = async () => {
-    const data = eventInfoList.map((info) => ({
+    const formData = attendeeInfoList.map((info) => ({
       label: info.accessKey,
       value: (
         document.querySelector(
@@ -95,6 +146,11 @@ export default function Template({ params }: { params: PageProps }) {
         ) as HTMLInputElement
       ).value
     }));
+
+    const bgColorData = { label: 'bgColor', value: bgColor };
+    const textColorData = { label: 'textColor', value: textColor };
+
+    const data = formData.concat(bgColorData, textColorData);
     // query for templateId here
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
@@ -103,7 +159,6 @@ export default function Template({ params }: { params: PageProps }) {
     console.log('data saved', data);
 
     setShowSavedMessage(true);
-    // Insert save logic here
 
     // Clear the saved message after 3 seconds
     setTimeout(() => {
@@ -111,96 +166,67 @@ export default function Template({ params }: { params: PageProps }) {
     }, 3000);
   };
 
-  const handleDeleteEventInfo = (id: number) => {
-    setEventInfoList(eventInfoList.filter((eventInfo) => eventInfo.id !== id));
+  const handleDeleteAttendeeInfo = (id: number) => {
+    setAttendeeInfoList(
+      attendeeInfoList.filter((attendeeInfo) => attendeeInfo.id !== id)
+    );
   };
 
   return (
     <div className="bg gray-100 flex">
-      <div className="flex h-screen flex-1 flex-col border">
+      <div className="flex flex-1 flex-col border">
         {/* Left section here */}
         <div className="p-8">
-          {/* <div className="flex items-center justify-center pb-8">
-            <Button
-              text="View Event Landing Page"
-              href={`/event/${params.userId}/${params.eventId}`}
-              className="items"
-              theme="secondary"
-            />
-          </div> */}
           <div className="mx-auto max-w-md rounded bg-white p-6">
-            <h2 className="mb-4 text-2xl font-bold">Event Information:</h2>
-            <div>
-              <div className="grid grid-cols-2 gap-2">
-                {eventInfoList
-                  .filter((eventInfo) => eventInfo.type === 'color')
-                  .map((eventInfo) => (
-                    <div
-                      className="rounded-md border bg-background p-4"
-                      key={eventInfo.id}
-                    >
-                      <h2 className="font-bold text-gray-700">
-                        {eventInfo.label}
-                      </h2>
-                      <input
-                        type={eventInfo.type}
-                        name={eventInfo.label.toLowerCase()}
-                        placeholder={eventInfo.placeholder}
-                        className="my-2 w-full appearance-none rounded-md border-none"
-                      />
-                    </div>
-                  ))}
-              </div>
-              <div className="my-4 rounded-md border bg-background p-4 ">
-                {eventInfoList
-                  .filter((eventInfo) => eventInfo.type !== 'color')
-                  .map((eventInfo) => (
-                    <div key={eventInfo.id} className="mb-4">
-                      <label className="mb-2 block font-bold text-gray-700">
-                        {eventInfo.label}:
-                      </label>
-                      <div className="flex">
-                        <input
-                          type={eventInfo.type}
-                          name={eventInfo.label.toLowerCase()}
-                          placeholder={eventInfo.placeholder}
-                          className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
-                        />
-                        {eventInfo.id > 6 && ( // Render delete button for newly added events
-                          <Button
-                            text="Delete"
-                            size="sm"
-                            className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
-                            onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                          />
-                          // <button
-                          //   type="button"
-                          //   onClick={() => handleDeleteEventInfo(eventInfo.id)}
-                          //   className="ml-2 rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-                          // >
-                          //   Delete
-                          // </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-              </div>
+            <h2 className="mb-4 text-2xl font-bold">Attendee Form:</h2>
 
-              <div className="mb-4"></div>
+            <div className="my-4 rounded-md border bg-background p-4 ">
+              {attendeeInfoList
+                .filter((attendeeInfo) => attendeeInfo.type !== 'color')
+                .map((attendeeInfo) => (
+                  <div key={attendeeInfo.id} className="mb-4">
+                    <label className="mb-2 block font-bold text-gray-700">
+                      {attendeeInfo.label}:
+                    </label>
+                    <div className="flex">
+                      <input
+                        type={attendeeInfo.type}
+                        name={attendeeInfo.label.toLowerCase()}
+                        placeholder={attendeeInfo.placeholder}
+                        className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+                        readOnly
+                      />
+                      {attendeeInfo.id > 2 && ( // Render delete button for newly added attendees
+                        <Button
+                          text="Delete"
+                          size="sm"
+                          className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
+                          onClick={() =>
+                            handleDeleteAttendeeInfo(attendeeInfo.id)
+                          }
+                        />
+                      )}
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
       </div>
-      {/* <EditorRightColumn
+
+      <EditorRightColumn
         handleSave={handleSave}
-        colors = {}
-        handleAddEventInfo={handleAddEventInfo}
+        handleAddEventInfo={handleAddAttendeeInfo}
         showSavedMessage={showSavedMessage}
-        newEventLabel={newEventLabel}
-        setNewEventLabel={setNewEventLabel}
+        newEventLabel={newAttendeeLabel}
+        setNewEventLabel={setNewAttendeeLabel}
+        bgColor={bgColor}
+        textColor={textColor}
+        handleBgColorChange={handleBgColorChange}
+        handleTextColorChange={handleTextColorChange}
         userId={params.userId}
         eventId={params.eventId}
-      /> */}
+      />
     </div>
   );
 }
