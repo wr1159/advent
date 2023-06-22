@@ -3,6 +3,7 @@ import Loader from '@/components/Loader';
 import queryForTemplate from '@/utils/queryTemplate';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import 'react-quill/dist/quill.snow.css';
 
 interface PageProps {
   userId: string;
@@ -29,43 +30,30 @@ export default function Template({ params }: { params: PageProps }) {
       } catch (error) {
         console.error('Error querying for events:', error);
       }
+      setIsLoading(false);
     };
 
     fetchTemplate();
-    setIsLoading(false);
   }, []);
 
   return (
     <div
       className={twMerge(
-        'flex  h-screen flex-col items-center p-8',
-        `bg-[${data['bgColour']}]`,
+        'flex h-screen flex-col p-4',
         `text-[${data['textColour']}]`
       )}
-      style={{ color: data['textColour'], backgroundColor: data['bgColour'] }}
+      style={{
+        color: data['textColor'],
+        backgroundColor: data['backgroundColor']
+      }}
     >
       {isLoading ? (
         <Loader />
       ) : (
-        Object.entries(data).map(([key, value]) => {
-          if (
-            key !== 'title' &&
-            key !== 'description' &&
-            key !== 'date' &&
-            key !== 'location' &&
-            key !== 'event_id' &&
-            key !== 'bgColour' &&
-            key !== 'textColour'
-          ) {
-            return (
-              <div className="mb-4" key={key}>
-                <h3 className="mb-2 text-lg font-semibold">{key}</h3>
-                <p className={'text-' + value}>{value}</p>
-              </div>
-            );
-          }
-          return null;
-        })
+        <div
+          className="view ql-editor"
+          dangerouslySetInnerHTML={{ __html: data.htmlContent }}
+        />
       )}
     </div>
   );
