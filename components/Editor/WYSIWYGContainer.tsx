@@ -35,9 +35,9 @@ const WYSIWYGContainer: React.FC<WYSIWYGContainerProps> = ({
   };
 
   return (
-    <div className="h-screen w-full overflow-auto">
+    <div className="h-screen w-full">
       <ReactQuill
-        className="h-full"
+        className="h-full break-all"
         value={content}
         onChange={handleChange}
         modules={modules}
