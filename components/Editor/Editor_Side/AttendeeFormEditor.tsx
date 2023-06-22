@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import queryForTemplate from '@/utils/queryTemplate';
-import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn';
+import EditorColumn from './EditorColumn';
 
 interface AttendeeInfo {
   id: number;
@@ -17,29 +17,25 @@ interface PageProps {
   userId: string;
   eventId: string;
 }
-//MOVE THIS TO NEW COMPONENT
-export default function AttendeeFormEditor({ params }: { params: PageProps }) {
-  // This data is the previously saved template.
-  const [attendeeInfoList, setAttendeeInfoList] = useState<AttendeeInfo[]>([]);
-
-  const [bgColor, setBgColor] = useState('#ffffff');
-  const [textColor, setTextColor] = useState('#000000');
-
-  const handleBgColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setBgColor(event.target.value);
-  };
-
-  const handleTextColorChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTextColor(event.target.value);
-  };
-
+//needs
+export default function NewAttendeeFormEditor({
+  params,
+  attendeeInfoList,
+  setAttendeeInfoList,
+  setBackgroundColor,
+  setTextColor
+}: {
+  params: PageProps;
+  attendeeInfoList: AttendeeInfo[];
+  setAttendeeInfoList: React.Dispatch<React.SetStateAction<AttendeeInfo[]>>;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  setTextColor: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const capitalizeFirstLetter = (str: string): string =>
     `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 
   let defaultList: AttendeeInfo[] = [];
-
+  // This data is the previously saved template.
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
@@ -80,7 +76,7 @@ export default function AttendeeFormEditor({ params }: { params: PageProps }) {
 
           // Rendering colors
           console.log(templateData['bgColor']);
-          setBgColor(templateData['bgColor']);
+          setBackgroundColor(templateData['bgColor']);
           setTextColor(templateData['textColor']);
         } else {
           defaultList = [
@@ -117,7 +113,6 @@ export default function AttendeeFormEditor({ params }: { params: PageProps }) {
 
   console.log(attendeeInfoList.length);
   const [newAttendeeLabel, setNewAttendeeLabel] = useState('');
-  const [showSavedMessage, setShowSavedMessage] = useState(false);
 
   const handleAddAttendeeInfo = () => {
     if (newAttendeeLabel.trim() === '') {
@@ -137,35 +132,6 @@ export default function AttendeeFormEditor({ params }: { params: PageProps }) {
     setNewAttendeeLabel('');
   };
 
-  const handleSave = async () => {
-    const formData = attendeeInfoList.map((info) => ({
-      label: info.accessKey,
-      value: (
-        document.querySelector(
-          `input[name="${info.label.toLowerCase()}"]`
-        ) as HTMLInputElement
-      ).value
-    }));
-
-    const bgColorData = { label: 'bgColor', value: bgColor };
-    const textColorData = { label: 'textColor', value: textColor };
-
-    const data = formData.concat(bgColorData, textColorData);
-    // query for templateId here
-    const templateId = await getAllTemplateIds(params.userId, params.eventId);
-    const firstTemplateId = templateId[0];
-    saveTemplate(data, params.userId, params.eventId, firstTemplateId);
-
-    console.log('data saved', data);
-
-    setShowSavedMessage(true);
-
-    // Clear the saved message after 3 seconds
-    setTimeout(() => {
-      setShowSavedMessage(false);
-    }, 3000);
-  };
-
   const handleDeleteAttendeeInfo = (id: number) => {
     setAttendeeInfoList(
       attendeeInfoList.filter((attendeeInfo) => attendeeInfo.id !== id)
@@ -173,9 +139,6 @@ export default function AttendeeFormEditor({ params }: { params: PageProps }) {
   };
 
   return (
-    <div className="bg gray-100 flex">
-      <div className="flex flex-1 flex-col border">
-        {/* Left section here */}
         <div className="p-8">
           <div className="mx-auto max-w-md rounded bg-white p-6">
             <h2 className="mb-4 text-2xl font-bold">Attendee Form:</h2>
@@ -210,23 +173,29 @@ export default function AttendeeFormEditor({ params }: { params: PageProps }) {
                   </div>
                 ))}
             </div>
+            <div className="mb-4">
+            <label className="mb-2 block font-bold text-gray-700">
+              New Attendee Info Label:
+            </label>
+            <div className="flex">
+              <input
+                type="text"
+                value={newAttendeeLabel}
+                onChange={(e) => setNewAttendeeLabel(e.target.value)}
+                placeholder="Enter label for new attendee information"
+                className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+              />
+              <Button
+                text="Add"
+                theme="secondary"
+                size="sm"
+                className="ml-2 w-20"
+                onClick={handleAddAttendeeInfo}
+              />
+              <div className="mb-4"></div>
+            </div>
+          </div>
           </div>
         </div>
-      </div>
-
-      <EditorRightColumn
-        handleSave={handleSave}
-        handleAddEventInfo={handleAddAttendeeInfo}
-        showSavedMessage={showSavedMessage}
-        newEventLabel={newAttendeeLabel}
-        setNewEventLabel={setNewAttendeeLabel}
-        bgColor={bgColor}
-        textColor={textColor}
-        handleBgColorChange={handleBgColorChange}
-        handleTextColorChange={handleTextColorChange}
-        userId={params.userId}
-        eventId={params.eventId}
-      />
-    </div>
   );
 }
