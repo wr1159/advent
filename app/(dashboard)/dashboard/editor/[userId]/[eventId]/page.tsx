@@ -76,8 +76,8 @@ export default function Template({ params }: { params: PageProps }) {
         showSavedMessage={showSavedMessage}
         userId={params.userId}
         eventId={params.eventId}
-        backgroundColor={backgroundColor || '#fffff'}
-        textColor={textColor || '#000000'}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
         setBackgroundColor={setBackgroundColor}
         setTextColor={setTextColor}
       />
