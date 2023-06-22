@@ -71,5 +71,5 @@ export default function saveTemplate(
   //   // additional:
   // };
 
-  setDoc(templateRef, added, { merge: true });
+  setDoc(templateRef, added);
 }
