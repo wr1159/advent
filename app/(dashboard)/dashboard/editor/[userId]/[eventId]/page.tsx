@@ -77,7 +77,6 @@ export default function Template({ params }: { params: PageProps }) {
   return (
     <div className="bg gray-100 flex">
       <div className="flex flex-1 flex-col border">
-        {showEditor ? (
           <AttendeeFormEditor
             params={params}
             attendeeInfoList={attendeeInfoList}
@@ -85,9 +84,6 @@ export default function Template({ params }: { params: PageProps }) {
             setBackgroundColor={setBackgroundColor}
             setTextColor={setTextColor}
           />
-        ) : (
-          <QuillEditor params={params} />
-        )}
       </div>
       <EditorColumn
         handleSave={handleSave}
