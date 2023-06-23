@@ -83,9 +83,9 @@ export default function PreviewForm({
 
   const { steps, step, currentStepIndex, isFirstStep, back, isLastStep, next } =
     useMultistepForm([
-      <DataPage data={data} updateFields={updateFields} key ={0} />,
+      <DataPage data={data} updateFields={updateFields} key={0} />,
       // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
-      <PaymentPage data={data} updateFields={updateFields} key = {1}/>
+      <PaymentPage data={data} updateFields={updateFields} key={1} />
     ]);
 
   const handleSubmit = (e: FormEvent) => {

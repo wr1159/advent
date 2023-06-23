@@ -87,8 +87,8 @@ export default function TimeSlotSelectionPage({
         <div className="ml-8 ">
           <h2 className="mb-6 text-2xl font-bold">Select Timeslots</h2>
           <div className="space-y-2">
-            {timeSlotsOptions.map((timeslot , index) => (
-              <label key = {index} className="flex items-center">
+            {timeSlotsOptions.map((timeslot, index) => (
+              <label key={index} className="flex items-center">
                 <input
                   type="checkbox"
                   checked={selectedTimeslots.includes(timeslot)}

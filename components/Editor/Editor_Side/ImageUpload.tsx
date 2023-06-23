@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { ref, getDownloadURL, listAll, getStorage } from 'firebase/storage';
 import Button from '@/components/Button';
-import Image from 'next/image'
+import Image from 'next/image';
 
 interface ImageUploadProps {
   userId: string;
@@ -74,7 +74,11 @@ function ImageUpload({
         <div className="mb-4 flex justify-center">
           {imageUrls.map((url, index) => (
             <div key={index} className="aspect-w-3 aspect-h-2">
-              <Image src={url} className="rounded-lg object-cover" alt ="image" />
+              <Image
+                src={url}
+                className="rounded-lg object-cover"
+                alt="image"
+              />
             </div>
           ))}
         </div>
