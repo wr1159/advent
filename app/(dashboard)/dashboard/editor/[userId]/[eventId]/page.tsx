@@ -1,10 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import AttendeeFormEditor from '@/components/Editor/Editor_Side/AttendeeFormEditor';
-import EditorColumn from '@/components/Editor/Editor_Side/EditorColumn';
+import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
-import EditorRightColumn from '@/components/Editor/EditorRightColumn';
 import queryForTemplate from '@/utils/queryTemplate';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
@@ -139,7 +138,7 @@ export default function Template({ params }: { params: PageProps }) {
         )}
       </div>
 
-      <EditorColumn
+      <EditorRightColumn
         handleSave={handleSave}
         showSavedMessage={showSavedMessage}
         userId={params.userId}

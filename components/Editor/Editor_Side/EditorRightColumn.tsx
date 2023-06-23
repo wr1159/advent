@@ -5,7 +5,6 @@ import {
 } from 'react-icons/ai';
 import Button from '../../Button';
 import { useState } from 'react';
-import ColorSelection from './ColorSelection';
 import TimeSlotInsertion from './TimeSlotInsertion';
 import ImageUpload from './ImageUpload';
 
