@@ -29,25 +29,33 @@ export type FormData = {
 
 const INITIAL_DATA: FormData = {};
 
-export default function PreviewForm({ params }: { params: PageProps }) {
+export default function PreviewForm({
+  params,
+  imageUrls,
+  setImageUrls
+}: {
+  params: PageProps;
+  imageUrls: string[];
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
   const [data, setData] = useState(INITIAL_DATA);
   // image URL to use here or pass down as prop to child components
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  // const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-  // storage and buckets as image reference
-  const storage = getStorage();
-  const bucket = ref(storage, `users/${params.userId}/${params.eventId}/1`);
+  // // storage and buckets as image reference
+  // const storage = getStorage();
+  // const bucket = ref(storage, `users/${params.userId}/${params.eventId}/1`);
 
-  // Retrieving Image logic
-  useEffect(() => {
-    listAll(bucket).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [url]);
-        });
-      });
-    });
-  }, []);
+  // // Retrieving Image logic
+  // useEffect(() => {
+  //   listAll(bucket).then((response) => {
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageUrls((prev) => [url]);
+  //       });
+  //     });
+  //   });
+  // }, []);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
