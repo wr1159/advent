@@ -22,7 +22,7 @@ export default function addAttendee(
       return obj;
     }, {} as FormData);
 
-  const attendeeDocRef = doc(attendeeCollectionRef, data['name']);
+  const attendeeDocRef = doc(attendeeCollectionRef);
 
   setDoc(attendeeDocRef, filteredData)
     .then(() => {

@@ -83,8 +83,15 @@ export default function PreviewForm({ params }: { params: PageProps }) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
+    
+    const submitTime = new Date().toISOString();
+  
+    // Concatenate the submit time to data 
+    const updatedData = { ...data, submitTime };
+  
+    addAttendee(updatedData, params.userId, params.eventId);
     alert('Successful');
-    addAttendee(data, params.userId, params.eventId);
+
   };
 
   return (

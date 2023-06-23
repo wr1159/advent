@@ -54,20 +54,3 @@ export default function DataPage({
     </FormWrapper>
   );
 }
-// export default function DataPage({ updateFields, ...formData} : DataPageProps) {
-//     Object.keys(formData).forEach((key) => {
-//     console.log(key, formData[key]);
-//     });
-
-//     return (
-//     <FormWrapper title = "Attendee Details">
-//       <label className="font-sans">Name</label>
-//       <input className="border-2 rounded-lg" autoFocus required type="text" onChange = {e => updateFields({name: e.target.value})} />
-//       <label className="font-sans">Age</label>
-//       <input className="border-2 rounded-lg" required min={1} type="number"  onChange = {e => updateFields({age: e.target.value})}/>
-//       <label className="font-sans">Email</label>
-//       <input className="border-2 rounded-lg" autoFocus required type="email" onChange = {e => updateFields({email: e.target.value})}/>
-
-//     </FormWrapper>
-//   );
-// }
