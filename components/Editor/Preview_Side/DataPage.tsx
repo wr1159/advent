@@ -31,7 +31,9 @@ export default function DataPage({
               key !== 'birthday' &&
               key !== 'email' &&
               key !== 'textColor' &&
-              key !== 'bgColor'
+              key !== 'backgroundColor' &&
+              key !== 'htmlContent' &&
+              key !== 'deltaState'
           )
           .sort()
       ].map((key) => (

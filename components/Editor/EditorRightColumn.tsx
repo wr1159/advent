@@ -1,14 +1,6 @@
-import {
-  AiOutlineArrowLeft,
-  AiOutlineArrowRight,
-  AiOutlineCheck
-} from 'react-icons/ai';
-import Button from '../../Button';
+import { AiOutlineCheck } from 'react-icons/ai';
+import Button from '../Button';
 import { useState } from 'react';
-import ColorSelection from './ColorSelection';
-import TimeSlotInsertion from './TimeSlotInsertion';
-import ImageUpload from './ImageUpload';
-
 type EditorRightColumnProps = {
   handleSave: () => Promise<void>;
   showSavedMessage: boolean;
@@ -18,15 +10,9 @@ type EditorRightColumnProps = {
   textColor: string;
   setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
   setTextColor: React.Dispatch<React.SetStateAction<string>>;
-  imageUpload: File | null;
-  setImageUpload: React.Dispatch<React.SetStateAction<File | null>>;
-  imageUrls: string[];
-  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  showEditor: boolean;
-  setShowEditor: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const EditorColumn: React.FC<EditorRightColumnProps> = ({
+const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   handleSave,
   showSavedMessage,
   userId,
@@ -34,13 +20,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
   backgroundColor,
   textColor,
   setBackgroundColor,
-  setTextColor,
-  imageUpload,
-  setImageUpload,
-  imageUrls,
-  setImageUrls,
-  showEditor,
-  setShowEditor
+  setTextColor
 }) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -59,7 +39,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
       });
   };
   return (
-    <div className="flex  w-[300px] flex-col border-l border-gray-200 bg-white">
+    <div className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
       <div className="flex-col space-y-4 border-b border-gray-200 py-5">
         <div className="h-18 flex items-center justify-center px-3">
           {showSavedMessage && (
@@ -69,14 +49,12 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
               Saved!
             </div>
           )}
-          {showEditor && (
-            <Button
-              theme="primary"
-              text="Save"
-              onClick={handleSave}
-              size="wide"
-            />
-          )}
+          <Button
+            theme="primary"
+            text="Save"
+            onClick={handleSave}
+            size="wide"
+          />
         </div>
         <div className="h-18 flex items-center justify-center px-3">
           <Button
@@ -90,32 +68,9 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
 
       <details>
         <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Navigation</span>
-          {showEditor ? (
-            <button
-              className="text-gray-400 hover:text-emerald-500"
-              onClick={() => setShowEditor(false)}
-              disabled={!showEditor}
-            >
-              <AiOutlineArrowLeft />
-            </button>
-          ) : (
-            <button
-              className="text-gray-400 hover:text-emerald-500"
-              onClick={() => setShowEditor(true)}
-              disabled={showEditor}
-            >
-              <AiOutlineArrowRight />
-            </button>
-          )}
+          <span className="text-sm font-semibold">Colour</span>
+          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
         </summary>
-      </details>
-
-      <details>
-        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Form Editor</span>
-        </summary>
-
         <div className="grid grid-cols-2 gap-2 p-2 text-sm">
           <div className="rounded-md border bg-background p-2">
             <h2 className="font-bold text-gray-700">Background</h2>
@@ -143,17 +98,21 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
             />
           </div>
         </div>
+      </details>
+      <details>
+        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+          <span className="text-sm font-semibold">Navigation</span>
+          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
+        </summary>
+        <div className="border-b border-gray-200 px-6 py-4">Demo</div>
+      </details>
 
-        <div className="border-b border-gray-200 px-6 py-4">
-          <ImageUpload
-            userId={userId}
-            eventId={eventId}
-            imageUpload={imageUpload}
-            setImageUpload={setImageUpload}
-            imageUrls={imageUrls}
-            setImageUrls={setImageUrls}
-          />
-        </div>
+      <details>
+        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+          <span className="text-sm font-semibold">Image</span>
+          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
+        </summary>
+        <div className="border-b border-gray-200 px-6 py-4">Demo</div>
       </details>
 
       <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
@@ -168,4 +127,4 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
   );
 };
 
-export default EditorColumn;
+export default EditorRightColumn;

@@ -83,15 +83,14 @@ export default function PreviewForm({ params }: { params: PageProps }) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
-    
+
     const submitTime = new Date().toISOString();
-  
-    // Concatenate the submit time to data 
+
+    // Concatenate the submit time to data
     const updatedData = { ...data, submitTime };
-  
+
     addAttendee(updatedData, params.userId, params.eventId);
     alert('Successful');
-
   };
 
   return (
@@ -100,9 +99,9 @@ export default function PreviewForm({ params }: { params: PageProps }) {
       style={{ backgroundImage: `url(${imageUrls[0]})` }}
     >
       <form onSubmit={handleSubmit}>
-        <div className="absolute right-4 top-2 ">
+        {/* <div className="absolute right-4 top-2 ">
           {currentStepIndex + 1} / {steps.length}
-        </div>
+        </div> */}
         {step}
         <div className="mt-4 flex justify-end gap-2">
           {!isFirstStep && <Button text="Back" type="button" onClick={back} />}

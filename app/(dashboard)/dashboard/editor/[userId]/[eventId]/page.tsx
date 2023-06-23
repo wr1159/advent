@@ -1,8 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AttendeeFormEditor from '@/components/Editor/Editor_Side/AttendeeFormEditor';
 import EditorColumn from '@/components/Editor/Editor_Side/EditorColumn';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
+import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
+import EditorRightColumn from '@/components/Editor/EditorRightColumn';
+import queryForTemplate from '@/utils/queryTemplate';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
 interface PageProps {
@@ -19,17 +22,43 @@ interface AttendeeInfo {
 }
 
 export default function Template({ params }: { params: PageProps }) {
-  const [showEditor, setshowEditor] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  const [textColor, setTextColor] = useState<string>('#000000');
+  const [htmlState, setHTMLState] = useState<string>('');
+  const [deltaState, setDeltaState] = useState<any>({});
+  const [showEditor, setShowEditor] = useState(false);
 
   const [attendeeInfoList, setAttendeeInfoList] = useState<AttendeeInfo[]>([]);
   const [showSavedMessage, setShowSavedMessage] = useState(false);
-
-  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
-  const [textColor, setTextColor] = useState<string>('#000000');
+  const handleWYSIWYGChange = (content: string, delta: any) => {
+    setHTMLState(content);
+    setDeltaState(delta);
+  };
+  console.log('htmlState', htmlState);
+  console.log('deltaState', deltaState);
 
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-
+  useEffect(() => {
+    const fetchTemplate = async () => {
+      try {
+        const templateData = await queryForTemplate(
+          params.userId,
+          params.eventId
+        );
+        if (templateData) {
+          console.log(templateData);
+          setHTMLState(templateData.htmlContent);
+          setBackgroundColor(templateData.backgroundColor);
+          setTextColor(templateData.textColor);
+        }
+      } catch (error) {
+        console.error('Error querying for events:', error);
+      }
+    };
+    fetchTemplate();
+  }, []);
+  // TODO
   const handleSave = async () => {
     // Saving formData logic
     const formData = attendeeInfoList.map((info) => ({
@@ -41,14 +70,29 @@ export default function Template({ params }: { params: PageProps }) {
       ).value
     }));
     // Saving color logic
-    const bgColorData = { label: 'bgColor', value: backgroundColor };
-    const textColorData = { label: 'textColor', value: textColor };
+    // const bgColorData = { label: 'bgColor', value: backgroundColor };
+    // const textColorData = { label: 'textColor', value: textColor };
 
-    const data = formData.concat(bgColorData, textColorData);
+    // const data = formData.concat(bgColorData, textColorData);
+    const attendeeEditorData: Record<string, string> = {};
+
+    // Assign values from formData
+    formData.forEach((item) => {
+      attendeeEditorData[item.label] = item.value;
+    });
 
     // query for templateId here
     const templateId = await getAllTemplateIds(params.userId, params.eventId);
     const firstTemplateId = templateId[0];
+
+    const eventData = {
+      htmlContent: htmlState,
+      deltaState: JSON.stringify(deltaState),
+      backgroundColor: backgroundColor,
+      textColor: textColor
+    };
+
+    const data = { ...attendeeEditorData, ...eventData };
     // save data to cloud firestore
     saveTemplate(data, params.userId, params.eventId, firstTemplateId);
 
@@ -77,6 +121,7 @@ export default function Template({ params }: { params: PageProps }) {
   return (
     <div className="bg gray-100 flex">
       <div className="flex flex-1 flex-col border">
+        {showEditor ? (
           <AttendeeFormEditor
             params={params}
             attendeeInfoList={attendeeInfoList}
@@ -84,7 +129,16 @@ export default function Template({ params }: { params: PageProps }) {
             setBackgroundColor={setBackgroundColor}
             setTextColor={setTextColor}
           />
+        ) : (
+          <div className="p-4">
+            <WYSIWYGContainer
+              content={htmlState}
+              handleChange={handleWYSIWYGChange}
+            />
+          </div>
+        )}
       </div>
+
       <EditorColumn
         handleSave={handleSave}
         showSavedMessage={showSavedMessage}
@@ -98,8 +152,9 @@ export default function Template({ params }: { params: PageProps }) {
         setImageUpload={setImageUpload}
         imageUrls={imageUrls}
         setImageUrls={setImageUrls}
+        showEditor={showEditor}
+        setShowEditor={setShowEditor}
       />
     </div>
   );
-  // <QuillEditor params= {params}/>
 }

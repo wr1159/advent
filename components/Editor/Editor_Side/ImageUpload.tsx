@@ -1,11 +1,6 @@
 'use client';
-import {useEffect, useRef } from 'react';
-import {
-  ref,
-  getDownloadURL,
-  listAll,
-  getStorage
-} from 'firebase/storage';
+import { useEffect, useRef } from 'react';
+import { ref, getDownloadURL, listAll, getStorage } from 'firebase/storage';
 import Button from '@/components/Button';
 
 interface ImageUploadProps {
@@ -17,7 +12,14 @@ interface ImageUploadProps {
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-function ImageUpload({ userId, eventId, imageUpload, setImageUpload, imageUrls, setImageUrls }: ImageUploadProps) {
+function ImageUpload({
+  userId,
+  eventId,
+  imageUpload,
+  setImageUpload,
+  imageUrls,
+  setImageUrls
+}: ImageUploadProps) {
   const template_id = '1';
   // Section for hiding the default input button and asssigning its functionality to another Button component for styling
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +36,6 @@ function ImageUpload({ userId, eventId, imageUpload, setImageUpload, imageUrls, 
       fileInputRef.current.click();
     }
   };
-
 
   const storage = getStorage();
   const bucket = ref(storage, `users/${userId}/${eventId}/${template_id}`);

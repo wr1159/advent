@@ -23,7 +23,7 @@ const sizeStyles = {
   sm: 'px-4 py-3 text-sm ',
   md: 'px-4 py-3 text-sm lg:px-6 lg:py-4 lg:text-base',
   lg: 'px-4 py-3 text-sm lg:px-8 lg:py-4 lg:text-lg ',
-  wide: 'px-24 py-3 text-xl'
+  wide: 'w-5/6 py-3 text-lg'
 };
 
 const Button: React.FC<ButtonProps> = ({
