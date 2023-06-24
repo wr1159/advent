@@ -68,14 +68,12 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
               Saved!
             </div>
           )}
-          {showEditor && (
-            <Button
-              theme="primary"
-              text="Save"
-              onClick={handleSave}
-              size="wide"
-            />
-          )}
+          <Button
+            theme="primary"
+            text="Save"
+            onClick={handleSave}
+            size="wide"
+          />
         </div>
         <div className="h-18 flex items-center justify-center px-3">
           <Button
@@ -89,35 +87,56 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
 
       <details>
         <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Navigation</span>
+          {/* <span className="text-sm font-semibold">Navigation</span> */}
           {showEditor ? (
-            <button
-              className="text-gray-400 hover:text-emerald-500"
-              onClick={() => setShowEditor(false)}
-              disabled={!showEditor}
-            >
-              <AiOutlineArrowLeft />
-            </button>
+            <>
+              <span
+                onClick={() => setShowEditor(false)}
+                className="text-sm font-semibold"
+              >
+                Edit Landing Page
+              </span>
+              <button
+                className="text-gray-400 hover:text-emerald-500"
+                onClick={() => {
+                  console.log('BG ' + backgroundColor);
+                  console.log('Text ' + textColor);
+                  setShowEditor(false);
+                }}
+                disabled={!showEditor}
+              >
+                <AiOutlineArrowLeft />
+              </button>
+            </>
           ) : (
-            <button
-              className="text-gray-400 hover:text-emerald-500"
-              onClick={() => setShowEditor(true)}
-              disabled={showEditor}
-            >
-              <AiOutlineArrowRight />
-            </button>
+            <>
+              <span className="text-sm font-semibold">
+                Edit Registration Form
+              </span>
+              <button
+                className="text-gray-400 hover:text-emerald-500"
+                onClick={() => {
+                  console.log('BG ' + backgroundColor);
+                  console.log('Text ' + textColor);
+                  setShowEditor(true);
+                }}
+                disabled={showEditor}
+              >
+                <AiOutlineArrowRight />
+              </button>
+            </>
           )}
         </summary>
       </details>
 
       <details>
         <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Form Editor</span>
+          <span className="text-sm font-semibold">Layout Editor</span>
         </summary>
 
         <div className="grid grid-cols-2 gap-2 p-2 text-sm">
           <div className="rounded-md border bg-background p-2">
-            <h2 className="font-bold text-gray-700">Background</h2>
+            <h2 className="text-center font-bold text-gray-700">Background</h2>
             <input
               type="color"
               name="backgroundColor"
@@ -126,11 +145,11 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
               onChange={(event) => {
                 setBackgroundColor(event.target.value);
               }}
-              value={backgroundColor}
+              value={backgroundColor ?? '#ffffff'}
             />
           </div>
           <div className="rounded-md border bg-background p-2">
-            <h2 className="font-bold text-gray-700">Text</h2>
+            <h2 className="text-center font-bold text-gray-700">Text</h2>
             <input
               type="color"
               name="textColor"
@@ -138,7 +157,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
               onChange={(event) => {
                 setTextColor(event.target.value);
               }}
-              value={textColor}
+              value={textColor ?? '#000000'}
             />
           </div>
         </div>

@@ -8,13 +8,6 @@ import DataPage from '@/components/Editor/Preview_Side/DataPage';
 import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
 import queryForTemplate from '@/utils/queryTemplate';
 //
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  getStorage
-} from 'firebase/storage';
 import addAttendee from '@/utils/add-attendee';
 //
 
@@ -32,30 +25,13 @@ const INITIAL_DATA: FormData = {};
 export default function PreviewForm({
   params,
   imageUrls,
-  setImageUrls
+  backgroundColor
 }: {
   params: PageProps;
   imageUrls: string[];
-  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  backgroundColor: string;
 }) {
   const [data, setData] = useState(INITIAL_DATA);
-  // image URL to use here or pass down as prop to child components
-  // const [imageUrls, setImageUrls] = useState<string[]>([]);
-
-  // // storage and buckets as image reference
-  // const storage = getStorage();
-  // const bucket = ref(storage, `users/${params.userId}/${params.eventId}/1`);
-
-  // // Retrieving Image logic
-  // useEffect(() => {
-  //   listAll(bucket).then((response) => {
-  //     response.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageUrls((prev) => [url]);
-  //       });
-  //     });
-  //   });
-  // }, []);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -83,9 +59,14 @@ export default function PreviewForm({
 
   const { steps, step, currentStepIndex, isFirstStep, back, isLastStep, next } =
     useMultistepForm([
-      <DataPage data={data} updateFields={updateFields} key={0} />,
+      <DataPage
+        data={data}
+        updateFields={updateFields}
+        imageUrls={imageUrls}
+        key={0}
+      />
       // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
-      <PaymentPage data={data} updateFields={updateFields} key={1} />
+      // <PaymentPage data={data} updateFields={updateFields} key={1} />
     ]);
 
   const handleSubmit = (e: FormEvent) => {
@@ -100,22 +81,31 @@ export default function PreviewForm({
     addAttendee(updatedData, params.userId, params.eventId);
     alert('Successful');
   };
-
   return (
-    <div
-      className="font-sans} relative m-4 ml-auto mr-auto max-w-max rounded-lg border border-solid border-black bg-white p-8"
-      style={{ backgroundImage: `url(${imageUrls[0]})` }}
-    >
-      <form onSubmit={handleSubmit}>
-        {/* <div className="absolute right-4 top-2 ">
-          {currentStepIndex + 1} / {steps.length}
-        </div> */}
-        {step}
-        <div className="mt-4 flex justify-end gap-2">
-          {!isFirstStep && <Button text="Back" type="button" onClick={back} />}
-          <Button text={isLastStep ? 'Submit' : 'Next'} type="submit" />
-        </div>
-      </form>
+    <div className="flex justify-center">
+      <div
+        className={`m-4 ml-auto mr-auto w-1/2 rounded-lg p-8 shadow-md`}
+        style={{ backgroundColor }}
+      >
+        <form onSubmit={handleSubmit}>
+          {step}
+          <div className="mt-4 flex justify-center">
+            {!isFirstStep && (
+              <Button
+                text="Back"
+                type="button"
+                className="mr-2 flex items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
+                onClick={back}
+              />
+            )}
+            <Button
+              text={isLastStep ? 'Submit' : 'Next'}
+              type="submit"
+              className="flex items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-white hover:bg-emerald-600 focus:bg-emerald-600 focus:outline-none"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -145,7 +145,7 @@ export default function NewAttendeeFormEditor({
   return (
     <div className="p-8">
       <div className="mx-auto max-w-md rounded bg-white p-6">
-        <h2 className="mb-4 text-2xl font-bold">Attendee Form:</h2>
+        <h2 className="mb-4 text-2xl font-bold">Registration Form:</h2>
 
         <div className="my-4 rounded-md border bg-background p-4 ">
           {attendeeInfoList
@@ -163,14 +163,12 @@ export default function NewAttendeeFormEditor({
                     className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
                     readOnly
                   />
-                  {attendeeInfo.id > 2 && ( // Render delete button for newly added attendees
-                    <Button
-                      text="Delete"
-                      size="sm"
-                      className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
-                      onClick={() => handleDeleteAttendeeInfo(attendeeInfo.id)}
-                    />
-                  )}
+                  <Button
+                    text="Delete"
+                    size="sm"
+                    className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
+                    onClick={() => handleDeleteAttendeeInfo(attendeeInfo.id)}
+                  />
                 </div>
               </div>
             ))}

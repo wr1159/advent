@@ -5,7 +5,7 @@ import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import queryForTemplate from '@/utils/queryTemplate';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import uploadImage from '@/utils/uploadImage';
 
 interface PageProps {
   userId: string;
@@ -38,6 +38,7 @@ export default function Template({ params }: { params: PageProps }) {
 
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
@@ -57,7 +58,7 @@ export default function Template({ params }: { params: PageProps }) {
     };
     fetchTemplate();
   }, []);
-  // TODO
+
   const handleSave = async () => {
     // Saving formData logic
     const formData = attendeeInfoList.map((info) => ({
@@ -68,9 +69,6 @@ export default function Template({ params }: { params: PageProps }) {
         ) as HTMLInputElement
       ).value
     }));
-    // Saving color logic
-    // const bgColorData = { label: 'bgColor', value: backgroundColor };
-    // const textColorData = { label: 'textColor', value: textColor };
 
     // const data = formData.concat(bgColorData, textColorData);
     const attendeeEditorData: Record<string, string> = {};
@@ -85,10 +83,10 @@ export default function Template({ params }: { params: PageProps }) {
     const firstTemplateId = templateId[0];
 
     const eventData = {
-      htmlContent: htmlState,
+      htmlContent: htmlState ?? '',
       deltaState: JSON.stringify(deltaState),
-      backgroundColor: backgroundColor,
-      textColor: textColor
+      backgroundColor: backgroundColor ?? '#ffffff',
+      textColor: textColor ?? '#000000'
     };
 
     const data = { ...attendeeEditorData, ...eventData };
@@ -97,18 +95,7 @@ export default function Template({ params }: { params: PageProps }) {
 
     console.log('data saved', data);
 
-    // Saving image logic to firebase storage
-    const storage = getStorage();
-    const bucket = ref(storage, `users/${params.userId}/${params.eventId}/1`);
-    const fileRef = ref(bucket, 'event_image.jpg');
-
-    if (imageUpload) {
-      uploadBytes(fileRef, imageUpload).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          setImageUrls((prev) => [url]);
-        });
-      });
-    }
+    uploadImage(params.userId, params.eventId, imageUpload, setImageUrls);
 
     setShowSavedMessage(true);
 
@@ -137,23 +124,24 @@ export default function Template({ params }: { params: PageProps }) {
           </div>
         )}
       </div>
-
-      <EditorRightColumn
-        handleSave={handleSave}
-        showSavedMessage={showSavedMessage}
-        userId={params.userId}
-        eventId={params.eventId}
-        backgroundColor={backgroundColor}
-        textColor={textColor}
-        setBackgroundColor={setBackgroundColor}
-        setTextColor={setTextColor}
-        imageUpload={imageUpload}
-        setImageUpload={setImageUpload}
-        imageUrls={imageUrls}
-        setImageUrls={setImageUrls}
-        showEditor={showEditor}
-        setShowEditor={setShowEditor}
-      />
+      <div>
+        <EditorRightColumn
+          handleSave={handleSave}
+          showSavedMessage={showSavedMessage}
+          userId={params.userId}
+          eventId={params.eventId}
+          backgroundColor={backgroundColor}
+          textColor={textColor}
+          setBackgroundColor={setBackgroundColor}
+          setTextColor={setTextColor}
+          imageUpload={imageUpload}
+          setImageUpload={setImageUpload}
+          imageUrls={imageUrls}
+          setImageUrls={setImageUrls}
+          showEditor={showEditor}
+          setShowEditor={setShowEditor}
+        />
+      </div>
     </div>
   );
 }

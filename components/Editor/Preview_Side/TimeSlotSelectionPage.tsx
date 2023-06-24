@@ -22,10 +22,12 @@ type TimeSlotSelection = {
 // export default function TimeSlotSelectionPage ({selectedDate, selectedTimeframe, updateFields} : TimeslotPageProps) {
 export default function TimeSlotSelectionPage({
   data,
-  updateFields
+  updateFields,
+  imageUrls
 }: {
   data: FormData;
   updateFields: (fields: Partial<FormData>) => void;
+  imageUrls: string[];
 }) {
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTimeslots, setSelectedTimeslots] = useState<string>('');
@@ -61,7 +63,7 @@ export default function TimeSlotSelectionPage({
   };
 
   return (
-    <FormWrapper data={data} title="Timeslot Selection">
+    <FormWrapper data={data} title="Timeslot Selection" imageUrls={imageUrls}>
       <div className="flex w-full max-w-3xl rounded-lg bg-white p-8">
         <div className="w-2/3">
           <h2 className="mb-6 text-2xl font-bold">Select a Date</h2>

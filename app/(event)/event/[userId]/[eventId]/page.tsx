@@ -1,4 +1,3 @@
-// This is preview form
 'use client';
 import PreviewForm from '@/components/Editor/Preview_Side/PreviewForm';
 import Loader from '@/components/Loader';
@@ -7,13 +6,7 @@ import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import 'react-quill/dist/quill.snow.css';
 import Button from '@/components/Button';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  getStorage
-} from 'firebase/storage';
+import retrieveImage from '@/utils/retrieveImage';
 interface PageProps {
   userId: string;
   eventId: string;
@@ -30,19 +23,10 @@ export default function Template({ params }: { params: PageProps }) {
   // image URL to use here or pass down as prop to child components
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-  // storage and buckets as image reference
-  const storage = getStorage();
-  const bucket = ref(storage, `users/${params.userId}/${params.eventId}/1`);
-
   // Retrieving Image logic
+
   useEffect(() => {
-    listAll(bucket).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [url]);
-        });
-      });
-    });
+    retrieveImage(params.userId, params.eventId, setImageUrls);
   }, []);
 
   useEffect(() => {
@@ -72,7 +56,7 @@ export default function Template({ params }: { params: PageProps }) {
       ) : showEventLandingPage ? (
         <div
           className={twMerge(
-            'flex h-screen flex-col p-4',
+            'flex h-screen flex-col p-2',
             `text-[${data['textColour']}]`
           )}
           style={{
@@ -83,15 +67,15 @@ export default function Template({ params }: { params: PageProps }) {
           <div
             className="bg-image relative h-1/4 bg-cover bg-top bg-no-repeat"
             style={{ backgroundImage: `url(${imageUrls[0]})` }}
-          >
-            <Button
-              text="To Registration Form"
-              className="absolute right-4 top-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              onClick={() => {
-                setShowEventLandingPage(false);
-              }}
-            />
-          </div>
+          ></div>
+          <Button
+            text="To Registration Form"
+            theme="secondary"
+            className="absolute top-4 right-4 w-[225px]"
+            onClick={() => {
+              setShowEventLandingPage(false);
+            }}
+          />
 
           <div
             className="view ql-editor"
@@ -103,12 +87,13 @@ export default function Template({ params }: { params: PageProps }) {
           <PreviewForm
             params={params}
             imageUrls={imageUrls}
-            setImageUrls={setImageUrls}
+            backgroundColor={data['backgroundColor']}
           />
           {previewMode && (
             <Button
               text="To Event Landing Page"
-              className="absolute right-4 top-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+              theme="secondary"
+              className="absolute top-4 right-4 w-[225px]"
               onClick={() => {
                 setShowEventLandingPage(true);
               }}

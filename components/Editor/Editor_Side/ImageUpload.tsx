@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { ref, getDownloadURL, listAll, getStorage } from 'firebase/storage';
 import Button from '@/components/Button';
 import Image from 'next/image';
+import retrieveImage from '@/utils/retrieveImage';
 
 interface ImageUploadProps {
   userId: string;
@@ -21,7 +22,6 @@ function ImageUpload({
   imageUrls,
   setImageUrls
 }: ImageUploadProps) {
-  const template_id = '1';
   // Section for hiding the default input button and asssigning its functionality to another Button component for styling
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,18 +38,9 @@ function ImageUpload({
     }
   };
 
-  const storage = getStorage();
-  const bucket = ref(storage, `users/${userId}/${eventId}/${template_id}`);
-
   // Retrieving file
   useEffect(() => {
-    listAll(bucket).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [url]);
-        });
-      });
-    });
+    retrieveImage(userId, eventId, setImageUrls);
   }, []);
 
   return (
@@ -69,12 +60,15 @@ function ImageUpload({
         <Button
           onClick={selectImage}
           text="Select Image"
-          className="mb-4 rounded-full bg-blue-500 px-4 py-2 font-medium text-white shadow"
+          theme="secondary"
+          className="mb-4 bg-accent px-4 py-2 shadow"
         />
         <div className="mb-4 flex justify-center">
           {imageUrls.map((url, index) => (
             <div key={index} className="aspect-w-3 aspect-h-2">
               <Image
+                width={500}
+                height={500}
                 src={url}
                 className="rounded-lg object-cover"
                 alt="image"
