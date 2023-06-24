@@ -63,5 +63,5 @@ export default function saveTemplate(
   //   deltaState: JSON.stringify(deltaState)
   // }
 
-  setDoc(templateRef, data, { merge: true });
+  setDoc(templateRef, data);
 }

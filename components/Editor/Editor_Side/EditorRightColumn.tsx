@@ -1,6 +1,13 @@
-import { AiOutlineCheck } from 'react-icons/ai';
-import Button from '../Button';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineCheck
+} from 'react-icons/ai';
+import Button from '../../Button';
 import { useState } from 'react';
+import TimeSlotInsertion from './TimeSlotInsertion';
+import ImageUpload from './ImageUpload';
+
 type EditorRightColumnProps = {
   handleSave: () => Promise<void>;
   showSavedMessage: boolean;
@@ -10,9 +17,15 @@ type EditorRightColumnProps = {
   textColor: string;
   setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
   setTextColor: React.Dispatch<React.SetStateAction<string>>;
+  imageUpload: File | null;
+  setImageUpload: React.Dispatch<React.SetStateAction<File | null>>;
+  imageUrls: string[];
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  showEditor: boolean;
+  setShowEditor: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
+const EditorColumn: React.FC<EditorRightColumnProps> = ({
   handleSave,
   showSavedMessage,
   userId,
@@ -20,7 +33,13 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   backgroundColor,
   textColor,
   setBackgroundColor,
-  setTextColor
+  setTextColor,
+  imageUpload,
+  setImageUpload,
+  imageUrls,
+  setImageUrls,
+  showEditor,
+  setShowEditor
 }) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -39,7 +58,7 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
       });
   };
   return (
-    <div className="flex h-screen w-[300px] flex-col border-l border-gray-200 bg-white">
+    <div className="flex  w-[300px] flex-col border-l border-gray-200 bg-white">
       <div className="flex-col space-y-4 border-b border-gray-200 py-5">
         <div className="h-18 flex items-center justify-center px-3">
           {showSavedMessage && (
@@ -68,12 +87,56 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
 
       <details>
         <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Colour</span>
-          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
+          {/* <span className="text-sm font-semibold">Navigation</span> */}
+          {showEditor ? (
+            <>
+              <span
+                onClick={() => setShowEditor(false)}
+                className="text-sm font-semibold"
+              >
+                Edit Landing Page
+              </span>
+              <button
+                className="text-gray-400 hover:text-emerald-500"
+                onClick={() => {
+                  console.log('BG ' + backgroundColor);
+                  console.log('Text ' + textColor);
+                  setShowEditor(false);
+                }}
+                disabled={!showEditor}
+              >
+                <AiOutlineArrowLeft />
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="text-sm font-semibold">
+                Edit Registration Form
+              </span>
+              <button
+                className="text-gray-400 hover:text-emerald-500"
+                onClick={() => {
+                  console.log('BG ' + backgroundColor);
+                  console.log('Text ' + textColor);
+                  setShowEditor(true);
+                }}
+                disabled={showEditor}
+              >
+                <AiOutlineArrowRight />
+              </button>
+            </>
+          )}
         </summary>
+      </details>
+
+      <details>
+        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+          <span className="text-sm font-semibold">Layout Editor</span>
+        </summary>
+
         <div className="grid grid-cols-2 gap-2 p-2 text-sm">
           <div className="rounded-md border bg-background p-2">
-            <h2 className="font-bold text-gray-700">Background</h2>
+            <h2 className="text-center font-bold text-gray-700">Background</h2>
             <input
               type="color"
               name="backgroundColor"
@@ -82,11 +145,11 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
               onChange={(event) => {
                 setBackgroundColor(event.target.value);
               }}
-              value={backgroundColor}
+              value={backgroundColor ?? '#ffffff'}
             />
           </div>
           <div className="rounded-md border bg-background p-2">
-            <h2 className="font-bold text-gray-700">Text</h2>
+            <h2 className="text-center font-bold text-gray-700">Text</h2>
             <input
               type="color"
               name="textColor"
@@ -94,25 +157,21 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
               onChange={(event) => {
                 setTextColor(event.target.value);
               }}
-              value={textColor}
+              value={textColor ?? '#000000'}
             />
           </div>
         </div>
-      </details>
-      <details>
-        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Navigation</span>
-          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
-        </summary>
-        <div className="border-b border-gray-200 px-6 py-4">Demo</div>
-      </details>
 
-      <details>
-        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Image</span>
-          {/* <ChevronDownIcon className="h-5 w-5 rotate-90 stroke-current text-gray-400 transition-transform group-open:rotate-0" /> */}
-        </summary>
-        <div className="border-b border-gray-200 px-6 py-4">Demo</div>
+        <div className="border-b border-gray-200 px-6 py-4">
+          <ImageUpload
+            userId={userId}
+            eventId={eventId}
+            imageUpload={imageUpload}
+            setImageUpload={setImageUpload}
+            imageUrls={imageUrls}
+            setImageUrls={setImageUrls}
+          />
+        </div>
       </details>
 
       <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
@@ -127,4 +186,4 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   );
 };
 
-export default EditorRightColumn;
+export default EditorColumn;
