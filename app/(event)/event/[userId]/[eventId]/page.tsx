@@ -71,7 +71,7 @@ export default function Template({ params }: { params: PageProps }) {
           <Button
             text="To Registration Form"
             theme="secondary"
-            className="absolute top-4 right-4 w-[225px]"
+            className="absolute right-4 top-4 w-[225px]"
             onClick={() => {
               setShowEventLandingPage(false);
             }}
@@ -93,7 +93,7 @@ export default function Template({ params }: { params: PageProps }) {
             <Button
               text="To Event Landing Page"
               theme="secondary"
-              className="absolute top-4 right-4 w-[225px]"
+              className="absolute right-4 top-4 w-[225px]"
               onClick={() => {
                 setShowEventLandingPage(true);
               }}
