@@ -14,6 +14,7 @@ export type Event = {
   id: string;
   name: string;
   date: string;
+  attendees: number;
 };
 
 export default function queryForEvents(): Promise<Event[] | undefined> {
@@ -46,13 +47,27 @@ export async function queryEvents(uid: string): Promise<Event[] | undefined> {
     return undefined;
   }
 
-  const events: Event[] = allDocs.map(
-    (item: QueryDocumentSnapshot<DocumentData>) => ({
-      id: item.id,
-      name: item.get('event_name'),
-      date: item.get('timestamp')
-    })
+  console.log('allDocs', allDocs);
+
+  const events: Promise<Event>[] = allDocs.map(
+    async (item: QueryDocumentSnapshot<DocumentData>) => {
+      const attendeesCollection = collection(
+        firestore,
+        `users/${uid}/events/${item.id}/attendees`
+      );
+      const attendeesQuery = query(attendeesCollection);
+      const attendeesSnapshot = await getDocs(attendeesQuery);
+      const numAttendees = attendeesSnapshot.size;
+      return {
+        id: item.id,
+        name: item.get('event_name'),
+        date: item.get('timestamp'),
+        // get number of documents in attendees.
+        attendees: numAttendees
+      };
+    }
   );
-  console.log('Query 3 completed', events);
-  return events;
+  const resolvedEvents = await Promise.all(events);
+  console.log('Query 3 completed', resolvedEvents);
+  return resolvedEvents;
 }

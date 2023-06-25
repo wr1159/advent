@@ -39,17 +39,6 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
       timestamp: datetime.toLocaleString('en-GB')
     });
 
-    const templateCollectionRef: CollectionReference = collection(
-      CreatedEventRef,
-      'templates'
-    );
-    const CreatedTemplateRef: DocumentReference = await addDoc(
-      templateCollectionRef,
-      {
-        event_id: CreatedEventRef.id
-      }
-    );
-
     setEventName('');
     router.push(`/dashboard/editor/${uid}/${CreatedEventRef.id}`);
   };
