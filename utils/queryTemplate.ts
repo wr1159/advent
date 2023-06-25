@@ -1,18 +1,11 @@
 import {
-  collection,
-  query,
-  getDocs,
-  QueryDocumentSnapshot,
-  DocumentData,
-  QuerySnapshot,
-  Query,
   getDoc,
   doc
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getAllTemplateIds } from './save-template';
-import { tmpdir } from 'os';
+
 
 export type Event = {
   id: string;
