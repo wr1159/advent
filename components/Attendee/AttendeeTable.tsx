@@ -25,16 +25,31 @@ const AttendeeTable: React.FC<AttendeeTableProps> = ({ attendees }) => {
 
   const columns = React.useMemo(() => {
     const keys = Object.keys(sortedAttendees?.[0] || {});
-    const orderedKeys = [
-      'submitTime',
-      'name',
-      'email',
+    let orderedKeys = ['submitTime'];
+    if (keys.includes('name')) {
+      orderedKeys.push('name');
+    }
+
+    if (keys.includes('email')) {
+      orderedKeys.push('email');
+    }
+
+    if (keys.includes('birthday')) {
+      orderedKeys.push('birthday');
+    }
+
+    orderedKeys.push(
       ...keys
         .filter(
-          (key) => key !== 'submitTime' && key !== 'name' && key !== 'email'
+          (key) =>
+            key !== 'submitTime' &&
+            key !== 'name' &&
+            key !== 'email' &&
+            key !== 'birthday'
         )
         .sort()
-    ];
+    );
+
     return orderedKeys.map((key) => ({
       Header: capitalizeFirstLetter(key),
       accessor: key,
