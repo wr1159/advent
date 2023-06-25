@@ -65,7 +65,7 @@ export default function PreviewForm({
         imageUrls={imageUrls}
         key={0}
       />,
-      <div>Demo</div>
+      <div key={1}>Demo</div>
       // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
       // <PaymentPage data={data} updateFields={updateFields} key={1} />
     ]);
