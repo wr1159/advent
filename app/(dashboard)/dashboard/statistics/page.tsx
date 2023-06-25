@@ -5,13 +5,6 @@ import { useEffect, useState } from 'react';
 import getUserId from '@/utils/getUser';
 import LinkCard from '@/components/LinkCard';
 
-export interface mockAttendant {
-  name: string;
-  signUpDate: Date;
-  attendingDay: number;
-  country: string;
-}
-
 export default function Statistics() {
   const [events, setEvents] = useState<Event[]>([]);
   const [uid, setUid] = useState<string>('');
@@ -41,45 +34,6 @@ export default function Statistics() {
 
     fetchEvents();
   }, []);
-  const attendants: mockAttendant[] = [
-    {
-      name: 'John',
-      signUpDate: new Date('2023-05-24'),
-      attendingDay: 1,
-      country: 'Singapore'
-    },
-    {
-      name: 'Emma',
-      signUpDate: new Date('2023-05-24'),
-      attendingDay: 1,
-      country: 'Malaysia'
-    },
-    {
-      name: 'Liam',
-      signUpDate: new Date('2023-05-25'),
-      attendingDay: 1,
-      country: 'Indonesia'
-    },
-    {
-      name: 'Olivia',
-      signUpDate: new Date('2023-05-25'),
-      attendingDay: 3,
-      country: 'Singapore'
-    },
-    {
-      name: 'Noah',
-      signUpDate: new Date('2023-05-25'),
-      attendingDay: 2,
-      country: 'Malaysia'
-    },
-    {
-      name: 'Ava',
-      signUpDate: new Date('2023-05-26'),
-      attendingDay: 3,
-      country: 'Indonesia'
-    }
-  ];
-
   return (
     <div className="m-10 flex flex-col space-y-5">
       <h1 className="text-3xl font-semibold">Data at a glance</h1>
