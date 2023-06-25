@@ -1,9 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
-import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import queryForTemplate from '@/utils/queryTemplate';
-import EditorColumn from './EditorRightColumn';
 
 interface AttendeeInfo {
   id: number;

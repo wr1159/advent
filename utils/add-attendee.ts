@@ -1,5 +1,5 @@
 import { firestore } from '../firebaseconfig';
-import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { CollectionReference, DocumentData } from 'firebase/firestore';
 import { FormData } from '@/components/Editor/Preview_Side/PreviewForm';
 

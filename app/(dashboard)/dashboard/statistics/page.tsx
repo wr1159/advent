@@ -1,12 +1,8 @@
 'use client';
-import LineChart from '@/components/Charts/LineChart';
-import ChartContainer from '@/components/Chart';
-import LineChartContainer from '@/components/Chart';
 import queryForEvents, { Event } from '@/utils/event-query';
 import { parse, compareDesc } from 'date-fns';
 import { useEffect, useState } from 'react';
 import getUserId from '@/utils/getUser';
-import Card from '@/components/Card';
 import LinkCard from '@/components/LinkCard';
 
 export interface mockAttendant {
