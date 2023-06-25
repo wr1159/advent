@@ -93,6 +93,7 @@ export default function Statistics() {
           <>
             {events.map((event) => (
               <LinkCard
+                key={event.id}
                 title={event.name}
                 body={`${event.date} \n Attendees: ${event.attendees}`}
                 href={`/dashboard/statistics/${uid}/${event.id}`}

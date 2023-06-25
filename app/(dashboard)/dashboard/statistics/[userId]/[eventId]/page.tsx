@@ -1,26 +1,34 @@
 'use client';
+import AttendeeTable from '@/components/Attendee/AttendeeTable';
 import { PageProps } from '@/types/PageProps';
 import { queryAttendees } from '@/utils/queryAttendees';
 import { useEffect, useState } from 'react';
 
-export default function Statistics({ params }: { params: PageProps }) {
-  const [attendees, setAttendees] = useState({});
+export default function EventStatistics({ params }: { params: PageProps }) {
+  const [attendees, setAttendees] = useState<any>([]);
   useEffect(() => {
-    const fetchAttendee = async () => {
-      try {
-        const attendeeData = await queryAttendees(
-          params.userId,
-          params.eventId
-        );
-        if (attendeeData) {
-          console.log(attendeeData);
-          setAttendees(attendeeData);
-        }
-      } catch (error) {
-        console.error('Error querying for events:', error);
-      }
+    const fetchAttendees = async () => {
+      const fetchedAttendees = await queryAttendees(
+        params.userId,
+        params.eventId
+      );
+      setAttendees(fetchedAttendees);
     };
-    fetchAttendee();
+
+    fetchAttendees();
   }, []);
-  return;
+
+  return (
+    <div className="p-4 ">
+      <h1 className="pb-2 text-lg font-semibold text-accent">Attendee List</h1>
+      {attendees ? (
+        // <p>rendered</p>
+
+        // attendees
+        <AttendeeTable attendees={attendees} />
+      ) : (
+        <p>Loading attendees...</p>
+      )}
+    </div>
+  );
 }
