@@ -5,7 +5,6 @@ import { useMultistepForm } from '@/utils/useMultistepForm';
 import Button from '@/components/Button';
 import DataPage from '@/components/Editor/Preview_Side/DataPage';
 // import TimeSlotSelectionPage from '@/components/Editor/Preview_Side/TimeSlotSelectionPage';
-import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
 import queryForTemplate from '@/utils/queryTemplate';
 //
 import addAttendee from '@/utils/add-attendee';

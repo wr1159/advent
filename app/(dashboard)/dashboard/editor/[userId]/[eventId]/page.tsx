@@ -6,11 +6,7 @@ import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import queryForTemplate from '@/utils/queryTemplate';
 import uploadImage from '@/utils/uploadImage';
-
-interface PageProps {
-  userId: string;
-  eventId: string;
-}
+import { PageProps } from '@/types/PageProps';
 
 interface AttendeeInfo {
   id: number;

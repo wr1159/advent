@@ -2,13 +2,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useRouter } from 'next/navigation';
 import { users } from '@/firebaseconfig';
-import {
-  collection,
-  doc,
-  addDoc,
-  CollectionReference,
-  DocumentReference
-} from 'firebase/firestore';
+import { collection, doc, addDoc } from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
 import Button from './Button';
 
@@ -28,34 +22,6 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const currentTime = Date.now();
-    /* array.push
-    when click create 
-      create collection of events, path: users/user.id/events
-    const collectionref = users/user.id/events
-    create a event document {eventName, timestamp}
-    addDoc(collectionref, {})
-    then 
-    create a template collection, path: users/user.id/events/
-
-    Save Note button:
-    write to doc 
-    users/user.id/events/event.id/templates/template.id
-    await addDoc(eventsCollection, {
-      title
-      desc
-      ...
-    });
-    */
-
-    /*
-    const auth = getAuth();
-
-    if (!auth.currentUser) {
-      console.log('user is not logged in. HOW?');
-      return;
-    }
-    */
-
     console.log({ uid } + ' called in CreatedEventForm');
 
     const datetime = new Date(currentTime);
@@ -65,17 +31,6 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
       event_name: eventName,
       timestamp: datetime.toLocaleString('en-GB')
     });
-
-    const templateCollectionRef: CollectionReference = collection(
-      CreatedEventRef,
-      'templates'
-    );
-    const CreatedTemplateRef: DocumentReference = await addDoc(
-      templateCollectionRef,
-      {
-        event_id: CreatedEventRef.id
-      }
-    );
 
     setEventName('');
     router.push(`/dashboard/editor/${uid}/${CreatedEventRef.id}`);
