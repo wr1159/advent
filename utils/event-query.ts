@@ -47,21 +47,24 @@ async function queryEvents(uid: string): Promise<Event[] | undefined> {
     return undefined;
   }
 
-  console.log("allDocs", allDocs);
+  console.log('allDocs', allDocs);
 
-  const events: Promise<Event>[]= allDocs.map(
+  const events: Promise<Event>[] = allDocs.map(
     async (item: QueryDocumentSnapshot<DocumentData>) => {
-      const attendeesCollection = collection(firestore, `users/${uid}/events/${item.id}/attendees`);
+      const attendeesCollection = collection(
+        firestore,
+        `users/${uid}/events/${item.id}/attendees`
+      );
       const attendeesQuery = query(attendeesCollection);
       const attendeesSnapshot = await getDocs(attendeesQuery);
       const numAttendees = attendeesSnapshot.size;
-      return ({
-      id: item.id,
-      name: item.get('event_name'),
-      date: item.get('timestamp'),
-      // get number of documents in attendees.
-      attendees: numAttendees
-    })
+      return {
+        id: item.id,
+        name: item.get('event_name'),
+        date: item.get('timestamp'),
+        // get number of documents in attendees.
+        attendees: numAttendees
+      };
     }
   );
   const resolvedEvents = await Promise.all(events);
