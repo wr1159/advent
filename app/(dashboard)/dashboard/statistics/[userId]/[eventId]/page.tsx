@@ -1,9 +1,10 @@
 'use client';
 import { PageProps } from '@/types/PageProps';
 import { queryAttendees } from '@/utils/queryAttendees';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Statistics({ params }: { params: PageProps }) {
+  const [attendees, setAttendees] = useState({});
   useEffect(() => {
     const fetchAttendee = async () => {
       try {
@@ -13,6 +14,7 @@ export default function Statistics({ params }: { params: PageProps }) {
         );
         if (attendeeData) {
           console.log(attendeeData);
+          setAttendees(attendeeData);
         }
       } catch (error) {
         console.error('Error querying for events:', error);
@@ -20,5 +22,5 @@ export default function Statistics({ params }: { params: PageProps }) {
     };
     fetchAttendee();
   }, []);
-  return <div>Turtles</div>;
+  return;
 }

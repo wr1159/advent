@@ -95,7 +95,7 @@ export default function Statistics() {
               <LinkCard
                 title={event.name}
                 body={`${event.date} \n Attendees: ${event.attendees}`}
-                href={`/statistics/${uid}/${event.id}`}
+                href={`/dashboard/statistics/${uid}/${event.id}`}
               />
             ))}
           </>
