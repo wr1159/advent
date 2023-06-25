@@ -28,33 +28,6 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const currentTime = Date.now();
-    /* array.push
-    when click create 
-      create collection of events, path: users/user.id/events
-    const collectionref = users/user.id/events
-    create a event document {eventName, timestamp}
-    addDoc(collectionref, {})
-    then 
-    create a template collection, path: users/user.id/events/
-
-    Save Note button:
-    write to doc 
-    users/user.id/events/event.id/templates/template.id
-    await addDoc(eventsCollection, {
-      title
-      desc
-      ...
-    });
-    */
-
-    /*
-    const auth = getAuth();
-
-    if (!auth.currentUser) {
-      console.log('user is not logged in. HOW?');
-      return;
-    }
-    */
 
     console.log({ uid } + ' called in CreatedEventForm');
 
@@ -103,6 +76,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
                 value={eventName}
                 onChange={handleEventNameChange}
                 className="mx-2 rounded-lg px-2"
+                data-testid="event-name-input"
               />
             </label>
             <div className="mt-4 flex justify-end">

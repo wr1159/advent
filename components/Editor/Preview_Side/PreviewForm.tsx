@@ -5,7 +5,7 @@ import { useMultistepForm } from '@/utils/useMultistepForm';
 import Button from '@/components/Button';
 import DataPage from '@/components/Editor/Preview_Side/DataPage';
 // import TimeSlotSelectionPage from '@/components/Editor/Preview_Side/TimeSlotSelectionPage';
-import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
+// import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
 import queryForTemplate from '@/utils/queryTemplate';
 //
 import addAttendee from '@/utils/add-attendee';
@@ -20,7 +20,7 @@ export type FormData = {
   [key: string]: string | undefined;
 };
 
-const INITIAL_DATA: FormData = {};
+export const INITIAL_DATA: FormData = {};
 
 export default function PreviewForm({
   params,
@@ -64,7 +64,8 @@ export default function PreviewForm({
         updateFields={updateFields}
         imageUrls={imageUrls}
         key={0}
-      />
+      />,
+      <div>Demo</div>
       // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
       // <PaymentPage data={data} updateFields={updateFields} key={1} />
     ]);
@@ -86,6 +87,7 @@ export default function PreviewForm({
       <div
         className={`m-4 ml-auto mr-auto w-1/2 rounded-lg p-8 shadow-md`}
         style={{ backgroundColor }}
+        data-testid="form-background-color"
       >
         <form onSubmit={handleSubmit}>
           {step}

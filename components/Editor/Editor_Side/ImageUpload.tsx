@@ -55,6 +55,7 @@ function ImageUpload({
             }
           }}
           ref={fileInputRef}
+          data-testid="photo-uploader"
           className="hidden"
         />
         <Button

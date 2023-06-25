@@ -26,6 +26,7 @@ export function FormWrapper({
         <div
           className="bg-centerr h-20 bg-cover bg-no-repeat"
           style={{ backgroundImage: `url(${imageUrls[0]})` }}
+          data-testid="background-image"
         >
           <div className="flex h-full items-center justify-center">{title}</div>
         </div>
