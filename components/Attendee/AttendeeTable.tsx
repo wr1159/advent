@@ -58,11 +58,16 @@ const AttendeeTable: React.FC<AttendeeTableProps> = ({ attendees }) => {
     <table {...getTableProps()} className="w-full">
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} className="bg-secondary">
+          <tr
+            {...headerGroup.getHeaderGroupProps()}
+            key={headerGroup.id}
+            className="bg-secondary"
+          >
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps()}
                 className="border-2 px-4 py-2 text-left font-medium"
+                key={column.id}
               >
                 {column.render('Header')}
               </th>
@@ -74,9 +79,13 @@ const AttendeeTable: React.FC<AttendeeTableProps> = ({ attendees }) => {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()} key={row.id}>
               {row.cells.map((cell) => (
-                <td {...cell.getCellProps()} className="border px-4 py-2">
+                <td
+                  {...cell.getCellProps()}
+                  className="border px-4 py-2"
+                  key={cell.getCellProps().key}
+                >
                   {cell.render('Cell')}
                 </td>
               ))}
