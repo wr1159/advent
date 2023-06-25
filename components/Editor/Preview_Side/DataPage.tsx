@@ -31,17 +31,18 @@ export default function DataPage({
               key !== ''
           )
           .sort()
-      ].map((key) => (
-        <Fragment key={key || undefined}>
+      ].map((key, index) => (
+        <Fragment key={key || index}>
           {key && typeof key === 'string' && (
             <>
-              <label className="font-sans capitalize">
+              <label className="font-sans capitalize" htmlFor={key}>
                 {key === 'birthday' ? 'Date of birth' : key}
               </label>
               <input
                 className="w-full rounded-lg border-2 text-black"
                 autoFocus
                 required
+                id={key}
                 type={
                   key === 'birthday'
                     ? 'date'

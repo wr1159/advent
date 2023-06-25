@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import queryForTemplate from '@/utils/queryTemplate';
 
-interface AttendeeInfo {
+export interface AttendeeInfo {
   id: number;
   label: string;
   accessKey: string;
@@ -150,7 +150,10 @@ export default function NewAttendeeFormEditor({
             .filter((attendeeInfo) => attendeeInfo.type !== 'color')
             .map((attendeeInfo) => (
               <div key={attendeeInfo.id} className="mb-4">
-                <label className="mb-2 block font-bold text-gray-700">
+                <label
+                  className="mb-2 block font-bold text-gray-700"
+                  htmlFor={attendeeInfo.accessKey}
+                >
                   {attendeeInfo.label}:
                 </label>
                 <div className="flex">
@@ -166,6 +169,7 @@ export default function NewAttendeeFormEditor({
                     size="sm"
                     className="ml-2 w-20 bg-red-500 text-white hover:bg-red-300"
                     onClick={() => handleDeleteAttendeeInfo(attendeeInfo.id)}
+                    data-testid={`delete-${attendeeInfo.id}`}
                   />
                 </div>
               </div>
@@ -182,6 +186,7 @@ export default function NewAttendeeFormEditor({
               onChange={(e) => setNewAttendeeLabel(e.target.value)}
               placeholder="Enter label for new attendee information"
               className="w-full rounded-lg border px-4 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+              data-testid="label-input"
             />
             <Button
               text="Add"

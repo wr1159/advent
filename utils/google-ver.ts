@@ -13,7 +13,7 @@ const auth = getAuth(app);
 export default function handleGoogleSignIn() {
   signInWithPopup(auth, provider)
     .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
+      // This gives a Google Access Token, use it to access the Google API.
       const credential: OAuthCredential | null =
         GoogleAuthProvider.credentialFromResult(result);
       if (credential != null) {
@@ -22,7 +22,6 @@ export default function handleGoogleSignIn() {
       // The signed-in user info.
       const user: User | null = result.user;
       // IdP data available using getAdditionalUserInfo(result)
-      // ...
     })
     .catch((error) => {
       // Handle Errors here.

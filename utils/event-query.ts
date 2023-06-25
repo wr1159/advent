@@ -32,7 +32,7 @@ export default function queryForEvents(): Promise<Event[] | undefined> {
   });
 }
 
-async function queryEvents(uid: string): Promise<Event[] | undefined> {
+export async function queryEvents(uid: string): Promise<Event[] | undefined> {
   const allEvents: Query<DocumentData> = query(
     collection(firestore, `users/${uid}/events`)
   );

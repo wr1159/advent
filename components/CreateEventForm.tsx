@@ -2,7 +2,13 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useRouter } from 'next/navigation';
 import { users } from '@/firebaseconfig';
-import { collection, doc, addDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  addDoc,
+  CollectionReference,
+  DocumentReference
+} from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
 import Button from './Button';
 
@@ -22,6 +28,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const currentTime = Date.now();
+
     console.log({ uid } + ' called in CreatedEventForm');
 
     const datetime = new Date(currentTime);
@@ -58,6 +65,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ uid }) => {
                 value={eventName}
                 onChange={handleEventNameChange}
                 className="mx-2 rounded-lg px-2"
+                data-testid="event-name-input"
               />
             </label>
             <div className="mt-4 flex justify-end">

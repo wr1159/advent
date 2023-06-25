@@ -59,11 +59,12 @@ export default function Template({ params }: { params: PageProps }) {
     // Saving formData logic
     const formData = attendeeInfoList.map((info) => ({
       label: info.accessKey,
-      value: (
-        document.querySelector(
-          `input[name="${info.label.toLowerCase()}"]`
-        ) as HTMLInputElement
-      ).value
+      value:
+        (
+          document.querySelector(
+            `input[name="${info.label.toLowerCase()}"]`
+          ) as HTMLInputElement
+        )?.value || ''
     }));
 
     // const data = formData.concat(bgColorData, textColorData);
@@ -80,7 +81,7 @@ export default function Template({ params }: { params: PageProps }) {
 
     const eventData = {
       htmlContent: htmlState ?? '',
-      deltaState: JSON.stringify(deltaState),
+      deltaState: JSON.stringify(deltaState) ?? '',
       backgroundColor: backgroundColor ?? '#ffffff',
       textColor: textColor ?? '#000000'
     };
