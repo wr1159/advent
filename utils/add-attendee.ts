@@ -1,5 +1,5 @@
 import { firestore } from '../firebaseconfig';
-import { collection, doc, addDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { CollectionReference, DocumentData } from 'firebase/firestore';
 import { FormData } from '@/components/Editor/Preview_Side/PreviewForm';
 
@@ -16,7 +16,13 @@ export default function addAttendee(
 
   // Filter out the keys "textColor" and "bgColor"
   const filteredData = Object.keys(data)
-    .filter((key) => key !== 'textColor' && key !== 'bgColor')
+    .filter(
+      (key) =>
+        key !== 'textColor' &&
+        key !== 'backgroundColor' &&
+        key !== 'deltaState' &&
+        key !== 'htmlContent'
+    )
     .reduce((obj, key) => {
       obj[key] = data[key];
       return obj;

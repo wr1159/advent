@@ -38,13 +38,7 @@ export async function getAllTemplateIds(userId: string, eventId: string) {
 }
 
 export default function saveTemplate(
-  // data: StyledText[],
   data: Record<string, string>,
-  // htmlContent: string,
-  // deltaState: any,
-  // backgroundColor: string,
-  // textColor: string,
-  // data: string[],
   user_id: string,
   event_id: string,
   template_id: string
@@ -53,15 +47,6 @@ export default function saveTemplate(
     firestore,
     `users/${user_id}/events/${event_id}/templates/${template_id}`
   );
-
-  // const added = data.reduce((result: Record<string, string>, item) => {
-  //   result[item.label] = item.value;
-  //   return result;
-  // }, {});
-  // const result= {
-  //   htmlContent: htmlContent,
-  //   deltaState: JSON.stringify(deltaState)
-  // }
 
   setDoc(templateRef, data);
 }

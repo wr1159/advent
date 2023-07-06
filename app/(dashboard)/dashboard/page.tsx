@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import LogOut from '@/components/LogOut';
 import { EventItem } from '@/components/EventItem';
 import CreateEventForm from '@/components/CreateEventForm';
 import queryForEvents, { Event } from '@/utils/event-query';

@@ -1,16 +1,24 @@
-# Advent - Milestone 1 README
+# Advent - Milestone 2 README
 
-README to be submitted for Milestone 1.
+README to be submitted for Milestone 2.
 
 Website is deployed to [https://advent-beta.vercel.app](https://advent-beta.vercel.app)
+
+Major Updated sections since Milestone 1:
+
+- [User Stories](#user-stories)
+- [How it works](#how-it-works)
+- [Backward Compatibility Highlight](#backward-compatibility-highlight)
+- [Timeline](#timeline)
 
 # Table of Contents
 
 1. [Team Information](#team-information)
 2. [Problem Definition](#problem-definition)
 3. [Aim](#aim)
-4. [Planned Features](#planned-features)
-5. [Application](#application)
+4. [User Stories](#user-stories)
+5. [Planned Features](#planned-features)
+6. [Application](#application)
    - [Installation](#installation)
    - [File Structure](#file-structure)
    - [How it works](#how-it-works)
@@ -24,7 +32,8 @@ Website is deployed to [https://advent-beta.vercel.app](https://advent-beta.verc
      - [Github Projects](#github-projects)
      - [Version Control](#version-control)
      - [CI/CD](#cicd)
-6. [Timeline](#timeline)
+     - [Backward Compatibility Highlight](#backward-compatibility-highlight)
+7. [Timeline](#timeline)
 
 # Team Information
 
@@ -51,6 +60,15 @@ With the aim of creating a customisable registration framework that can be integ
 
 To provide a Software-as-a-service (SaaS) where users (event organisers) can create events and integrate a customisable registration framework - integrate a custom event landing page and a custom registration form to their own website. Therefore, adhering to a consistent styling and look. The user should be able to view registrants’ data on our dashboard with charts to help visualise the data.
 
+# User Stories
+
+1. As an event organiser, I want to be able to easily integrate a customisable event landing page and a register form in my website through iframe or by copying the source code onto my website.
+2. As an event organiser, I want to be able to allow interested individuals to register without going to a third party website.
+3. As an event organiser, I want to be able to view data of registrants on a dashboard.
+4. As an event organiser, I do not want concerns related to a potential failure in the sign up service provider website.
+5. As an event participant, I want to be able to easily sign up for an event without leaving the original event webpage.
+6. As an event participant, I do not want to go through additional signing up procedures in the third party website before getting to actual registration part for the event.
+
 # Planned Features
 
 ## Authorisation using email, password and Google login
@@ -75,7 +93,7 @@ We plan to allow users to change the colours of the background, text and this wi
 
 ## Integration to user's website with Iframe tag
 
-We plan to allow event organisers to import the iframe tag for their specific event and it will be well integrated into their website without any other coding.
+We plan to allow event organisers to import the iframe tag for their specific event and it will be well integrated into their website without any other coding. Users will be able to embed the landing page once they copy the iframe tag into their code or share to others using our link as well.
 
 ## Event registration page for sharing
 
@@ -84,10 +102,6 @@ As not every event organisers might have their own website, they will be able to
 ## Data Dashboard to view data with charts
 
 To make sense of their collected data, we plan to use [ChartJS](https://www.chartjs.org/) and allow users to view their data at a glance using various charts like bar chart, line chart, pie chart and more.
-
-## API to fetch collected data
-
-We plan to allow power users to download the collected data via an API for their further analysis.
 
 ## Payment system with Stripe
 
@@ -133,6 +147,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `app` folder contains the pages with [routing](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) done as per [NextJS 13](https://nextjs.org/blog/next-13).
 - `components` folder contains all our reusable react components like `Button.tsx`
 - `utils` folder contains reusable utility functions such as `signin.ts`
+- `types` folder contains reusable types such as `AttendeeInformation`
 - `__tests__` folder contains tests for certain files inside the parent folder. For example `components/__tests__` will test for components.
 
 ### Files
@@ -182,18 +197,28 @@ Authentication is done with Firebase authentication and much of the heavy liftin
 ### Database
 
 Database used is Firestore from Firebase. Here is our database design. Firestore is a noSQL database that allows us to have better data structure instead of several nested objects in normal SQL databases.
-![database](https://github.com/wr1159/advent/assets/56021409/ec1e767e-5b7c-44d5-a35f-95ae0e7bb743)
+![new database](https://github.com/wr1159/advent/assets/56021409/4c39ca3b-d7d5-4bff-8e85-5338d539d973)
 
 ### User Activity Diagram
 
 To plan for users testing and usage, we have created a User Navigation Diagram.
-![activity diagram drawio](https://github.com/wr1159/advent/assets/56021409/611fc126-d5c7-4ebc-b410-42b62981452e)
+![new activity diagram](https://github.com/wr1159/advent/assets/56021409/83d75813-11c0-49b6-a273-006f0d8c8206)
 
 ### Testing
 
-We currently only have unit testing for certain components but plan to integrate integration tests using cypress in the future. Our current test coverage is 22% which is far from optimal but we believe that creating a minimum viable product was more important than using a continuous testing process which would have slowed down our development.
+#### User Testing
 
-Including testing will also create bloat which is not what we want in it's current state - a proof of concept.
+We asked 2 users to fully test our deployed application and integrated their feedback into our changes. Certain features include:
+
+- Sorting of events with time
+- Table format to view data
+- WYSIWYG Improvements
+
+#### Automated Testing
+
+We currently have unit testing for certain components but plan to integrate integration tests using cypress in the future. The reason behind this is we are going for swift development and there can be many changes between updates. Therefore, the integration tests will have to change to fit the new feature / design.
+
+Our current test coverage is **63%** which is far from optimal but we believe that creating a minimum viable product was more important than using a continuous testing process which would have slowed down our development.
 
 ## UI Design
 
@@ -223,42 +248,64 @@ We use the GitHub Flow style of version control where users open a feature branc
 
 We have a workflow to build, test and deploy the app upon every pull request and merge to the main branch. This will deploy a preview app using Vercel where the reviewer can then view and give comments on.
 
+### Backward Compatibility Highlight
+
+The team would like to highlight our efforts at backward compatibility. By mistake, we have stored the timestamp of even creation as a string which is fine but what is not fine is our use of `.toLocaleString()`. While our timestamp can still be viewed properly, we face a problem when sorting the events by descending order of creation date. As it is stored as a string, `15/06/20...` appears later than `29/05/20...` despite the fact it should come earlier. One might suggest to convert the string back to date then sort but we will get to that later.
+
+We had 3 options:
+
+1. Wipe the database and right our wrong by storing the event creation date as an ISO timestamp which is an industry standard
+2. Convert the string back to date and then sort (but we need every date to be the same formatting so we can sort it)
+3. Leave it as it is
+
+We chose option 2, we migrated the users data to follow the `en-GB` locale date style and then now standardise the storage of timestamp with `en-GB`. We chose this option due to backward compatibility, most events are currently created with `en-GB` locale date style and this means that the existing events will continue to function under the new sorting function.
+
+Long live backward compatibility!
+
 # Timeline
 
 We have currently completed the following features:
 
-- Authentication (To be tested via login with google or sign up)
-- Creating new events
-- Displaying produced event landing page
+- Authentication
+  <img width="1465" alt="image" src="https://github.com/wr1159/advent/assets/56021409/2f4d5839-32b3-49a3-b686-b757845d7e6d">
+
+- Creating Events
+  <img width="1440" alt="image" src="https://github.com/wr1159/advent/assets/56021409/df60d560-3a6c-4b80-93a3-1722fdca6546">
+
+- Event Landing Page
+  <img width="1460" alt="image" src="https://github.com/wr1159/advent/assets/56021409/fad23439-6acc-4ba8-ad4e-fec29fd678f0">
+  <img width="1451" alt="image" src="https://github.com/wr1159/advent/assets/56021409/71216934-7dcb-4c9b-a7ba-0de369ac14c3">
+
 - Public pages such as /orbital, /documentation and root page.
-- Data Dashboard (Frontend)
+  <img width="1453" alt="image" src="https://github.com/wr1159/advent/assets/56021409/42683c68-ffad-49e1-b160-7a93a2f74d26">
+  <img width="1467" alt="image" src="https://github.com/wr1159/advent/assets/56021409/cbf291c0-003f-4560-9409-f843b4d122d9">
+
+- Attendee Registration Form
+  <img width="1471" alt="image" src="https://github.com/wr1159/advent/assets/56021409/a971d77d-ebd3-41bb-9522-05b4ee5d5aec">
+  <img width="742" alt="image" src="https://github.com/wr1159/advent/assets/56021409/1429cac0-bd8a-403a-b52e-aab470620398">
+
+- Generating iframe tag
+  <img width="301" alt="image" src="https://github.com/wr1159/advent/assets/56021409/cdb4348f-239c-4edf-a508-024b7894e90b">
+
+- Data Dashboard (Table)
+  <img width="1402" alt="image" src="https://github.com/wr1159/advent/assets/56021409/146246fa-5c17-49a5-a97b-a404b2937c1b">
+  <img width="1473" alt="image" src="https://github.com/wr1159/advent/assets/56021409/a6446cf5-4723-4a44-9b79-db5cd6bd1213">
 
 ### These are our planned tasks for the following sprints:
 
-Sprint 2:
-
-- Implementing formatting of text
-- Implementing WYSIWYG toolbar to edit text
-- Images Integration
-- Colour Library
-
-Sprint 3 (Milestone 2)
-
-- Data Dashboard
-- Map Integration
-- Stripe Integration
-- Testing
-
 Sprint 4
 
-- Drag and Drop feature
-- API to fetch data
+- Map Integration
+- Chart Integration
+- Stripe Integration
 - Testing
 
 Sprint 5 (Milestone 3)
 
-- Complete Drag and Drop Feature
-- Complete API to fetch data
+- Drag and Drop Feature
+- [OpenGraph](https://ogp.me/) for better sharing
+- UI Refinement
+- Documentation
 - Testing
 
 Sprint 6

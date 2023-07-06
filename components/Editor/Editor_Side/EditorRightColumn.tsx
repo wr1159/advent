@@ -5,7 +5,6 @@ import {
 } from 'react-icons/ai';
 import Button from '../../Button';
 import { useState } from 'react';
-import TimeSlotInsertion from './TimeSlotInsertion';
 import ImageUpload from './ImageUpload';
 
 type EditorRightColumnProps = {
@@ -25,7 +24,7 @@ type EditorRightColumnProps = {
   setShowEditor: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const EditorColumn: React.FC<EditorRightColumnProps> = ({
+const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   handleSave,
   showSavedMessage,
   userId,
@@ -104,6 +103,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
                   setShowEditor(false);
                 }}
                 disabled={!showEditor}
+                data-testid="back-button"
               >
                 <AiOutlineArrowLeft />
               </button>
@@ -121,6 +121,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
                   setShowEditor(true);
                 }}
                 disabled={showEditor}
+                data-testid="next-button"
               >
                 <AiOutlineArrowRight />
               </button>
@@ -146,6 +147,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
                 setBackgroundColor(event.target.value);
               }}
               value={backgroundColor ?? '#ffffff'}
+              data-testid="background-color-input"
             />
           </div>
           <div className="rounded-md border bg-background p-2">
@@ -158,6 +160,7 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
                 setTextColor(event.target.value);
               }}
               value={textColor ?? '#000000'}
+              data-testid="text-color-input"
             />
           </div>
         </div>
@@ -186,4 +189,4 @@ const EditorColumn: React.FC<EditorRightColumnProps> = ({
   );
 };
 
-export default EditorColumn;
+export default EditorRightColumn;
