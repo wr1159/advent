@@ -9,7 +9,7 @@ describe('EventOperations', () => {
   };
 
   it('renders menu button', () => {
-    render(<EventOperations event={mockEvent} />);
+    render(<EventOperations event={mockEvent} uid={''} />);
 
     const menuButtonElement = screen.getByRole('button', { name: 'Open' });
 
