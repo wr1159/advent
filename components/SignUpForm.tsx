@@ -37,31 +37,31 @@ const SignUpForm: React.FC<{}> = () => {
     setPassword(event.target.value);
   };
   return (
-    <div className=" flex h-full items-center justify-center">
+    <div>
       <form onSubmit={handleForm} className="flex flex-col">
         <div>
           <label htmlFor="email">
-            <p className="text-xl text-accent">Email</p>
+            <p className="font-sans text-lg text-accent">Username</p>
             <input
               onChange={handleEmailChange}
               required
               type="email"
-              name="email"
-              id="email"
-              placeholder="example@mail.com"
-              className="rounded-md py-0.5 pl-0.5 pr-2"
+              name="username"
+              id="username"
+              placeholder="Username"
+              className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
           <label htmlFor="password">
-            <p className="mt-2 text-xl text-accent">Password</p>
+            <p className="mt-2 font-sans text-lg text-accent">Password</p>
             <input
               onChange={handlePasswordChange}
               required
               type="password"
               name="password"
               id="password"
-              placeholder="password"
-              className="rounded-md py-0.5 pl-0.5 pr-2"
+              placeholder="*********"
+              className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
         </div>

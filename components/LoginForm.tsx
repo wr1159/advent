@@ -1,15 +1,11 @@
 'use client';
 import { useState, FormEvent, ChangeEvent } from 'react';
+import handleGoogleSignIn from '@/utils/google-ver';
 import signIn from '../utils/signin';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
 import Button from './Button';
-
-/* const [email, setEmail] = React.useState('');
-const [password, setPassword] = React.useState('');
-
-const router = useRouter();
-*/
+import { FaGoogle } from 'react-icons/fa';
 
 const LoginForm: React.FC<{}> = () => {
   const [email, setEmail] = useState<string>('');
@@ -45,43 +41,61 @@ const LoginForm: React.FC<{}> = () => {
   };
 
   return (
-    <div>
+    <>
       <div>
-        <form onSubmit={handleForm} className="form flex flex-col">
+        <form onSubmit={handleForm} className="flex flex-col">
           <label htmlFor="email">
-            <p className="text-xl text-accent">Email</p>
+            {/* <p className="text-xl text-accent">Email</p> */}
             <input
               onChange={handleEmailChange}
               required
               type="email"
               name="email"
               id="email"
-              placeholder="example@mail.com"
-              className="w-full rounded-md py-0.5 pl-0.5 pr-2"
+              placeholder="Username"
+              className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
           <label htmlFor="password">
-            <p className="mt-2 text-xl text-accent">Password</p>
             <input
               onChange={handlePasswordChange}
               required
               type="password"
               name="password"
               id="password"
-              placeholder="password"
-              className="w-full rounded-md py-0.5 pl-0.5 pr-2"
+              placeholder="Password"
+              className="mt-4 w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
           <Button
             type="submit"
-            text="Sign In"
-            className="mt-4 h-full"
+            text="Login"
+            className="mt-4"
             size="sm"
             theme="secondary"
           />
         </form>
       </div>
-    </div>
+
+      <div className="relative mt-6">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-zinc-500">
+            Or continue with
+          </span>
+        </div>
+      </div>
+      <Button
+        text="Google"
+        theme="primary"
+        size="sm"
+        onClick={handleGoogleSignIn}
+        icon={<FaGoogle className="mr-2" />}
+        className="mt-4 w-full justify-center"
+      />
+    </>
   );
 };
 
