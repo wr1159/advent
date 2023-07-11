@@ -75,6 +75,7 @@ const SignUpForm: React.FC<{}> = () => {
               type="email"
               name="username"
               id="username"
+              data-testid="email-signup"
               placeholder="Email"
               className="w-full rounded-md px-3 py-2 text-sm"
             />
@@ -87,6 +88,7 @@ const SignUpForm: React.FC<{}> = () => {
               type="password"
               name="password"
               id="password"
+              data-testid="password-signup"
               placeholder="*********"
               className="w-full rounded-md px-3 py-2 text-sm"
             />
@@ -101,6 +103,7 @@ const SignUpForm: React.FC<{}> = () => {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
+              data-testid="confirmPassword-signup"
               placeholder="*********"
               className="w-full rounded-md px-3 py-2 text-sm"
             />

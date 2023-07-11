@@ -76,6 +76,7 @@ const LoginForm: React.FC<{}> = () => {
               type="email"
               name="email"
               id="email"
+              data-testid="email-login"
               placeholder="Username"
               className="w-full rounded-md px-3 py-2 text-sm"
             />
@@ -87,6 +88,7 @@ const LoginForm: React.FC<{}> = () => {
               type="password"
               name="password"
               id="password"
+              data-testid="password-login"
               placeholder="Password"
               className="mt-4 w-full rounded-md px-3 py-2 text-sm"
             />
