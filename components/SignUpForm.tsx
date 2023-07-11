@@ -1,16 +1,25 @@
 'use client';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, use } from 'react';
 import signUp from '../utils/signup';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
 import Button from './Button';
+import { FirebaseError } from 'firebase/app';
 const SignUpForm: React.FC<{}> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmpassword, setConfirmPassword] = useState<string>('');
+  const [mismatchError, setMismatchError] = useState<boolean>(false);
+  const [showError, setError] = useState<string>('');
   const router = useRouter();
 
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (password !== confirmpassword) {
+      setError('Password confirmation does not match password');
+      return;
+    }
+    setMismatchError(false);
 
     const {
       result,
@@ -21,6 +30,18 @@ const SignUpForm: React.FC<{}> = () => {
     );
 
     if (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/weak-password':
+            setError('Password should be at least 6 characters');
+            break;
+          case 'auth/email-already-in-use':
+            setError('An account with this email adress already existed');
+            break;
+          default:
+            setError('Unknown error occured, refer to console');
+        }
+      }
       return console.log(error);
     }
 
@@ -36,42 +57,72 @@ const SignUpForm: React.FC<{}> = () => {
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
+
+  const handleConfirmPasswordChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPassword(event.target.value);
+  };
   return (
-    <div className=" flex h-full items-center justify-center">
+    <div>
       <form onSubmit={handleForm} className="flex flex-col">
         <div>
           <label htmlFor="email">
-            <p className="text-xl text-accent">Email</p>
+            <p className="text-md font-sans text-accent">Email</p>
             <input
               onChange={handleEmailChange}
               required
               type="email"
-              name="email"
-              id="email"
-              placeholder="example@mail.com"
-              className="rounded-md py-0.5 pl-0.5 pr-2"
+              name="username"
+              id="username"
+              data-testid="email-signup"
+              placeholder="Email"
+              className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
           <label htmlFor="password">
-            <p className="mt-2 text-xl text-accent">Password</p>
+            <p className="text-md mt-2 font-sans text-accent">Password</p>
             <input
               onChange={handlePasswordChange}
               required
               type="password"
               name="password"
               id="password"
-              placeholder="password"
-              className="rounded-md py-0.5 pl-0.5 pr-2"
+              data-testid="password-signup"
+              placeholder="*********"
+              className="w-full rounded-md px-3 py-2 text-sm"
+            />
+          </label>
+          <label htmlFor="confirmPassword">
+            <p className="text-md mt-2 font-sans text-accent">
+              Password confirmation
+            </p>
+            <input
+              onChange={handleConfirmPasswordChange}
+              required
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              data-testid="confirmPassword-signup"
+              placeholder="*********"
+              className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
         </div>
-        <Button
-          type="submit"
-          text="Sign up"
-          size="sm"
-          className="mt-6 w-full px-4"
-          theme="secondary"
-        />
+        <div className="my-4 flex flex-col justify-center">
+          {showError && (
+            <div className="flex items-center font-sans text-sm text-red-500">
+              {showError}
+            </div>
+          )}
+          <Button
+            type="submit"
+            text="Sign up"
+            size="sm"
+            className="mt-4 w-full px-4"
+            theme="secondary"
+          />
+        </div>
       </form>
     </div>
   );

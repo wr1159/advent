@@ -1,3 +1,4 @@
+import { FirebaseError } from 'firebase/app';
 import app from '../firebaseconfig';
 import {
   UserCredential,
@@ -16,7 +17,6 @@ export default async function signIn(
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
   } catch (e: unknown) {
-    //  console.log(e);
     error = e as Error;
   }
   return { result, error };
