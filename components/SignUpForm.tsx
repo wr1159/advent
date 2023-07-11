@@ -4,17 +4,19 @@ import signUp from '../utils/signup';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
 import Button from './Button';
+import { FirebaseError } from 'firebase/app';
 const SignUpForm: React.FC<{}> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmpassword, setConfirmPassword] = useState<string>('');
   const [mismatchError, setMismatchError] = useState<boolean>(false);
+  const [showError, setError] = useState<string>('');
   const router = useRouter();
 
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmpassword) {
-      setMismatchError(true);
+      setError('Password confirmation does not match password');
       return;
     }
     setMismatchError(false);
@@ -28,6 +30,18 @@ const SignUpForm: React.FC<{}> = () => {
     );
 
     if (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/weak-password':
+            setError('Password should be at least 6 characters');
+            break;
+          case 'auth/email-already-in-use':
+            setError('An account with this email adress already existed');
+            break;
+          default:
+            setError('Unknown error occured, refer to console');
+        }
+      }
       return console.log(error);
     }
 
@@ -77,7 +91,7 @@ const SignUpForm: React.FC<{}> = () => {
               className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="confirmPassword">
             <p className="text-md mt-2 font-sans text-accent">
               Password confirmation
             </p>
@@ -85,17 +99,17 @@ const SignUpForm: React.FC<{}> = () => {
               onChange={handleConfirmPasswordChange}
               required
               type="password"
-              name="password"
-              id="password"
+              name="confirmPassword"
+              id="confirmPassword"
               placeholder="*********"
               className="w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
         </div>
         <div className="my-4 flex flex-col justify-center">
-          {mismatchError && (
+          {showError && (
             <div className="flex items-center font-sans text-sm text-red-500">
-              Password confirmation does not match password
+              {showError}
             </div>
           )}
           <Button
