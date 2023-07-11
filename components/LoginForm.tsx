@@ -6,10 +6,13 @@ import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';
 import Button from './Button';
 import { FaGoogle } from 'react-icons/fa';
+import { FirebaseError } from 'firebase/app';
 
 const LoginForm: React.FC<{}> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showError, setError] = useState<string>('');
+
   const router = useRouter();
 
   const handleForm = async (event: FormEvent<HTMLFormElement>) => {
@@ -24,6 +27,27 @@ const LoginForm: React.FC<{}> = () => {
     );
 
     if (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/user-not-found':
+            // Handle user not found error
+            setError('Email not registered');
+            break;
+          case 'auth/wrong-password':
+            setError('Wrong password');
+            // Handle wrong password error
+            break;
+          case 'auth/network-request-failed':
+            setError('Network connection error. Please retry');
+            // Handle network request failed error
+            break;
+          default:
+            setError('Unknown error occured');
+            break;
+        }
+      } else {
+        setError('Unknown error occured');
+      }
       return console.log(error);
     }
 
@@ -67,6 +91,9 @@ const LoginForm: React.FC<{}> = () => {
               className="mt-4 w-full rounded-md px-3 py-2 text-sm"
             />
           </label>
+          <div className="mt-4 px-3 font-sans text-sm text-red-500">
+            {showError}
+          </div>
           <Button
             type="submit"
             text="Login"
