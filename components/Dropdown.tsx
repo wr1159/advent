@@ -1,6 +1,5 @@
 import React from 'react';
 import { Content, Item, Root, Trigger } from '@radix-ui/react-dropdown-menu';
-import { AttendantData } from '@/types/Attendant';
 
 interface DropdownProps {
   options: string[];
