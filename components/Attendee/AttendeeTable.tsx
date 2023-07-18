@@ -1,11 +1,10 @@
+import { capitalizeFirstLetter } from '@/utils/capitalizeLetter';
 import React from 'react';
 import { useTable } from 'react-table';
 
 type AttendeeTableProps = {
   attendees: Record<string, any>[] | undefined;
 };
-const capitalizeFirstLetter = (str: string): string =>
-  `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 
 const AttendeeTable: React.FC<AttendeeTableProps> = ({ attendees }) => {
   const sortedAttendees = React.useMemo(() => {

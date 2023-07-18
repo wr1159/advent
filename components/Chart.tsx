@@ -1,7 +1,11 @@
+'use client';
 import LineChart from './Charts/LineChart';
 import { twMerge } from 'tailwind-merge';
 import BarChart from './Charts/BarChart';
 import { AttendantData } from '@/types/Attendant';
+import Dropdown from './Dropdown';
+import { useState } from 'react';
+import { capitalizeFirstLetter } from '@/utils/capitalizeLetter';
 
 interface ChartContainerProps {
   heading: string;
@@ -11,6 +15,7 @@ interface ChartContainerProps {
   label: string;
   colSpan: number;
   chartType: 'line' | 'bar';
+  type: 'select' | 'length';
 }
 // create a react component that returns the div below
 const ChartContainer: React.FC<ChartContainerProps> = ({
@@ -20,8 +25,11 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
   param,
   label,
   colSpan,
-  chartType
+  chartType,
+  type
 }) => {
+  const [option, setOption] = useState(Object.keys(attendants[0])[0]);
+  const [chart, setChart] = useState<string>(capitalizeFirstLetter(chartType));
   return (
     <div
       className={twMerge(
@@ -34,21 +42,48 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
           <h1 className="text-xl">{heading}</h1>
         </div>
         <div className="flex flex-col px-4">
-          <h2 className="text-sm text-primary">{subheading}</h2>
-          <div className="flex flex-row items-center space-x-2 ">
-            <h1 className="text-3xl font-bold  lg:text-5xl">
-              {attendants.length}
-            </h1>
-            <h2 className="text-sm text-primary">
-              <span className="text-green-500">+4</span> vs last 7 days
-            </h2>
-          </div>
+          {type === 'length' && (
+            <>
+              <h2 className="text-sm text-primary">{subheading}</h2>
+              <div className="flex flex-row items-center space-x-2 ">
+                <h1 className="text-3xl font-bold  lg:text-5xl">
+                  {attendants.length}
+                </h1>
+                <h2 className="text-sm text-primary">
+                  <span className="text-green-500">+4</span> vs last 7 days
+                </h2>
+              </div>
+            </>
+          )}
+          {type === 'select' && (
+            <div className="flex w-full flex-col gap-y-1">
+              <Dropdown
+                options={Object.keys(attendants[0])}
+                selectedOption={option}
+                onSelectOption={setOption}
+              />
+
+              <Dropdown
+                options={['Line', 'Bar']}
+                selectedOption={chart}
+                onSelectOption={setChart}
+              />
+            </div>
+          )}
         </div>
       </div>
-      {chartType === 'line' ? (
-        <LineChart data={attendants} param={param} label={label} />
-      ) : chartType === 'bar' ? (
-        <BarChart data={attendants} param={param} label={label} />
+      {chart.toLowerCase() === 'line' ? (
+        <LineChart
+          data={attendants}
+          param={type === 'select' ? option : param}
+          label={label}
+        />
+      ) : chart.toLowerCase() === 'bar' ? (
+        <BarChart
+          data={attendants}
+          param={type === 'select' ? option : param}
+          label={label}
+        />
       ) : (
         <div>Invalid chart type</div>
       )}

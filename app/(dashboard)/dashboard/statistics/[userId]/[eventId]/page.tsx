@@ -45,8 +45,9 @@ export default function EventStatistics({ params }: { params: PageProps }) {
                 colSpan={1}
                 attendants={attendeesWithSubmittedDay}
                 label="Sign Ups"
-                param={'age'}
+                param={'submittedDay'}
                 chartType="line"
+                type="length"
               />
               <ChartContainer
                 heading="Age"
@@ -56,6 +57,7 @@ export default function EventStatistics({ params }: { params: PageProps }) {
                 label="Number"
                 param={'age'}
                 chartType="bar"
+                type="select"
               />
             </div>
           )}
