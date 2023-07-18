@@ -20,7 +20,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           {selectedOption}
         </div>
       </Trigger>
-      <Content className="w-full rounded-md bg-secondary p-2">
+      <Content className="rounded-md bg-secondary p-2">
         {options.map((option) => (
           <Item
             className="my-1 rounded-md bg-white px-1"

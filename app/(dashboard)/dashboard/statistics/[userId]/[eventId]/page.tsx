@@ -41,7 +41,7 @@ export default function EventStatistics({ params }: { params: PageProps }) {
             <div className="grid grid-cols-2 gap-x-2 py-4">
               <ChartContainer
                 heading="Sign Ups Per Day"
-                subheading="Sign Ups"
+                subheading="Total Sign Ups"
                 colSpan={1}
                 attendants={attendeesWithSubmittedDay}
                 label="Sign Ups"
@@ -54,7 +54,7 @@ export default function EventStatistics({ params }: { params: PageProps }) {
                 subheading="Age"
                 colSpan={1}
                 attendants={attendees}
-                label="Number"
+                label="Count"
                 param={'age'}
                 chartType="bar"
                 type="select"

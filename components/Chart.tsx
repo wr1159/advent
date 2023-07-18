@@ -49,25 +49,27 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
                 <h1 className="text-3xl font-bold  lg:text-5xl">
                   {attendants.length}
                 </h1>
-                <h2 className="text-sm text-primary">
-                  <span className="text-green-500">+4</span> vs last 7 days
-                </h2>
               </div>
             </>
           )}
           {type === 'select' && (
-            <div className="flex w-full flex-col gap-y-1">
-              <Dropdown
-                options={Object.keys(attendants[0])}
-                selectedOption={option}
-                onSelectOption={setOption}
-              />
-
-              <Dropdown
-                options={['Line', 'Bar']}
-                selectedOption={chart}
-                onSelectOption={setChart}
-              />
+            <div className="flex w-full gap-x-1">
+              <div className="flex-col">
+                <p>Select Attribute</p>
+                <Dropdown
+                  options={Object.keys(attendants[0])}
+                  selectedOption={option}
+                  onSelectOption={setOption}
+                />
+              </div>
+              <div className="flex-col">
+                <p>Select Chart Type</p>
+                <Dropdown
+                  options={['Line', 'Bar']}
+                  selectedOption={chart}
+                  onSelectOption={setChart}
+                />
+              </div>
             </div>
           )}
         </div>
