@@ -1,13 +1,13 @@
-import { mockAttendant } from '@/app/(dashboard)/dashboard/statistics/page';
 import LineChart from './Charts/LineChart';
 import { twMerge } from 'tailwind-merge';
 import BarChart from './Charts/BarChart';
+import { AttendantData } from '@/types/Attendant';
 
 interface ChartContainerProps {
   heading: string;
   subheading: string;
-  attendants: mockAttendant[];
-  param: keyof mockAttendant;
+  attendants: AttendantData[];
+  param: keyof AttendantData;
   label: string;
   colSpan: number;
   chartType: 'line' | 'bar';

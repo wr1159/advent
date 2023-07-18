@@ -1,5 +1,5 @@
 'use client';
-import { mockAttendant } from '@/app/(dashboard)/dashboard/statistics/page';
+import { AttendantData } from '@/types/Attendant';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,6 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { twMerge } from 'tailwind-merge';
 
 ChartJS.register(
   CategoryScale,
@@ -23,8 +22,8 @@ ChartJS.register(
   Legend
 );
 interface LineChartProps {
-  data: mockAttendant[];
-  param: keyof mockAttendant;
+  data: AttendantData[];
+  param: keyof AttendantData;
   label: string;
 }
 
@@ -35,8 +34,8 @@ const LineChart: React.FC<LineChartProps> = ({ data, param, label }) => {
   data.forEach((attendant) => {
     var keyValue = attendant[param];
     // if keyValue is date, convert it to short date string, otherwise convert it to normal string
-    if (keyValue instanceof Date) keyValue = keyValue.toDateString();
-    else keyValue = keyValue.toString();
+    // if (keyValue instanceof Date) keyValue = keyValue.toDateString();
+    // else keyValue = keyValue.toString();
 
     const labelIndex = tempLabels.indexOf(keyValue) ?? -1;
     if (labelIndex === -1) {
@@ -80,7 +79,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, param, label }) => {
       y: {
         min: lineData.reduce((a, b) => Math.min(a, b)) - 1,
         max: lineData.reduce((a, b) => Math.max(a, b)) + 1,
-        display: false
+        display: true
       }
     }
     // does not maintain aspect ratio
