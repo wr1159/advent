@@ -3,13 +3,25 @@ import { render, screen } from '@testing-library/react';
 import ChartContainer from '../Chart';
 
 // Mock the Chart components to prevent rendering errors during testing
-jest.mock('../Charts/LineChart', () => () => <div data-testid="line-chart" />);
-jest.mock('../Charts/BarChart', () => () => <div data-testid="bar-chart" />);
+jest.mock(
+  '../Charts/LineChart',
+  () =>
+    function MockedLineChart() {
+      return <div data-testid="line-chart" />;
+    }
+);
+jest.mock(
+  '../Charts/BarChart',
+  () =>
+    function MockedBarChart() {
+      return <div data-testid="bar-chart" />;
+    }
+);
 jest.mock(
   '../Dropdown',
   () =>
-    ({ options, selectedOption, onSelectOption }: any) =>
-      (
+    function MockedDropdown({ options, selectedOption, onSelectOption }: any) {
+      return (
         <select
           data-testid="dropdown"
           value={selectedOption}
@@ -21,7 +33,8 @@ jest.mock(
             </option>
           ))}
         </select>
-      )
+      );
+    }
 );
 
 const mockAttendants = [
