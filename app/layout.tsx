@@ -4,9 +4,8 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Advent - Canva for Event Organisation',
-  description:
-    'Say goodbye to inconsistent theming in the event registration flow and redirection to third party registration apps. Welcome a simple solution to integrate an event registration page to your website, customised to your liking.'
+  title: 'Advent',
+  description: 'Canva for Event Organisation'
 };
 
 export default function RootLayout({
@@ -17,13 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta
-          property="og:title"
-          content="Advent - Canva for Event Organisation"
-        />
+        <meta property="og:title" content="Advent" />
         <meta
           property="og:description"
-          content="Say goodbye to inconsistent theming in the event registration flow and redirection to third party registration apps. Welcome a simple solution to integrate an event registration page to your website, customised to your liking."
+          content="Canva for Event Organisation"
         />
         <meta property="og:image" content="/src/opengraph.png" />
         <meta
