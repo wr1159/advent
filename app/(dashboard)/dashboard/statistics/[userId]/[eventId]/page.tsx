@@ -64,7 +64,7 @@ export default function EventStatistics({ params }: { params: PageProps }) {
           <AttendeeTable attendees={attendees} />
         </>
       ) : (
-        <p>Loading attendees...</p>
+        <p>No Attendees Found</p>
       )}
     </div>
   );
