@@ -25,18 +25,16 @@ describe('LoginForm', () => {
   it('renders login form correctly', () => {
     render(<LoginForm />);
 
-    expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /Sign In/i })
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('email-login')).toBeInTheDocument();
+    expect(screen.getByTestId('password-login')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument();
   });
   it('allows typing in email and password fields', () => {
     render(<LoginForm />);
 
-    const emailInput = screen.getByLabelText(/Email/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(
-      /Password/i
+    const emailInput = screen.getByTestId('email-login') as HTMLInputElement;
+    const passwordInput = screen.getByTestId(
+      'password-login'
     ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });

@@ -25,8 +25,9 @@ describe('LoginForm', () => {
   it('renders login form correctly', () => {
     render(<SignUpForm />);
 
-    expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByTestId('password-signup')).toBeInTheDocument();
+    expect(screen.getByTestId('confirmPassword-signup')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Sign up/i })
     ).toBeInTheDocument();
@@ -34,15 +35,22 @@ describe('LoginForm', () => {
   it('allows typing in email and password fields', () => {
     render(<SignUpForm />);
 
-    const emailInput = screen.getByLabelText(/Email/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(
-      /Password/i
+    const emailInput = screen.getByTestId('email-signup') as HTMLInputElement;
+    const passwordInput = screen.getByTestId(
+      'password-signup'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = screen.getByTestId(
+      'confirmPassword-signup'
     ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: 'password123' }
+    });
 
     expect(emailInput.value).toBe('test@example.com');
     expect(passwordInput.value).toBe('password123');
+    expect(confirmPasswordInput.value).toBe('password123');
   });
 });
