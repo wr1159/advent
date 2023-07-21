@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import queryForTemplate from '@/utils/queryTemplate';
+import { capitalizeFirstLetter } from '@/utils/capitalizeLetter';
 
 export interface AttendeeInfo {
   id: number;
@@ -29,9 +30,6 @@ export default function NewAttendeeFormEditor({
   setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
   setTextColor: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const capitalizeFirstLetter = (str: string): string =>
-    `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
-
   let defaultList: AttendeeInfo[] = [];
   // This data is the previously saved template.
   useEffect(() => {
