@@ -79,7 +79,9 @@ const LineChart: React.FC<LineChartProps> = ({ data, param, label }) => {
       y: {
         min: lineData.reduce((a, b) => Math.min(a, b)) - 1,
         max: lineData.reduce((a, b) => Math.max(a, b)) + 1,
-        display: true
+        ticks: {
+          stepSize: 1 // Set the stepSize to 1 to force integer steps on the y-axis
+        }
       }
     }
     // does not maintain aspect ratio
