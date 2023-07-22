@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ texts, links, login, logout }) => {
         <div className="flex items-center">
           <NavigationMenuList className="align-center hidden items-center space-x-6 text-xl md:flex">
             <NavigationMenuItem className="advent px-6 text-2xl text-black hover:text-gray-700">
-              <NavigationMenuLink href={login ? '/' : '/dashboard'}>
+              <NavigationMenuLink id="logo" href={login ? '/' : '/dashboard'}>
                 Advent{' '}
               </NavigationMenuLink>
             </NavigationMenuItem>

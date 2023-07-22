@@ -57,7 +57,7 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
       });
   };
   return (
-    <div className="flex  w-[300px] flex-col border-l border-gray-200 bg-white">
+    <div className="flex  w-[300px] flex-col border-r border-t border-gray-200 bg-white">
       <div className="flex-col space-y-4 border-b border-gray-200 py-5">
         <div className="h-18 flex items-center justify-center px-3">
           {showSavedMessage && (
@@ -68,6 +68,8 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
             </div>
           )}
           <Button
+            id="save-btn"
+            className="font-sans font-normal"
             theme="primary"
             text="Save"
             onClick={handleSave}
@@ -76,6 +78,8 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
         </div>
         <div className="h-18 flex items-center justify-center px-3">
           <Button
+            id="copy-btn"
+            className="font-sans"
             theme="secondary"
             text={isCopied ? 'Copied!' : 'Copy Iframe'}
             onClick={handleCopy}
@@ -85,8 +89,10 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
       </div>
 
       <details>
-        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          {/* <span className="text-sm font-semibold">Navigation</span> */}
+        <summary
+          id="nav-btn"
+          className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4"
+        >
           {showEditor ? (
             <>
               <span
@@ -130,12 +136,12 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
         </summary>
       </details>
 
-      <details>
-        <summary className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+      <div>
+        <div className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
           <span className="text-sm font-semibold">Layout Editor</span>
-        </summary>
+        </div>
 
-        <div className="grid grid-cols-2 gap-2 p-2 text-sm">
+        <div id="color-picker" className="grid grid-cols-2 gap-2 p-2 text-sm">
           <div className="rounded-md border bg-background p-2">
             <h2 className="text-center font-bold text-gray-700">Background</h2>
             <input
@@ -175,13 +181,16 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
             setImageUrls={setImageUrls}
           />
         </div>
-      </details>
+      </div>
 
-      <div className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5">
+      <div
+        id="view-btn"
+        className="h-18 flex items-center justify-center gap-x-4 border-b border-gray-200 px-6 py-5"
+      >
         <Button
-          text="View Event Landing Page"
+          className="items font-sans"
+          text="View event page"
           href={`/event/${userId}/${eventId}`}
-          className="items"
           theme="secondary"
         />
       </div>

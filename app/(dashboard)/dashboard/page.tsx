@@ -5,6 +5,8 @@ import CreateEventForm from '@/components/CreateEventForm';
 import queryForEvents, { Event } from '@/utils/event-query';
 import getUserId from '@/utils/getUser';
 import { parse, compareDesc } from 'date-fns';
+import Footer from '@/components/Footer';
+
 export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);
   const [uid, setUid] = useState<string>('');
@@ -41,7 +43,7 @@ export default function Dashboard() {
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center justify-between">
-        <div className="grid gap-2">
+        <div className="grid gap-2 font-sans">
           <h1 className="text-3xl md:text-4xl">Events</h1>
           <p className="text-lg text-primary">Create and manage your events.</p>
         </div>
@@ -55,8 +57,10 @@ export default function Dashboard() {
           ))}
         </div>
       ) : (
-        <div className="text-accent">
-          <h2 className="text-xl md:text-2xl">Waiting for events.</h2>
+        <div className="content-center text-accent">
+          <h2 className="mt-3 font-sans text-xl md:text-2xl">
+            Waiting for events.
+          </h2>
         </div>
       )}
     </div>

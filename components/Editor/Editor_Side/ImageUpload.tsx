@@ -45,7 +45,20 @@ function ImageUpload({
 
   return (
     <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
-      <div className="flex flex-col items-center">
+      <div id="img-btn" className="flex flex-col items-center">
+        <div className="mb-4 flex justify-center">
+          {imageUrls.map((url, index) => (
+            <div key={index} className="aspect-w-3 aspect-h-2">
+              <Image
+                width={500}
+                height={500}
+                src={url}
+                className="rounded-lg object-cover"
+                alt="image"
+              />
+            </div>
+          ))}
+        </div>
         <input
           type="file"
           onChange={(event) => {
@@ -62,21 +75,8 @@ function ImageUpload({
           onClick={selectImage}
           text="Select Image"
           theme="secondary"
-          className="mb-4 bg-accent px-4 py-2 shadow"
+          className="mb-4 bg-accent px-4 py-2 font-sans shadow"
         />
-        <div className="mb-4 flex justify-center">
-          {imageUrls.map((url, index) => (
-            <div key={index} className="aspect-w-3 aspect-h-2">
-              <Image
-                width={500}
-                height={500}
-                src={url}
-                className="rounded-lg object-cover"
-                alt="image"
-              />
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

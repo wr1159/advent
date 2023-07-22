@@ -36,8 +36,12 @@ const WYSIWYGContainer: React.FC<WYSIWYGContainerProps> = ({
 
   return (
     <div className="h-screen w-full">
+      <h2 className="mb-4 text-2xl font-bold text-accent">
+        Event Landing Page
+      </h2>
       <ReactQuill
-        className="h-full break-all"
+        id="quill"
+        className="h-3/4 break-all"
         value={content}
         onChange={handleChange}
         modules={modules}

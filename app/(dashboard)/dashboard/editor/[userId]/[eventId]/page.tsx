@@ -1,11 +1,14 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AttendeeFormEditor from '@/components/Editor/Editor_Side/AttendeeFormEditor';
 import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn';
 import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import queryForTemplate from '@/utils/queryTemplate';
 import uploadImage from '@/utils/uploadImage';
+import Joyride from 'react-joyride';
+import Step from 'react-joyride';
+import { Steps } from '@/utils/walkthroughSteps';
 import { PageProps } from '@/types/PageProps';
 
 interface AttendeeInfo {
@@ -103,7 +106,7 @@ export default function Template({ params }: { params: PageProps }) {
   };
   return (
     <div className="bg gray-100 flex">
-      <div className="flex flex-1 flex-col border">
+      <div id="left-section" className="flex flex-1 flex-col border">
         {showEditor ? (
           <AttendeeFormEditor
             params={params}
@@ -122,6 +125,23 @@ export default function Template({ params }: { params: PageProps }) {
         )}
       </div>
       <div>
+        <Joyride
+          continuous
+          hideCloseButton
+          scrollToFirstStep
+          showProgress
+          showSkipButton
+          steps={Steps}
+          styles={{
+            options: {
+              arrowColor: '#00264B',
+              backgroundColor: '#F4F4F4',
+              primaryColor: '#00264B',
+              textColor: '#6C6C6C'
+            }
+          }}
+        />
+
         <EditorRightColumn
           handleSave={handleSave}
           showSavedMessage={showSavedMessage}
