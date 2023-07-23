@@ -11,10 +11,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log('1');
         const fetchedEvents = await queryForEvents();
         if (fetchedEvents) {
-          console.log('2');
           // sort by descending order
           console.log(fetchedEvents);
           const sortedEvents = fetchedEvents.sort((a, b) => {
@@ -30,7 +28,6 @@ export default function Dashboard() {
           setUid(userId);
         }
       } catch (error) {
-        console.log('3');
         console.error('Error querying for events:', error);
       }
     };
@@ -51,7 +48,7 @@ export default function Dashboard() {
       {events?.length ? (
         <div className="divide-border mt-5 divide-y rounded-md border">
           {events.map((event) => (
-            <EventItem uid={uid} key={event.id} event={event} />
+            <EventItem uid={uid} key={event.id} events= {events} setEvents = {setEvents} event={event} />
           ))}
         </div>
       ) : (
