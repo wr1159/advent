@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AttendeeFormEditor from '@/components/Editor/Editor_Side/AttendeeFormEditor';
 import EditorRightColumn from '@/components/Editor/Editor_Side/EditorRightColumn';
-import saveTemplate, { getAllTemplateIds } from '@/utils/save-template';
+import saveTemplate, { getAllTemplateIds } from '@/utils/saveTemplate';
 import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import queryForTemplate from '@/utils/queryTemplate';
 import uploadImage from '@/utils/uploadImage';

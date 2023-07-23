@@ -1,16 +1,5 @@
-import {
-  collection,
-  query,
-  getDocs,
-  QueryDocumentSnapshot,
-  DocumentData,
-  QuerySnapshot,
-  Query,
-  getDoc,
-  doc
-} from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import queryForTemplate, { Event } from '@/utils/queryTemplate';
+import queryForTemplate from '@/utils/queryTemplate';
 
 jest.useFakeTimers();
 jest.mock('firebase/firestore', () => ({

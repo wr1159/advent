@@ -1,13 +1,8 @@
 import { getDoc, doc } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getAllTemplateIds } from './save-template';
+import { getAllTemplateIds } from './saveTemplate';
 
-export type Event = {
-  id: string;
-  name: string;
-  date: string;
-};
 
 export default function queryForTemplate(
   uid: string,

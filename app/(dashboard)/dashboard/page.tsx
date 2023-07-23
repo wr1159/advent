@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { EventItem } from '@/components/EventItem';
 import CreateEventForm from '@/components/CreateEventForm';
-import queryForEvents, { Event } from '@/utils/event-query';
+import queryForEvents, { Event } from '@/utils/eventQuery';
 import getUserId from '@/utils/getUser';
 import { parse, compareDesc } from 'date-fns';
 import Footer from '@/components/Footer';

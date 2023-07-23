@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import PreviewForm from '@/components/Editor/Preview_Side/PreviewForm';
 import { INITIAL_DATA } from '@/components/Editor/Preview_Side/PreviewForm';
-import addAttendee from '@/utils/add-attendee';
+import addAttendee from '@/utils/addAttendee';
 
 const params = { userId: '123', eventId: '456' };
 const imageUrls = [

@@ -1,5 +1,5 @@
 import { setDoc, doc } from 'firebase/firestore';
-import saveTemplate from '@/utils/save-template';
+import saveTemplate from '@/utils/saveTemplate';
 import { firestore } from '@/firebaseconfig';
 
 // Mock the Firebase Firestore functions

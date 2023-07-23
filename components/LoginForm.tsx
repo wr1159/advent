@@ -1,6 +1,6 @@
 'use client';
 import { useState, FormEvent, ChangeEvent } from 'react';
-import handleGoogleSignIn from '@/utils/google-ver';
+import handleGoogleSignIn from '@/utils/googleVer';
 import signIn from '../utils/signin';
 import { useRouter } from 'next/navigation';
 import { UserCredential } from 'firebase/auth';

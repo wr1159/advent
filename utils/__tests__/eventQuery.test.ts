@@ -3,11 +3,9 @@ import {
   collection,
   query,
   getDocs,
-  QuerySnapshot,
-  DocumentData
 } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
-import queryForEvents, { Event, queryEvents } from '@/utils/event-query';
+import queryForEvents, { Event, queryEvents } from '@/utils/eventQuery';
 
 jest.mock('firebase/auth', () => ({
   getAuth: jest.fn(),

@@ -8,7 +8,7 @@ import DataPage from '@/components/Editor/Preview_Side/DataPage';
 // import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
 import queryForTemplate from '@/utils/queryTemplate';
 //
-import addAttendee from '@/utils/add-attendee';
+import addAttendee from '@/utils/addAttendee';
 //
 
 interface PageProps {

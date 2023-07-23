@@ -1,4 +1,3 @@
-import { FirebaseError } from 'firebase/app';
 import app from '../firebaseconfig';
 import {
   UserCredential,

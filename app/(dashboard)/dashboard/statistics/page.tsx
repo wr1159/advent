@@ -1,5 +1,5 @@
 'use client';
-import queryForEvents, { Event } from '@/utils/event-query';
+import queryForEvents, { Event } from '@/utils/eventQuery';
 import { parse, compareDesc } from 'date-fns';
 import { useEffect, useState } from 'react';
 import getUserId from '@/utils/getUser';
