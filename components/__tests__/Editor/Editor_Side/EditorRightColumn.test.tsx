@@ -108,7 +108,7 @@ describe('EditorRightColumn', () => {
     expect(handleSetTextColorMock).toHaveBeenCalledWith('#ff0000');
   });
 
-  it('renders "View Event Landing Page" button with correct href attribute', () => {
+  it('renders "View event page" button with correct href attribute', () => {
     render(
       <EditorRightColumn
         handleSave={handleSaveMock}
@@ -129,7 +129,7 @@ describe('EditorRightColumn', () => {
         setShowEditor={handleSetShowEditorMock}
       />
     );
-    const viewPageButton = screen.getByText('View Event Landing Page');
+    const viewPageButton = screen.getByText('View event page');
 
     expect(viewPageButton.getAttribute('href')).toBe(`/event/${123}/${456}`);
   });

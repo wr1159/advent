@@ -34,7 +34,7 @@ describe('NewAttendeeFormEditor', () => {
         setTextColor={jest.fn()}
       />
     );
-    expect(screen.getByText('Registration Form:')).toBeInTheDocument();
+    expect(screen.getByText('Registration Form')).toBeInTheDocument();
     expect(screen.getByText('Name:')).toBeInTheDocument();
     expect(screen.getByText('Email:')).toBeInTheDocument();
     expect(screen.getByText('Add')).toBeInTheDocument();

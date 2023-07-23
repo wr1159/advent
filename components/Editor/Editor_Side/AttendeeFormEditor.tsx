@@ -140,10 +140,12 @@ export default function NewAttendeeFormEditor({
 
   return (
     <div className="p-8">
-      <div className="mx-auto max-w-md rounded bg-white p-6">
-        <h2 className="mb-4 text-2xl font-bold">Registration Form:</h2>
+      <div className="mx-auto max-w-md rounded-md border bg-white p-6">
+        <h2 id="reg-form" className="mb-4 text-2xl font-bold text-accent">
+          Registration Form
+        </h2>
 
-        <div className="my-4 rounded-md border bg-background p-4 ">
+        <div className="my-4 rounded-md border bg-background p-4">
           {attendeeInfoList
             .filter((attendeeInfo) => attendeeInfo.type !== 'color')
             .map((attendeeInfo) => (

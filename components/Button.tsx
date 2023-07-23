@@ -9,6 +9,7 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg' | 'wide';
   href?: string;
   className?: string;
+  id?: string;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset' | undefined;
   icon?: React.ReactNode;
@@ -32,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   href,
   className,
+  id,
   onClick,
   type,
   icon
@@ -51,6 +53,7 @@ const Button: React.FC<ButtonProps> = ({
     </Link>
   ) : (
     <button
+      id={id}
       onClick={onClick}
       className={twMerge(
         'items-center rounded',
