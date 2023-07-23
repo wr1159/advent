@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
-import deleteEvent from '@/utils/deleteEvent'; 
+import deleteEvent from '@/utils/deleteEvent';
 import { Event } from '@/utils/event-query';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -17,15 +17,20 @@ interface EventOperationProps {
     title: string;
   };
   events: Event[];
-  setEvents: Dispatch<SetStateAction<Event[]>>
+  setEvents: Dispatch<SetStateAction<Event[]>>;
   uid: string;
 }
 
-export function EventOperations({ event, events, setEvents, uid }: EventOperationProps) {
-  const handleDelete= () => {
+export function EventOperations({
+  event,
+  events,
+  setEvents,
+  uid
+}: EventOperationProps) {
+  const handleDelete = () => {
     setEvents(events.filter((ev) => ev.id !== event.id));
     deleteEvent(uid, event.id);
-  }
+  };
   return (
     <>
       <DropdownMenu>

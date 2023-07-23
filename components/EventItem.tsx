@@ -6,7 +6,7 @@ import { SetStateAction, Dispatch } from 'react';
 interface EventItemProps {
   uid: string;
   events: Event[];
-  setEvents: Dispatch<SetStateAction<Event[]>>
+  setEvents: Dispatch<SetStateAction<Event[]>>;
   event: {
     id: string;
     name: string;
@@ -27,7 +27,12 @@ export function EventItem({ uid, events, setEvents, event }: EventItemProps) {
           <p className="text-muted-foreground text-sm">{event.date}</p>
         </div>
       </div>
-      <EventOperations event={{ id: event.id, title: event.name }} events = {events} setEvents = {setEvents} uid={uid} />
+      <EventOperations
+        event={{ id: event.id, title: event.name }}
+        events={events}
+        setEvents={setEvents}
+        uid={uid}
+      />
     </div>
   );
 }

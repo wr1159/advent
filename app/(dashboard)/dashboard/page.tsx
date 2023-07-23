@@ -48,7 +48,13 @@ export default function Dashboard() {
       {events?.length ? (
         <div className="divide-border mt-5 divide-y rounded-md border">
           {events.map((event) => (
-            <EventItem uid={uid} key={event.id} events= {events} setEvents = {setEvents} event={event} />
+            <EventItem
+              uid={uid}
+              key={event.id}
+              events={events}
+              setEvents={setEvents}
+              event={event}
+            />
           ))}
         </div>
       ) : (
