@@ -7,16 +7,30 @@ import {
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
+import deleteEvent from '@/utils/deleteEvent';
+import { Event } from '@/utils/event-query';
+import { Dispatch, SetStateAction } from 'react';
 
 interface EventOperationProps {
   event: {
     id: string;
     title: string;
   };
+  events: Event[];
+  setEvents: Dispatch<SetStateAction<Event[]>>;
   uid: string;
 }
 
-export function EventOperations({ event, uid }: EventOperationProps) {
+export function EventOperations({
+  event,
+  events,
+  setEvents,
+  uid
+}: EventOperationProps) {
+  const handleDelete = () => {
+    setEvents(events.filter((ev) => ev.id !== event.id));
+    deleteEvent(uid, event.id);
+  };
   return (
     <>
       <DropdownMenu>
@@ -34,7 +48,7 @@ export function EventOperations({ event, uid }: EventOperationProps) {
           <DropdownMenuItem
             //TODO change text-red-500 to a destructive color in tailwindconfig like text-destructive
             className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm text-red-500 outline-none transition-colors focus:bg-secondary focus:text-red-500"
-            onSelect={() => console.log(true)}
+            onSelect={handleDelete}
           >
             Delete
           </DropdownMenuItem>
