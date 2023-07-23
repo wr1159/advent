@@ -7,8 +7,9 @@ import DataPage from '@/components/Editor/Preview_Side/DataPage';
 // import TimeSlotSelectionPage from '@/components/Editor/Preview_Side/TimeSlotSelectionPage';
 // import PaymentPage from '@/components/Editor/Preview_Side/PaymentPage';
 import queryForTemplate from '@/utils/queryTemplate';
-//
+import axios from 'axios';
 import addAttendee from '@/utils/add-attendee';
+import PaymentPage from './PaymentPage';
 //
 
 interface PageProps {
@@ -32,6 +33,13 @@ export default function PreviewForm({
   backgroundColor: string;
 }) {
   const [data, setData] = useState(INITIAL_DATA);
+  const [prices, setPrices] = useState([]);
+
+  const fetchPrices = async () => {
+    const { data } = await axios.get('/api/getproducts');
+    setPrices(data);
+    console.log(data);
+  };
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -55,6 +63,7 @@ export default function PreviewForm({
       }
     };
     fetchTemplate();
+    fetchPrices();
   }, []);
 
   const { steps, step, currentStepIndex, isFirstStep, back, isLastStep, next } =
@@ -65,9 +74,12 @@ export default function PreviewForm({
         imageUrls={imageUrls}
         key={0}
       />,
-      <div key={1}>Demo</div>
+      <div key={1}>Demo</div>,
       // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
-      // <PaymentPage data={data} updateFields={updateFields} key={1} />
+      <div key={2}>
+        {prices && prices.map((price) => <PaymentPage price={price} />)}
+      </div>
+      // <PaymentPage prices = {prices} setPrices = {setPrices} updateFields={updateFields} key={1} />
     ]);
 
   const handleSubmit = (e: FormEvent) => {
@@ -80,6 +92,7 @@ export default function PreviewForm({
     const updatedData = { ...data, submitTime };
 
     addAttendee(updatedData, params.userId, params.eventId);
+
     alert('Successful');
   };
   return (
