@@ -1,15 +1,16 @@
-# Advent - Milestone 2 README
+# Advent - Milestone 3 README
 
-README to be submitted for Milestone 2.
+README to be submitted for Milestone 3.
 
 Website is deployed to [https://advent-beta.vercel.app](https://advent-beta.vercel.app)
 
-Major Updated sections since Milestone 1:
+Major Updated sections since Milestone 2:
 
 - [User Stories](#user-stories)
-- [How it works](#how-it-works)
-- [Backward Compatibility Highlight](#backward-compatibility-highlight)
+- [User Research](#user-research)
+- [Testing](#testing)
 - [Timeline](#timeline)
+- [Improvements](#improvements)
 
 # Table of Contents
 
@@ -17,8 +18,9 @@ Major Updated sections since Milestone 1:
 2. [Problem Definition](#problem-definition)
 3. [Aim](#aim)
 4. [User Stories](#user-stories)
-5. [Planned Features](#planned-features)
-6. [Application](#application)
+5. [User Research](#user-research)
+6. [Planned Features](#planned-features)
+7. [Application](#application)
    - [Installation](#installation)
    - [File Structure](#file-structure)
    - [How it works](#how-it-works)
@@ -33,7 +35,8 @@ Major Updated sections since Milestone 1:
      - [Version Control](#version-control)
      - [CI/CD](#cicd)
      - [Backward Compatibility Highlight](#backward-compatibility-highlight)
-7. [Timeline](#timeline)
+8. [Timeline](#timeline)
+9. [Improvements](#improvements)
 
 # Team Information
 
@@ -62,12 +65,22 @@ To provide a Software-as-a-service (SaaS) where users (event organisers) can cre
 
 # User Stories
 
-1. As an event organiser, I want to be able to easily integrate a customisable event landing page and a register form in my website through iframe or by copying the source code onto my website.
-2. As an event organiser, I want to be able to allow interested individuals to register without going to a third party website.
-3. As an event organiser, I want to be able to view data of registrants on a dashboard.
-4. As an event organiser, I do not want concerns related to a potential failure in the sign up service provider website.
-5. As an event participant, I want to be able to easily sign up for an event without leaving the original event webpage.
-6. As an event participant, I do not want to go through additional signing up procedures in the third party website before getting to actual registration part for the event.
+1. As an event organiser, I want to be able to easily integrate a customisable event landing page and a register form in my website through iframe or by copying the source code onto my website so users won't have to navigate to a third party website.
+2. As an event organiser, I want to be able to allow interested individuals to register without going to a third party website to reduce friction of registration.
+3. As an event organiser, I want to be able to view data of registrants on a dashboard to know what was the audience demographic.
+4. As an event organiser, I do not want concerns related to a potential failure in the sign up service provider website to reduce friction of registration.
+5. As an event participant, I want to be able to easily sign up for an event without leaving the original event webpage to save my time.
+6. As an event participant, I do not want to go through additional signing up procedures in the third party website before getting to actual registration part for the event to save my time.
+
+# User Research
+
+We conducted 2 focus group on event organisers from Eunoia Junior College Alumni Association and Raffles Hall Culture Committee who has hosted Combined Hall Ensemble Concert. By asking the event organisers questions like "What is required for a successful event?", "What tools do they use to help host their events?", "What do they want to see in an event tool" and more, we were able to better understand the needs of the event organisers. We then showed them our application and asked them to paly around with it, giving us feedback afterwards.
+
+The feedback was mostly positive but does include comments like being confusing to them at the start and they did require some guidance from us to use the app correctly. We were also able to discover some bugs with the help of this user research and has been listed under User Testing. With these feedback combined with the peer evaluations from Milestone 2, we have replaced our feature to include mapBox integration with a tutorial powered by React Joyride instead.
+
+When we told them about our planned features including the drag&drop feature to be implemented, they mentioned that while the drag&drop feature was great and would be much better for the app, it also had certain tradeoffs as they prefer non moving parts sometimes and do not want to drag certain text from the bottom to the top of the page. They recommended it as like an additional feature that would be a nice to have but the current implementationw as deemed passable for them.
+
+With that feedback in mind, we decided to treat drag and drop as a reach goal. We tried to implement it with React DnD but faced difficulties between integration of react DnD and Quill the WYSIWYG Editor we used. Therefore, we decided to leave the feature for future updates as it had taken far too much of our time and we were going to have a lack of time to implement the other features.
 
 # Planned Features
 
@@ -77,15 +90,13 @@ We will require the user to be authenticated before they are able to access the 
 
 ## Customise landing page and registration page
 
-We plan for this to be editing a template where users can edit the title, description, location and other information to suit their website. As we follow an iterative approach of development, we will start with text styling and move on to other features such as colour, images and maps.
+We plan for this to be editing a template where users can edit the title, description, location and other information to suit their website. As we follow an iterative approach of development, we will start with text styling and move on to other features such as colour, images.
+
+![example userflow](https://github.com/wr1159/advent/assets/56021409/88194b4b-cafe-475c-8a11-3046568d1b8b)
 
 ### Allow adding of images
 
 We plan for users to be able to upload their own hero images into the website or pick from our preselected images into the event page.
-
-### Integration of google maps with a maps library like [Mapbox.js](https://docs.mapbox.com/mapbox.js/api/v3.3.1/)
-
-As the location is currently a string, we plan for the users to select a google maps location to display on the event landing page to allow event registrations to not be confused with certain locations.
 
 ### Integration of colour picker with colour library
 
@@ -106,10 +117,6 @@ To make sense of their collected data, we plan to use [ChartJS](https://www.char
 ## Payment system with Stripe
 
 As events could require a payment to enter, we plan to integrate Stripe API where users can checkout and pay.
-
-## Drag and Drop Feature to customise event page
-
-This drag and drop feature will be the final iteration of the event page customisation feature. We will allow users to drag elements to reorder them similar to [Canva](https://www.canva.com) and other website builders. This will be very user intuitive and allow better customisation for them instead of simply following a template.
 
 # Application
 
@@ -175,6 +182,7 @@ Frontend:
 - [TailwindCSS](https://tailwindcss.com/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Figma](https://figma.com/)
+- [Opengraph](https://ogp.me/)
 
 Backend:
 
@@ -189,6 +197,7 @@ Tools we use include:
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [GitHub](https://github.com)
 - [Prettier](https://prettier.io/)
+- [Selenium](https://www.selenim.dev/)
 
 ### Authentication
 
@@ -208,17 +217,63 @@ To plan for users testing and usage, we have created a User Navigation Diagram.
 
 #### User Testing
 
-We asked 2 users to fully test our deployed application and integrated their feedback into our changes. Certain features include:
+We asked 2 other users to test our application as a whole and we were notified of bugs such as:
 
-- Sorting of events with time
-- Table format to view data
-- WYSIWYG Improvements
+- Delay of usage with iframe as the event page might take a few minutes to be generated upon creation
+- Signups per day line chart displays as a dot when sign ups are only from a day.
+- Login with google sometimes saves previous login information, which can prevent you from switching accounts on the same device.
+- If the image size is too large, the image can overload the html content and cause the event page to not appear.
 
 #### Automated Testing
 
-We currently have unit testing for certain components but plan to integrate integration tests using cypress in the future. The reason behind this is we are going for swift development and there can be many changes between updates. Therefore, the integration tests will have to change to fit the new feature / design.
+We have unit testing for certain components but plan to integrate integration tests using cypress in the future. The reason behind this is we are going for swift development and there can be many changes between updates. Therefore, the integration tests will have to change to fit the new feature / design.
 
-Our current test coverage is **63%** which is far from optimal but we believe that creating a minimum viable product was more important than using a continuous testing process which would have slowed down our development.
+Our current test coverage is **71%** which is on the low end on accepted test coverage but we decided to end with this as most of the uncovered tests are functions from the libraries such as Firebase, Quill.js, ChartJS. Not to mention that the 71% does not include the
+
+In this project, we used Selenium for bare bones integration testing to ensure that the entire application functions correctly and seamlessly. The integration tests automated and verified the smooth integration of all components and features.
+
+Our unit tests were conducted with the intention of ensuring that the components were rendered properly when passed in correct props. For our utility functions, we tested mainly for 3 main cases, correct values, empty values (in case of errors) and edge cases (applicable to certain functions like an already capitalized letter for capitalizeLetter function).
+
+Here are our test tables:
+
+Components
+| Test Case | Expected Output | Actual Output | Pass/Fail |
+|--------------------------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|-----------|
+| Attendant Table Component | Renders table with correct headers and data when provided data | Renders table with correct headers and data when provided data | Pass |
+| Button Component | Renders button with text parameter, classname, and triggers onClick event | Renders button with provided text, className and onClick functionality | Pass |
+| Card Component | Renders card with provided text and icon | Renders card with provided text and icon | Pass |
+| Chart Component | Renders chart correctly when provided data, chart type and labels required | Renders chart correctly when provided data, chart type and labels required | Pass |
+| Create Event Form Component | Renders create event form correctly and fires createEvent function upon click | Renders create event form correctly and fires createEvent function upon click | Pass |
+| Dropdown Component | Renders dropdown correctly with provided data | Renders dropdown correctly with provided data | Pass |
+| Event Item Component | Renders event title, creation date and link when provided | Renders event title, creation date and link when provided | Pass |
+| Event Operation Component | Renders Menu Button with options | Renders Menu Button with options | Pass |
+| Features Section Component | Renders 4 features card | Renders 4 features card | Pass |
+| Footer Component | Renders links correctly | Renders links correctly | Pass |
+| Hero Component | Renders text and children correctly | Renders text and children correctly | Pass |
+| Hero Child Component | Renders the “Get Started” and “Github” button correctly | Renders the “Get Started” and “Github” button correctly | Pass |
+| Link Card Component | Renders title, icon, links correctly when provided | Renders title, icon, links correctly when provided | Pass |
+| Login Form Component | Renders login form correctly and checks for user input and button click to be fired | Renders login form correctly and checks for user input and button click to be fired | Pass |
+| Mobile Navigation Component | Renders texts and links, correct redirection when clicked | Renders texts and links, correct redirection when clicked | Pass |
+| Navigation Bar Component | Renders text, links and buttons, correct redirection when clicked | Renders text, links and buttons, correct redirection when clicked | Pass |
+| Orbital Row of Cards Component | Renders Text, links and buttons correctly, successful redirects when clicked | Renders Text, links and buttons correctly, successful redirects when clicked | Pass |
+| Sign Up Form Component | Renders sign up form correctly and checks for user input and button click to be fired | Renders sign up form correctly and checks for user input and button click to be fired | Pass |
+
+Utility Functions
+| Test Case | Expected Output | Actual Output | Pass/Fail |
+|----------------------------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------|-----------|
+| capitalizeLetter capitalizes the first letter of a string | “hello” -> “Hello” | “Hello” | Pass |
+| capitalizeLetter does not change the string if the first string is already capitalized | “Hello” -> “Hello” | “Hello” | Pass |
+| capitalizeLetter works with an empty string | “ “ -> “ “ | “ “ | Pass |
+| eventQuery > queryForEvents returns undefined when user is not authenticated | undefined | undefined | Pass |
+| eventQuery > queryEvents returns undefined when there are no events | undefined | undefined | Pass |
+| getUser > getUserId returns userId if a user is authenticated | ‘mock user-Id’ | ‘mock user-Id’ | Pass |
+| getUser > getUserId returns undefined if no user is authenticated | undefined | undefined | Pass |
+| queryTemplate > queryForTemplate returns undefined if no user is authenticated | undefined | undefined | Pass |
+| retrieveImage retrieves and sets image URLs | expect call to the storage expect download url to be created | expect call to the storage expect download url to be created | Pass |
+| retrieveImage handles empty response | expect no errors | expect no errors | Pass |
+| saveTemplate saves template when given proper data | expect call to firebase with proper path and different IDs | expect call to firebase with proper path and different IDs | Pass |
+| uploadImage uploads image and set the image URL | expect upload to the storage expect correct bucket to be selected | expect upload to the storage expect correct bucket to be selected | Pass |
+| uploadImage does not upload an image when given empty response | expect no errors | expect no errors | Pass |
 
 ## UI Design
 
@@ -291,23 +346,46 @@ We have currently completed the following features:
   <img width="1402" alt="image" src="https://github.com/wr1159/advent/assets/56021409/146246fa-5c17-49a5-a97b-a404b2937c1b">
   <img width="1473" alt="image" src="https://github.com/wr1159/advent/assets/56021409/a6446cf5-4723-4a44-9b79-db5cd6bd1213">
 
-### These are our planned tasks for the following sprints:
+Milestone 3
 
-Sprint 4
+- Data Dashboard (Charts)
+  <img width="1450" alt="image" src="https://github.com/wr1159/advent/assets/56021409/3ff00c03-9db4-4bd8-aa61-3684d0a01118">
+  <img width="1467" alt="image" src="https://github.com/wr1159/advent/assets/56021409/f25a424f-525a-4d02-aaa6-e6f23386312e">
 
-- Map Integration
-- Chart Integration
+- Opengraph
+  <img width="533" alt="image" src="https://github.com/wr1159/advent/assets/56021409/50207c29-4ce3-464d-908c-a832ed3b9965">
+  <img width="594" alt="image" src="https://github.com/wr1159/advent/assets/56021409/e7e90383-2927-40e1-9281-0d6f40a306d9">
+
+- Improved Login Page
+  <img width="649" alt="image" src="https://github.com/wr1159/advent/assets/56021409/cf7676ef-36cc-43cc-b678-2c7e3d37c654">
+
+- Improved Sign Up Page
+  <img width="1412" alt="image" src="https://github.com/wr1159/advent/assets/56021409/1ba706ae-c395-4978-a8e6-41765ed8ae03">
+
+- Guide for users
+  <img width="1450" alt="image" src="https://github.com/wr1159/advent/assets/56021409/65f65505-c29a-43cf-9ac7-6ec8a400a23b">
+  <img width="1171" alt="image" src="https://github.com/wr1159/advent/assets/56021409/f691244d-b70e-4ef7-80c4-bc14862781d6">
+  <img width="728" alt="image" src="https://github.com/wr1159/advent/assets/56021409/06657fbe-2d3c-4bae-97fa-ffa1bbd99443">
+  <img width="689" alt="image" src="https://github.com/wr1159/advent/assets/56021409/4c1be8d6-78da-4821-81a2-c284c9d07903">
+  <img width="416" alt="image" src="https://github.com/wr1159/advent/assets/56021409/bc30201f-e37f-4802-be11-304fa62c73e4">
+  <img width="687" alt="image" src="https://github.com/wr1159/advent/assets/56021409/1c75c0de-8021-4ef2-a1e1-3710ab0da2dc">
+  <img width="684" alt="image" src="https://github.com/wr1159/advent/assets/56021409/6c2ff6e6-fd87-4b6e-a73c-f4307a9b4498">
+  <img width="729" alt="image" src="https://github.com/wr1159/advent/assets/56021409/f9fb1455-d409-4085-aaab-c64cc6e0e942">
+
 - Stripe Integration
-- Testing
+  <img width="298" alt="image" src="https://github.com/wr1159/advent/assets/56021409/a391ada4-fe76-454e-aaab-0d94334e8151">
+  <img width="1065" alt="image" src="https://github.com/wr1159/advent/assets/56021409/64b6039a-f2ba-49d2-b2d0-388010b0b6bd">
+  <img width="1255" alt="image" src="https://github.com/wr1159/advent/assets/56021409/e64ed2da-dad1-44af-a907-57fe2d7599b8">
 
-Sprint 5 (Milestone 3)
+### Improvements
 
-- Drag and Drop Feature
-- [OpenGraph](https://ogp.me/) for better sharing
-- UI Refinement
-- Documentation
-- Testing
+It is very regrettable that we were unable to push out the **drag and drop feature** that we were excited for. However, with more experience and more time, we could work towards our own editing library instead of using QuillJS which proved many problems when combined with React DnD.
 
-Sprint 6
+Other improvements include
 
-- Refinement for Splashdown
+- UI Improvements
+- Better testing
+- Support of higher quality pictures
+- Other bug fixes
+- A "simple" mode that trades customisability for simplicity of editing
+- Map integration with Mapbox
