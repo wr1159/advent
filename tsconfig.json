@@ -23,6 +23,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/Editor/Preview_Side/PreviewForm.tsx",
+    "app/(event)/event/[userId]/[eventId]/awaitPayment/page.jsx"
+  ],
   "exclude": ["node_modules"]
 }

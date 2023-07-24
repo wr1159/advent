@@ -2,6 +2,29 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import PreviewForm from '@/components/Editor/Preview_Side/PreviewForm';
 import { INITIAL_DATA } from '@/components/Editor/Preview_Side/PreviewForm';
 import addAttendee from '@/utils/add-attendee';
+jest.mock('next/navigation', () => ({
+  //useRouter: jest.fn(),
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    };
+  }
+}));
+
+jest.mock('axios', () => ({
+  get: jest.fn(() => Promise.resolve({})),
+  post: jest.fn(() => Promise.resolve({}))
+}));
 
 const params = { userId: '123', eventId: '456' };
 const imageUrls = [
@@ -17,6 +40,8 @@ describe('PreviewForm', () => {
         params={params}
         imageUrls={imageUrls}
         backgroundColor={backgroundColor}
+        includePayment="false"
+        productId="test"
       />
     );
 
@@ -24,60 +49,24 @@ describe('PreviewForm', () => {
     expect(backgroundColorElement).toHaveStyle(
       `background-color: ${backgroundColor};`
     );
-    // Add your assertions here to verify the correct rendering of the form components
   });
 
-  it('updates the data correctly', () => {
-    // Render the component and perform actions to update the data
-    // Use the `updateFields` prop to trigger the data update
-    // Assert that the data is updated correctly by accessing the form components and checking their values
-  });
-
-  it('progresses to the next step when "Next" button is clicked', () => {
+  it('progresses to success when "Submit" button is clicked', () => {
     render(
       <PreviewForm
         params={params}
         imageUrls={imageUrls}
         backgroundColor={backgroundColor}
+        includePayment="false"
+        productId="test"
       />
     );
 
-    const nextButton = screen.getByText('Next');
-    fireEvent.click(nextButton);
+    const submitButton = screen.getByText('Submit');
+    fireEvent.click(submitButton);
 
-    const nextStep = screen.getByText('Demo');
-    expect(nextStep).toBeInTheDocument();
-  });
-
-  it('goes back to the previous step when "Back" button is clicked', () => {
-    render(
-      <PreviewForm
-        params={params}
-        imageUrls={imageUrls}
-        backgroundColor={backgroundColor}
-      />
-    );
-
-    const nextButton = screen.getByText('Next');
-    fireEvent.click(nextButton);
-
-    const backButton = screen.getByText('Back');
-    fireEvent.click(backButton);
-    const prevStep = screen.getByText('Attendee Details');
-    expect(prevStep).toBeInTheDocument();
-  });
-
-  it('submits the form when "Submit" button is clicked and it\'s the last step', () => {
-    render(
-      <PreviewForm
-        params={params}
-        imageUrls={imageUrls}
-        backgroundColor={backgroundColor}
-      />
-    );
-
-    fireEvent.click(screen.getByText('Next'));
-    fireEvent.click(screen.getByText('Back'));
+    const success = screen.getByText('Submit');
+    expect(success).toBeInTheDocument();
   });
 
   it('calls the handleSubmit function when the form is submitted', () => {

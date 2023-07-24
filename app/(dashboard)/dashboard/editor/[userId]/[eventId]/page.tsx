@@ -7,7 +7,6 @@ import WYSIWYGContainer from '@/components/Editor/WYSIWYGContainer';
 import queryForTemplate from '@/utils/queryTemplate';
 import uploadImage from '@/utils/uploadImage';
 import Joyride from 'react-joyride';
-import Step from 'react-joyride';
 import { Steps } from '@/utils/walkthroughSteps';
 import { PageProps } from '@/types/PageProps';
 
@@ -22,6 +21,9 @@ interface AttendeeInfo {
 export default function Template({ params }: { params: PageProps }) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
   const [textColor, setTextColor] = useState<string>('#000000');
+  const [includePayment, setIncludePayment] = useState<boolean>(false);
+  const [price, setPrice] = useState<number>(0);
+  const [productId, setProductId] = useState('');
   const [htmlState, setHTMLState] = useState<string>('');
   const [deltaState, setDeltaState] = useState<any>({});
   const [showEditor, setShowEditor] = useState(false);
@@ -50,6 +52,10 @@ export default function Template({ params }: { params: PageProps }) {
           setHTMLState(templateData.htmlContent);
           setBackgroundColor(templateData.backgroundColor);
           setTextColor(templateData.textColor);
+          setIncludePayment(
+            templateData.includePayment === 'true' ? true : false
+          );
+          setPrice(Number(templateData.price));
         }
       } catch (error) {
         console.error('Error querying for events:', error);
@@ -70,7 +76,6 @@ export default function Template({ params }: { params: PageProps }) {
         )?.value || ''
     }));
 
-    // const data = formData.concat(bgColorData, textColorData);
     const attendeeEditorData: Record<string, string> = {};
 
     // Assign values from formData
@@ -86,17 +91,19 @@ export default function Template({ params }: { params: PageProps }) {
       htmlContent: htmlState ?? '',
       deltaState: JSON.stringify(deltaState) ?? '',
       backgroundColor: backgroundColor ?? '#ffffff',
-      textColor: textColor ?? '#000000'
+      textColor: textColor ?? '#000000',
+      price: includePayment ? price.toString() : '0', // Include price if includePayment is true, otherwise set it to 0
+      includePayment: includePayment ? 'true' : 'false', // Include includePayment value
+      productId: productId ?? ''
     };
 
     const data = { ...attendeeEditorData, ...eventData };
-    // save data to cloud firestore
+    // save data to firebase storage
     saveTemplate(data, params.userId, params.eventId, firstTemplateId);
 
     console.log('data saved', data);
-
+    // save image to cloud firestore
     uploadImage(params.userId, params.eventId, imageUpload, setImageUrls);
-
     setShowSavedMessage(true);
 
     // Clear the saved message after 3 seconds
@@ -157,6 +164,10 @@ export default function Template({ params }: { params: PageProps }) {
           setImageUrls={setImageUrls}
           showEditor={showEditor}
           setShowEditor={setShowEditor}
+          includePayment={includePayment}
+          setIncludePayment={setIncludePayment}
+          price={price}
+          setPrice={setPrice}
         />
       </div>
     </div>

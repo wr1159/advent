@@ -22,6 +22,10 @@ type EditorRightColumnProps = {
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   showEditor: boolean;
   setShowEditor: React.Dispatch<React.SetStateAction<boolean>>;
+  includePayment: boolean;
+  setIncludePayment: React.Dispatch<React.SetStateAction<boolean>>;
+  price: number;
+  setPrice: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
@@ -38,7 +42,11 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
   imageUrls,
   setImageUrls,
   showEditor,
-  setShowEditor
+  setShowEditor,
+  includePayment,
+  setIncludePayment,
+  price,
+  setPrice
 }) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -56,13 +64,25 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
         console.error('Failed to copy iframe:', error);
       });
   };
+
+  const handleRegistrationFeeChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    if (
+      value === '' ||
+      (value.match(/^\d*\.?\d{0,2}$/) && parseFloat(value) >= 0)
+    ) {
+      setPrice(Number(value));
+    }
+  };
+
   return (
     <div className="flex  w-[300px] flex-col border-r border-t border-gray-200 bg-white">
       <div className="flex-col space-y-4 border-b border-gray-200 py-5">
         <div className="h-18 flex items-center justify-center px-3">
           {showSavedMessage && (
             <div className="fixed right-0 top-0 m-4 flex items-center rounded-lg bg-white px-4 py-2 text-emerald-500 shadow-md">
-              {/* react icon  of check box down here with react-icon library */}
               <AiOutlineCheck className="mr-2" />
               Saved!
             </div>
@@ -135,10 +155,45 @@ const EditorRightColumn: React.FC<EditorRightColumnProps> = ({
           )}
         </summary>
       </details>
-
+      <div className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
+        <span className="text-sm font-semibold">Payment</span>
+      </div>
       <div>
-        <div className="flex cursor-pointer list-none items-center justify-between border-b border-gray-200 px-6 py-4">
-          <span className="text-sm font-semibold">Layout Editor</span>
+        <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-4">
+          <label className="space-x-2">
+            <input
+              type="checkbox"
+              checked={includePayment}
+              onChange={(e) => setIncludePayment(e.target.checked)}
+            />
+            <span className="text-sm font-semibold text-gray-700">
+              Include payment page
+            </span>
+          </label>
+        </summary>
+
+        {includePayment && (
+          <div className="border-b border-gray-200 px-6 py-4">
+            <div className="flex items-center space-x-4">
+              <label className="text-sm font-semibold text-gray-700">
+                Registration Fee: (SGD)
+              </label>
+              <div className="relative flex items-center">
+                <input
+                  type="number"
+                  value={price.toFixed(2)}
+                  onChange={handleRegistrationFeeChange}
+                  placeholder="Enter registration fee"
+                  className="w-24 rounded-md border py-1 pl-6"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div>
+        <div className="flex cursor-pointer list-none items-center justify-between border-b border-t border-gray-200 px-6 py-4">
+          <span className="text-sm font-semibold  ">Layout Editor</span>
         </div>
 
         <div id="color-picker" className="grid grid-cols-2 gap-2 p-2 text-sm">
