@@ -3,7 +3,6 @@ import AttendeeTable from '@/components/Attendee/AttendeeTable';
 import ChartContainer from '@/components/Chart';
 import { PageProps } from '@/types/PageProps';
 import { queryAttendees } from '@/utils/queryAttendees';
-import { format, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 export default function EventStatistics({ params }: { params: PageProps }) {
@@ -18,12 +17,31 @@ export default function EventStatistics({ params }: { params: PageProps }) {
         params.userId,
         params.eventId
       );
-      const attendeesWithSubmittedDay = fetchedAttendees?.map((attendant) => ({
-        ...attendant,
-        submittedDay: attendant.submitTime.toString().split('T')[0]
-      }));
-      console.log(attendeesWithSubmittedDay);
-      setAttendees(fetchedAttendees);
+      const attendeesWithSubmittedDay = fetchedAttendees?.map((attendant) => {
+        // Exclude unwanted attributes
+        const { includePayment, productId, price, ...restAttributes } =
+          attendant;
+
+        // Convert submitTime to submittedDay
+        const submittedDay = attendant.submitTime?.toString().split('T')[0];
+
+        return {
+          ...restAttributes, // Spread the rest of the attributes
+          submittedDay // Add the new submittedDay attribute
+        };
+      });
+      const newAttendees = fetchedAttendees?.map((attendant) => {
+        // Exclude unwanted attributes
+        const { includePayment, productId, price, ...restAttributes } =
+          attendant;
+
+        // Convert submitTime to submittedDay
+
+        return {
+          ...restAttributes // Spread the rest of the attributes
+        };
+      });
+      setAttendees(newAttendees);
       setAttendeesWithSubmitDay(attendeesWithSubmittedDay);
       setLoading(true);
     };
