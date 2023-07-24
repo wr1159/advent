@@ -20,6 +20,12 @@ jest.mock('next/navigation', () => ({
     };
   }
 }));
+
+jest.mock('axios', () => ({
+  get: jest.fn(() => Promise.resolve({})),
+  post: jest.fn(() => Promise.resolve({})),
+}));
+
 const params = { userId: '123', eventId: '456' };
 const imageUrls = [
   'https://example.com/image1.jpg',
