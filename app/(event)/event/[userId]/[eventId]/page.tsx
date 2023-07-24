@@ -88,6 +88,8 @@ export default function Template({ params }: { params: PageProps }) {
             params={params}
             imageUrls={imageUrls}
             backgroundColor={data['backgroundColor']}
+            includePayment={data['includePayment']}
+            productId={data['productId']}
           />
           {previewMode && (
             <Button

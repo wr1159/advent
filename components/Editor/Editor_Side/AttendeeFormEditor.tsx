@@ -56,7 +56,10 @@ export default function NewAttendeeFormEditor({
                 key !== 'backgroundColor' &&
                 key !== 'textColor' &&
                 key !== 'htmlContent' &&
-                key !== 'deltaState'
+                key !== 'deltaState' &&
+                key !== 'productId' &&
+                key !== 'includePayment' &&
+                key !== 'price'
             )
             .map(([key, value], index) => ({
               id:

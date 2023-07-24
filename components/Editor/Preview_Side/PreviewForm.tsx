@@ -1,4 +1,3 @@
-// This is preview form
 'use client';
 import React, { FormEvent, useState, useEffect } from 'react';
 import { useMultistepForm } from '@/utils/useMultistepForm';
@@ -9,7 +8,8 @@ import DataPage from '@/components/Editor/Preview_Side/DataPage';
 import queryForTemplate from '@/utils/queryTemplate';
 import axios from 'axios';
 import addAttendee from '@/utils/add-attendee';
-import PaymentPage from './PaymentPage';
+
+import { useRouter } from 'next/navigation';
 //
 
 interface PageProps {
@@ -26,17 +26,26 @@ export const INITIAL_DATA: FormData = {};
 export default function PreviewForm({
   params,
   imageUrls,
-  backgroundColor
+  backgroundColor,
+  includePayment,
+  productId
 }: {
   params: PageProps;
   imageUrls: string[];
   backgroundColor: string;
+  includePayment: string;
+  productId: string;
 }) {
   const [data, setData] = useState(INITIAL_DATA);
   const [prices, setPrices] = useState([]);
+  const router = useRouter();
 
   const fetchPrices = async () => {
-    const { data } = await axios.get('/api/getproducts');
+    const { data } = await axios.get('/api/getproducts', {
+      params: {
+        productId: productId
+      }
+    });
     setPrices(data);
     console.log(data);
   };
@@ -73,15 +82,8 @@ export default function PreviewForm({
         updateFields={updateFields}
         imageUrls={imageUrls}
         key={0}
-      />,
-      <div key={1}>Demo</div>,
-      // <TimeSlotSelectionPage data={data} updateFields={updateFields} />,
-      <div key={2}>
-        {prices && prices.map((price) => <PaymentPage price={price} />)}
-      </div>
-      // <PaymentPage prices = {prices} setPrices = {setPrices} updateFields={updateFields} key={1} />
+      />
     ]);
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
@@ -92,8 +94,12 @@ export default function PreviewForm({
     const updatedData = { ...data, submitTime };
 
     addAttendee(updatedData, params.userId, params.eventId);
-
-    alert('Successful');
+    console.log(includePayment);
+    if (includePayment === 'true') {
+      router.push(`/event/${params.userId}/${params.eventId}/awaitPayment`);
+    } else {
+      router.push(`/success`);
+    }
   };
   return (
     <div className="flex justify-center">
@@ -116,7 +122,8 @@ export default function PreviewForm({
             <Button
               text={isLastStep ? 'Submit' : 'Next'}
               type="submit"
-              className="flex items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-white hover:bg-emerald-600 focus:bg-emerald-600 focus:outline-none"
+              size="sm"
+              className="mt-6 flex w-48 items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-white hover:bg-emerald-600 focus:bg-emerald-600 focus:outline-none"
             />
           </div>
         </form>

@@ -28,6 +28,9 @@ export default function DataPage({
               key !== 'backgroundColor' &&
               key !== 'htmlContent' &&
               key !== 'deltaState' &&
+              key !== 'includePayment' &&
+              key !== 'price' &&
+              key !== 'productId' &&
               key !== ''
           )
           .sort()

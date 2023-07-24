@@ -41,7 +41,7 @@ const WYSIWYGContainer: React.FC<WYSIWYGContainerProps> = ({
       </h2>
       <ReactQuill
         id="quill"
-        className="h-3/4 break-all"
+        className="h-full break-all"
         value={content}
         onChange={handleChange}
         modules={modules}

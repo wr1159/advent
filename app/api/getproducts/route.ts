@@ -2,6 +2,8 @@ import Stripe from 'stripe';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
+  const productId = request.nextUrl.searchParams.get('productId');
+  console.log(productId);
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2022-11-15'
   });

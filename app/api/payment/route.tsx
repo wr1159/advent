@@ -17,8 +17,8 @@ export async function POST(request: NextRequest) {
       }
     ],
     mode: 'payment',
-    success_url: 'http://localhost:3000',
-    cancel_url: 'http://localhost:3000'
+    success_url: 'https://advent-beta.vercel.app',
+    cancel_url: 'https://advent-beta.vercel.app'
   });
 
   return NextResponse.json(session.url);
