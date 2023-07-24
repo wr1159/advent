@@ -57,19 +57,19 @@ const milestoneTwo = [
 
 const milestoneThree = [
   {
-    href: '/orbital',
+    href: '/orbital/milestone-three',
     title: 'Milestone Three README',
-    body: 'Unavailable'
+    body: 'Our README for MS3'
   },
   {
-    href: '/orbital',
+    href: '/src/milestone-three-poster.png',
     title: 'Milestone Three Poster',
-    body: 'Unavailable'
+    body: 'MS3 Poster with updated testing coverage'
   },
   {
-    href: '/orbital',
+    href: 'https://www.youtube.com/watch?v=-ifj5yumE8g',
     title: 'Milestone Three Video',
-    body: 'Unavailable'
+    body: 'Powerpoint Presentation'
   }
 ];
 
