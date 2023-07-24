@@ -233,7 +233,7 @@ We asked 2 other users to test our application as a whole and we were notified o
 
 We have unit testing for certain components but plan to integrate integration tests using cypress in the future. The reason behind this is we are going for swift development and there can be many changes between updates. Therefore, the integration tests will have to change to fit the new feature / design.
 
-Our current test coverage is **71%** which is on the low end on accepted test coverage but we decided to end with this as most of the uncovered tests are functions from the libraries such as Firebase, Quill.js, ChartJS. Not to mention that the 71% does not include the
+Our current test coverage is **71%** which is on the low end on accepted test coverage but we decided to end with this as most of the uncovered tests are functions from the libraries such as Firebase, Quill.js, ChartJS. Not to mention that the 71% does not include the integration testing.
 
 In this project, we used Selenium for bare bones integration testing to ensure that the entire application functions correctly and seamlessly. The integration tests automated and verified the smooth integration of all components and features.
 
