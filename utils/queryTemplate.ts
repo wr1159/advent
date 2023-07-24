@@ -3,7 +3,6 @@ import { firestore } from '@/firebaseconfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getAllTemplateIds } from './saveTemplate';
 
-
 export default function queryForTemplate(
   uid: string,
   eventId: string

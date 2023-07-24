@@ -2,9 +2,6 @@ import { firestore } from '../firebaseconfig';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { DocumentReference, DocumentData } from 'firebase/firestore';
 
-
-
-
 export async function getAllTemplateIds(userId: string, eventId: string) {
   const templatesRef = collection(
     firestore,

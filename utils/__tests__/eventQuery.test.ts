@@ -1,9 +1,5 @@
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import {
-  collection,
-  query,
-  getDocs,
-} from 'firebase/firestore';
+import { collection, query, getDocs } from 'firebase/firestore';
 import { firestore } from '@/firebaseconfig';
 import queryForEvents, { Event, queryEvents } from '@/utils/eventQuery';
 
