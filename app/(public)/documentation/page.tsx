@@ -1,8 +1,8 @@
-import MilestoneTwo from '../../../components/MDX/MilestoneTwo.mdx';
+import MilestoneThree from '../../../components/MDX/MilestoneThree.mdx';
 export default function Documentation() {
   return (
     <article className="prose min-w-full p-10">
-      <MilestoneTwo />
+      <MilestoneThree />
     </article>
   );
 }
