@@ -210,7 +210,7 @@ Database used is Firestore from Firebase. Here is our database design. Firestore
 
 ### User Activity Diagram
 
-To plan for users testing and usage, we have created a User Navigation Diagram.
+To plan for users testing and usage, we have created a User Navigation Diagram. We did not include a UML Class Diagram due to the lack of usage of OOP in the project.
 ![new activity diagram](https://github.com/wr1159/advent/assets/56021409/83d75813-11c0-49b6-a273-006f0d8c8206)
 
 ### Testing
